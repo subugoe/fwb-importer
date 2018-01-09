@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <dictScrap rend="artkopf">
+          <re type="re.neblem">neblem1, neblem2,</re> <re type="re.neblem">neblemarea2</re>
+        </dictScrap>
+      </entry>
+    </body>
+  </text>
+</TEI>

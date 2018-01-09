@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <dictScrap rend="artkopf"><sense rend="bedzif">1; 2, </sense></dictScrap>
+        <sense xml:id="test.s.1f_s1-4">
+          <def>def 1-4</def>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

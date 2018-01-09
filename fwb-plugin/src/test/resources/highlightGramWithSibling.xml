@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <form type="lemma">
+          <orth>mylemma,</orth>
+        </form>
+                  
+        <dictScrap rend="artkopf"><gram type="wortart">Adj.</gram>; zu <ref type="mat" target="other">otherlemma</ref>.</dictScrap>
+          
+        <sense>
+          <def>›def‹.</def>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

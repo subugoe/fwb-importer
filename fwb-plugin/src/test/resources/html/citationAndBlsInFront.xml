@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="bls">Die Belege sind nach der Reihenfolge obiger Nennungen geordnet:</dictScrap>
+          <dictScrap rend="BBlock">Zu a): </dictScrap>
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve">Text</bibl>
+              <quote>A quote.</quote>
+            </cit>
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

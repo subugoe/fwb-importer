@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <def>my definition</def>
+          <dictScrap rend="ipLiPkt"><re type="re.wbg" subtype="non">item1</re> ›bla1‹, </dictScrap>
+          <dictScrap rend="ipLiPkt"><re type="re.wbg" subtype="non">item2</re> ›bla2‹, </dictScrap>
+          <dictScrap rend="wbg"><re type="re.wbg" subtype="mat">Wbg</re></dictScrap>
+          <dictScrap rend="BBlock">Zu <re type="re.wbg" subtype="non">bblock</re>: </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

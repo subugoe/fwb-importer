@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="wbg"><re type="re.wbg"><hi rendition="hoch">2</hi>formation</re>; <ref target="bla.h1.0m">bla</ref> ›meaning‹.</dictScrap>
+          <dictScrap rend="wbv">vgl. <ref target="lemma.s.*">lemma</ref>.</dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

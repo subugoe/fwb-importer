@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve"><name n="123">Name</name> Text <citedRange>13, 20 </citedRange>(<region>Region</region> <date>1599</date>)</bibl>
+              <quote>
+                A quote with a link:
+                <hi rendition="rect">
+                  <bibl xml:space="preserve"><name n="xyu">Miller</name></bibl>
+                </hi>
+                .
+              </quote>
+            </cit>
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

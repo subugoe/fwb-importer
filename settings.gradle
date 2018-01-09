@@ -1,0 +1,5 @@
+include 'fwb-plugin', 'solr-importer:web', 'solr-importer:core'
+
+project(":fwb-plugin").buildFileName = "fwb-plugin.gradle"
+project(":solr-importer:web").buildFileName = "web.gradle"
+project(":solr-importer:core").buildFileName = "core.gradle"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry xml:id="test.s.1f" sortKey="test.tests.1f">
+        <form type="lemma">
+          <orth>test,</orth>
+        </form>
+        
+        <dictScrap rend="artkopf"><gram type="wortart"><hi rendition="it">die</hi></gram> ; <gram type="flex">–/<oRef/>n</gram>
+                ; aus frz. ›Test‹ .</dictScrap>
+        
+        <!-- Bedeutung  -->
+        <sense>
+          <!-- Definition -->
+          <def>›Testdef.‹.</def>
+          
+          <!-- Belegstellen -->
+          <dictScrap rend="bls">
+            <cit>
+              <bibl xml:space="preserve"><name n="d20" cert="high">Jones</name>, French Borrowings <citedRange n="abc" facs="163">163</citedRange>; </bibl>
+            </cit>
+            
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

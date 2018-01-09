@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <dictScrap rend="artkopf">
+          <hi rendition="it">italic</hi>
+          <hi rendition="hoch">hoch</hi>
+          <hi rendition="tief">tief</hi>
+          <hi rendition="rect">rect</hi>
+          <hi rendition="sc">sc</hi>
+          <hi rendition="b">bold</hi>
+          <hi rendition="wide">wide</hi>
+        </dictScrap>
+      </entry>
+    </body>
+  </text>
+</TEI>

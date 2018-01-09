@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <!-- Bedeutung 1.; 2.; 3.; 4.,  -->
+        <sense xml:id="test.s.1f_s1-4" rend="1-4">
+          <def>def 1-4</def>
+        </sense>
+        <!-- Bedeutung 5.  -->
+        <sense xml:id="test.s.1f_s5" rend="5">
+          <def>def 5</def>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

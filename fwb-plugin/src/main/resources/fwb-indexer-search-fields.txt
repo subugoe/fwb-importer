@@ -1,0 +1,54 @@
+lemma
+
+      <entry xml:id="anfängen.s.3v" sortKey="anfangen.anfängen.s.3v">
+        <form type="lemma">
+          <orth>anfängen,</orth>
+        </form>
+->
+     <field name="lemma">anfängen</field>
+->
+     <div class="lemma">anfängen</div>
+
+
+neblem
+
+      <entry>
+        <dictScrap rend="artkopf">
+          <re type="re.neblem">neblem1, neblem2,</re> <re type="re.neblem">neblemarea2</re>
+        </dictScrap>
+->
+      <field name="neblem"><![CDATA[<div class="neblem"><!--start neblem1-->neblem1, neblem2,<!--end neblem1--></div> ]]></field>
+      <field name="neblem"><![CDATA[<div class="neblem"><!--start neblem2-->neblemarea2<!--end neblem2--></div> ]]></field>
+      <field name="neblem_text">neblem1, neblem2, neblemarea2</field>
+->
+      <div class="neblem">
+        <!--start neblem1-->neblem1, neblem2,<!--end neblem1-->
+      </div>
+      <div class="neblem">
+        <!--start neblem2-->neblemarea2<!--end neblem2-->
+      </div>
+      
+      
+etym
+
+      <entry>
+        <dictScrap rend="artkopf">
+          <etym xml:space="preserve">aus <lang>lat.</lang></etym>
+        </dictScrap>
+->
+      <field name="etym"><![CDATA[<div class="etymology"><!--start etym1-->aus <div class="language">lat.</div><!--end etym1--></div>]]></field>
+      <field name="etym_text">aus lat.</field>
+
+      
+ggs
+
+        <sense>
+          <dictScrap rend="ggs"><ref type="mat" target="ggs">Ggs</ref>, other text</dictScrap>
+          <re type="re.ggs"><ref type="nex" target="ende.s.*">inline-ggs</ref></re>
+->
+      <field name="ggs"><![CDATA[<div class="highlight-boundary"><!--start ggs1--><div class="italic"><a href="ggs">Ggs</a></div><!--end ggs1--></div>]]></field>
+      <field name="ggs_text">Ggs</field>
+      <field name="ggs"><![CDATA[<div class="highlight-boundary"><!--start reggs2--><div class="italic"><a href="ende.s.*">inline-ggs</a></div><!--end reggs2--></div>]]></field>
+      <field name="ggs_text">inline-ggs</field>
+
+      

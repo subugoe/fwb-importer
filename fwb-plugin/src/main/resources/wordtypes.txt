@@ -1,0 +1,25 @@
+something-else:nicht definiert!!!
+0m:Maskulinum
+0mf:Maskulinum (oder Femininum)
+0mn:Maskulinum (oder Neutrum)
+0mfn:Maskulinum (oder Fem oder Neu)
+1f:Femininum
+1fn:Femininum (oder Neutrum)
+2n:Neutrum
+2s:Substantiv mit unbekanntem Genus
+3v:Verb
+3vs:Starkes Verb
+3vu:Unregelmäßig ablautendes Verb
+3vwb:Schwaches Verb
+4adj:Adjektiv
+4adv:Adverb
+4zw:Zahlwort
+5con:Konjunktion
+5int:Interjektion
+6art:Artikel
+6par:Partikel
+6pro:Pronomen
+7pr:Präposition
+8w:Wortbestandteil
+9ref:Verweislemma
+9u:(unbekannte Wortart)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <dictScrap rend="artkopf"><bibl xml:space="preserve"><citedRange n="d51" facs="1, 122">1, 122</citedRange>;</bibl> <bibl xml:space="preserve"><name n="abc" cert="high">Dwb</name></bibl></dictScrap>
+        <sense>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

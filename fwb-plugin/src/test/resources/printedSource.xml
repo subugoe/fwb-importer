@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <teiHeader>
+    <fileDesc>
+      <sourceDesc>
+        <bibl type="printedSource">
+          <title>Some printed source</title>
+          <biblScope type="vol">08</biblScope>
+          <biblScope type="col">1</biblScope>
+        </bibl>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+</TEI>

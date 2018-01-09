@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="ggs"><ref target="ggs1.s.*">ggs1</ref>, <ref target="ggs2.s.*">ggs2</ref>, <ref target="ggs2.s.*#ggs2.s.*_s4">4</ref>.</dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

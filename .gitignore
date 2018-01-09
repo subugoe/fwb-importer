@@ -1,0 +1,10 @@
+solr-importer
+build
+target
+bin
+.*
+!.dockerignore
+!.gitignore
+!.gitkeep
+docker.env
+data

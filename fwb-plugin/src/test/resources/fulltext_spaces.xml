@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry xml:id="mylemma.s.1f">
+        <form type="lemma">
+          <orth>test_lemma,</orth>
+        </form>
+        <re type="re.neblem">myneblem,</re>
+        
+        <dictScrap rend="artkopf"><gram type="wortart"><hi rendition="it">die</hi></gram>.</dictScrap>
+        
+        <sense>
+          <def>definition.</def>
+          
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve"><name n="69" cert="high">Name</name>, <citedRange n="69" facs="346, 35">346, 35 </citedRange>(<region>reg.</region>, <date>M. 14. Jh.</date>)</bibl>
+              <quote>A quote.</quote>
+            </cit>
+          </dictScrap>
+          <dictScrap rend="bls">
+            <cit>
+              <bibl xml:space="preserve"><citedRange>before space</citedRange></bibl>
+            </cit>
+            
+            <cit>
+              <bibl xml:space="preserve">after space.</bibl>
+              <bibl xml:space="preserve">line<lb/>break.</bibl>
+            </cit>
+            
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

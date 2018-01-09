@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense xml:id="test.s.1f_s1" rend="1">
+          <def>a) def1</def>
+          <def>b) def2</def>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

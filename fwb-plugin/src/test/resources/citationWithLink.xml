@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve"><name n="5" cert="high">Name</name></bibl>
+              <quote>pre<hi rendition="rect"> [<bibl xml:space="preserve"><name n="111" cert="high">Luther</name> <citedRange n="111" facs="1545">1545</citedRange></bibl>: </hi>pre_changed<hi rendition="rect">] </hi>post.</quote>
+            </cit>
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

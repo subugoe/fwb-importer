@@ -1,0 +1,15 @@
+<sheet>
+<entry>
+<sort>1</sort>
+<sigle>1</sigle>
+<kraftliste><![CDATA[kraft]]></kraftliste>
+<pdf><![CDATA[test.pdf]]></pdf>
+<epdf><![CDATA[ersatz-test.pdf]]></epdf>
+<online><![CDATA[http://test.de]]></online>
+<eonline><![CDATA[http://ersatz-test.de]]></eonline>
+<permalink><![CDATA[http://permatest.de]]></permalink>
+<biblio><![CDATA[Bibliographie]]></biblio>
+<citing><![CDATA[Citing]]></citing>
+<syptom><![CDATA[Syp.]]></syptom>
+</entry>
+</sheet>

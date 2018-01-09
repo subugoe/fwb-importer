@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense>
+          <dictScrap rend="meta">Beispiele: </dictScrap>
+          <dictScrap rend="ipLiPkt"><re type="re.wbg" subtype="non">wbg</re> bla,</dictScrap>
+          <dictScrap rend="ipLiPkt"><re type="re.wbg" subtype="non">wbg2</re> bla2</dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

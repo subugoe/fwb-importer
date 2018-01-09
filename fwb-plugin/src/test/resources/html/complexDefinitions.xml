@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense xml:id="test.s.1f_s6" rend="6">
+          <def>a) def a.</def>
+          <def>b) def b.</def>
+          <dictScrap rend="bdv"><ref type="mat" target="link.s.2n">reference1</ref>,.</dictScrap>
+          <def>c) def c.</def>
+          <dictScrap rend="BBlock">Zu a): </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>
