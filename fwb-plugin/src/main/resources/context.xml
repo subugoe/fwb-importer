@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+  <bean id="sleep" class="sub.ent.api.ImporterStepSleep" />
+  <bean id="convert" class="sub.fwb.api.ImporterStepConvert" />
+  <bean id="upload" class="sub.ent.api.ImporterStepUpload" />
+
+  <bean id="importer" class="sub.ent.backend.Importer">
+    <property name="steps">
+      <list>
+        <ref local="sleep" />
+        <ref local="convert" />
+        <ref local="upload" />
+      </list>
+    </property>
+  </bean>
+
+  <bean id="config" class="sub.ent.config.ConfigStrings">
+    <property name="description" value="FWB-Datenimport aus Git" />
+    <property name="projectName" value="FWB" />
+  </bean>
+
+</beans>
