@@ -16,7 +16,6 @@ import sub.fwb.Xslt;
 
 public class ImporterStepConvert extends ImporterStep {
 
-	private PrintStream out = System.out;
 	private SourcesParser sourcesParser = new SourcesParser();
 	private WordTypesGenerator wordTyper = new WordTypesGenerator();
 	private Xslt xslt = new Xslt();
@@ -67,7 +66,7 @@ public class ImporterStepConvert extends ImporterStep {
 	}
 
 	private void printCurrentStatus(int currentNumber, int lastNumber) {
-		if (currentNumber % 2000 == 0 || currentNumber == lastNumber) {
+		if (currentNumber % 10000 == 0 || currentNumber == lastNumber) {
 			out.println("    ... " + currentNumber);
 		}
 	}

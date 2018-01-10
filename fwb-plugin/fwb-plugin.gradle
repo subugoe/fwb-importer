@@ -4,7 +4,6 @@ version = '0.0.1-SNAPSHOT'
 
 dependencies {
 	compile project(':solr-importer:core')
-	compile group: 'net.sf.saxon', name: 'Saxon-HE', version: '9.7.0-21'
 }
 
 build.doLast {

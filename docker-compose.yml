@@ -1,0 +1,10 @@
+version: '2'
+services:
+  solr:
+    image: solr:5.4.1
+    restart: always
+    volumes:
+      - ./fwb-plugin/solr:/opt/solr/server/solr
+    ports:
+      - 8983:8983
+    
