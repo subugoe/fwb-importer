@@ -15,8 +15,6 @@ allprojects {
 	dependencies {
 		compile group: 'org.apache.poi', name: 'poi', version: '3.14'
 		compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.14'
-		compile group: 'com.google.guava', name: 'guava', version: '23.5-jre'
-		compile group: 'org.jdom', name: 'jdom2', version: '2.0.6'
 		compile group: 'net.sf.saxon', name: 'Saxon-HE', version: '9.7.0-21'
 		compile group: 'junit', name: 'junit', version: '4.12'
 		compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
