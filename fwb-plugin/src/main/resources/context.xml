@@ -4,14 +4,20 @@
 
   <bean id="sleep" class="sub.ent.api.ImporterStepSleep" />
   <bean id="convert" class="sub.fwb.api.ImporterStepConvert" />
+  <bean id="compare" class="sub.fwb.api.ImporterStepCompare" />
   <bean id="upload" class="sub.ent.api.ImporterStepUpload" />
+  <bean id="runTests" class="sub.fwb.api.ImporterStepRunTests" />
+  <bean id="coreSwap" class="sub.ent.api.ImporterStepCoreSwap" />
 
   <bean id="importer" class="sub.ent.backend.Importer">
     <property name="steps">
       <list>
         <ref local="sleep" />
         <ref local="convert" />
+        <ref local="compare" />
         <ref local="upload" />
+        <ref local="runTests" />
+        <ref local="coreSwap" />
       </list>
     </property>
   </bean>

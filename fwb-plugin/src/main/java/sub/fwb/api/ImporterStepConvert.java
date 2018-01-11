@@ -73,7 +73,7 @@ public class ImporterStepConvert extends ImporterStep {
 
 	@Override
 	public String getStepDescription() {
-		return "Datenkonvertierung";
+		return "Konvertierung Excel,TEI -> XML";
 	}
 
 }
