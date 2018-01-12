@@ -16,5 +16,28 @@ services:
       dockerfile: Dockerfile-compile
     volumes:
       - .:/project
-    
-    
+
+  gitclone:
+    build: gitclone
+    volumes:
+      - ./gitclone/git:/git
+    env_file:
+      - docker.env
+
+  importer:
+    build:
+      context: .
+      dockerfile: Dockerfile-importer
+    restart: always
+    ports:
+      - 9090:8080
+    volumes:
+      - ./gitclone/git:/git
+      - ./import-files:/import-files
+    environment:
+      - GIT_INPUT_DIR=/git/fwb-daten
+      - OUTPUT_DIR=/import-files
+      - SOLR_IMPORT_CORE=fwboffline
+      - SOLR_ONLINE_CORE=fwb
+    env_file:
+      - docker.env
