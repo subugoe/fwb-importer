@@ -1,5 +1,7 @@
 version: '2'
+
 services:
+
   solr:
     image: solr:5.4.1
     restart: always
@@ -7,4 +9,12 @@ services:
       - ./fwb-plugin/solr:/opt/solr/server/solr
     ports:
       - 8983:8983
+
+  compile:
+    build:
+      context: .
+      dockerfile: Dockerfile-compile
+    volumes:
+      - .:/project
+    
     

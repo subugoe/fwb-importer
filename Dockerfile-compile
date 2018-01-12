@@ -1,0 +1,5 @@
+FROM gradle:4.4
+
+WORKDIR /project
+
+CMD gradle --gradle-user-home /project/.gradle-user-home
