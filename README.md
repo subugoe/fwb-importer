@@ -34,13 +34,12 @@ In the background, Docker images will be downloaded and built, so on the first t
 
 By default, the importer is configured to start on port 9090. If you want to change this (e. g to port 9091), you have to edit the file docker-compose.yml:
 
-```  importer:
-
-    ...
-    
+```
+  importer:
+    ...  
     ports:
-    
-      - 9091:8080```
+      - 9091:8080      
+```
 
 ## Starting the importer
 
