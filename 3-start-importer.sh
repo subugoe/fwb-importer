@@ -1,4 +1,4 @@
 #!/bin/bash
 
 docker-compose up -d gitclone
-docker-compose up -d importer
+docker-compose up -d --build importer
