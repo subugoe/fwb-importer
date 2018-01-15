@@ -2,7 +2,7 @@
 
 ## Description
 
-This project extends the solr-importer (https://github.com/subugoe/solr-importer) by implementing some plugin classes. The project's main purpose is to convert specifically formatted TEI files to Solr XML files. It also contains plugin classes which assert that the results are correct. Furthermore, it contains the complete configuration which is needed for a Solr server (schema, solrconfig.xml, etc.). In combination with the solr-importer, it becomes a web user interface (UI) tool to convert and import files delivered by the FWB-online project into the Solr server of its web site (https://fwb-online.de).
+This project extends the solr-importer (https://github.com/subugoe/solr-importer) by implementing some plugin classes. The project's main purpose is to convert specifically formatted TEI files to Solr XML files. It also contains plugin classes which assert that the results are correct. Furthermore, it contains the complete configuration which is needed for a Solr server (schema, solrconfig.xml, etc.). In combination with the solr-importer, it becomes a web user interface (UI) tool that can be used to convert and import files delivered by the FWB-online project into the Solr server of its web site (https://fwb-online.de).
 
 ## System requirements
 
@@ -12,7 +12,7 @@ Docker, docker-compose, Git.
 
 For convenience purposes, all installation commands are encapsulated inside shell scripts. If you need to execute finer-grained commands or if you are on Windows, you should look into the shell script files. In general, they contain simple docker-compose or Git commands.
 
-Note: all the following commands must be executed inside this project's main directory.
+Note: All the following commands must be executed inside this project's main directory.
 
 The first thing you have to do is add the solr-importer to the project:
 
