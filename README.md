@@ -43,6 +43,26 @@ By default, the importer is configured to start on port 9090. If you want to cha
 
 ## Starting the importer
 
+After completing the above installation, the importer with its Web UI can be started by executing:
 
+```./3-start-importer.sh```
+
+On the first run, the git repository that contains all FWB TEI files will be cloned (you configured the repository in the docker.env file). This happens in the background and can last several minutes. After that, the Web UI should be available on localhost on the (default) port 9090.
+
+Note: As a developer, you can start the importer for quick tests inside an IDE. The procedure for Eclipse is described in the README of the 'solr-importer' project (https://github.com/subugoe/solr-importer#starting-in-eclipse).
 
 ## Installing and starting a Solr server
+
+The solr/ directory contains all the files that are necessary to start a Solr server (version 5.4). The server's configuration and schema will be compatible with the Solr XML files produced by the importer. You can use the solr/ directory to configure your own Solr server.
+
+However, this project also offers an out-of-the-box solution based on Docker. First, you can configure the port on which Solr will start. The default port is 8983. To change it to e. g. 8984, edit the file docker-compose.yml:
+
+```
+  solr:
+    ...  
+    ports:
+      - 8984:8983      
+```
+
+
+
