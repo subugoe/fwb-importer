@@ -24,7 +24,7 @@ Next, you must configure the importer by creating and editing a text file:
 
 ```vi docker.env```
 
-(Retrieve the necessary data from a different source or create new repositories etc.)
+(You will have to retrieve the necessary data from a different source or create new repositories etc.)
 
 Now you can compile the combination of the two projects by executing:
 
@@ -82,7 +82,7 @@ Now you can start Solr:
 
 Note: If you want to install several Solr servers on the same host, you need to watch out for a little thing. The tool 'docker-compose' uses the parent directory name to identify Docker images. You can easily clone this project one more time and start a second Solr server. However, the parent directory must be different. The easiest way to achieve this is to clone to a directory with a different name:
 
-```git clone ... other-directory/```
+```git clone <this project> other-directory/```
 
 Also, it is often required to maintain several Solr servers for different environments, like 'dev' or 'live'. In that case, you can work with different Git branches in different clones.
 
