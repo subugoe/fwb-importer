@@ -22,8 +22,8 @@
         <xsl:apply-templates select="//teiHeader//sourceDesc/bibl" />
         <xsl:apply-templates select="//teiHeader//notesStmt" />
         <xsl:apply-templates select="//body/entry" />
-        <xsl:apply-templates select="//body/entry" mode="fulltext" />
-        <xsl:apply-templates select="//body/entry" mode="html_fulltext" />
+        <xsl:apply-templates select="//body/entry" mode="only_article_text" />
+        <xsl:apply-templates select="//body/entry" mode="html_for_whole_article" />
         <xsl:apply-templates select="//body//sense" />
       </doc>
     </add>
@@ -136,7 +136,7 @@
   <xsl:template match="re[@type='re.neblem']">
     <field name="neblem">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
@@ -144,7 +144,7 @@
   <xsl:template match="re[@type='re.ggs']">
     <field name="ggs">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="ggs_text">
@@ -155,7 +155,7 @@
   <xsl:template match="re[@type='re.bdv']">
     <field name="bdv">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="bdv_text">
@@ -166,7 +166,7 @@
   <xsl:template match="etym">
     <field name="etym">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
@@ -182,18 +182,18 @@
     </xsl:if>
   </xsl:function>
 
-  <xsl:template match="entry" mode="fulltext">
+  <xsl:template match="entry" mode="only_article_text">
     <field name="artikel_text">
-      <xsl:apply-templates select="*" mode="fulltext" />
+      <xsl:apply-templates select="*" mode="only_article_text" />
     </field>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='hoch' and number(.)]" mode="fulltext">
+  <xsl:template match="hi[@rendition='hoch' and number(.)]" mode="only_article_text">
     <xsl:value-of select="." />
     <xsl:text> </xsl:text>
   </xsl:template>
 
-  <xsl:template match="text()" mode="fulltext">
+  <xsl:template match="text()" mode="only_article_text">
     <xsl:value-of select="replace(., '\p{Z}+', ' ')" />
     <xsl:variable name="tag" select="local-name(parent::*)" />
     <xsl:variable name="followingText" select="parent::*/following-sibling::text()" />
@@ -206,17 +206,17 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="entry" mode="html_fulltext">
+  <xsl:template match="entry" mode="html_for_whole_article">
     <field name="artikel">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
       <div class="article">
-        <xsl:apply-templates select="*" mode="html_fulltext" />
+        <xsl:apply-templates select="*" mode="html_for_whole_article" />
       </div>
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
 
-  <xsl:template match="*" mode="html_fulltext">
+  <xsl:template match="*" mode="html_for_whole_article">
     <xsl:if test=".//text()">
       <xsl:message>
         <xsl:text>Unknown element &lt;</xsl:text>
@@ -234,12 +234,12 @@
         <xsl:text>&gt; - first occurrence: </xsl:text>
       </xsl:message>
       <span class="unknown-element">
-        <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+        <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       </span>
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="form[@type='lemma']" mode="html_fulltext">
+  <xsl:template match="form[@type='lemma']" mode="html_for_whole_article">
     <xsl:variable name="homonym" select="ancestor::entry/@n" />
     <div class="lemma">
       <xsl:if test="$homonym">
@@ -248,35 +248,35 @@
         </div>
       </xsl:if>
       <xsl:value-of select="orth" />
-      <xsl:apply-templates select="num" mode="html_fulltext" />
+      <xsl:apply-templates select="num" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="num" mode="html_fulltext">
+  <xsl:template match="num" mode="html_for_whole_article">
     <div class="roman-number">
       <xsl:text> </xsl:text>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="lang" mode="html_fulltext">
+  <xsl:template match="lang" mode="html_for_whole_article">
     <div class="language">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="desc" mode="html_fulltext">
+  <xsl:template match="desc" mode="html_for_whole_article">
     <div class="description">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="re[@type='re.neblem']" mode="html_fulltext">
+  <xsl:template match="re[@type='re.neblem']" mode="html_for_whole_article">
     <xsl:variable name="neblemNr" select="count(preceding::re[@type='re.neblem']) + 1" />
     <xsl:variable name="neblemId" select="concat('neblem',$neblemNr)" />
     <div class="neblem">
       <xsl:comment>start <xsl:value-of select="$neblemId" /></xsl:comment>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$neblemId" /></xsl:comment>
     </div>
     <xsl:variable name="followingText" select="following-sibling::text()" />
@@ -285,23 +285,23 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='artkopf']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='artkopf']" mode="html_for_whole_article">
     <div class="article-head">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="etym" mode="html_fulltext">
+  <xsl:template match="etym" mode="html_for_whole_article">
     <xsl:variable name="etymNr" select="count(preceding::etym) + 1" />
     <xsl:variable name="etymId" select="concat('etym',$etymNr)" />
     <div class="etymology">
       <xsl:comment>start <xsl:value-of select="$etymId" /></xsl:comment>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$etymId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='phras']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='phras']" mode="html_for_whole_article">
     <xsl:variable name="phrasNr" select="count(preceding::dictScrap[@rend='phras']) + 1" />
     <xsl:variable name="phrasId" select="concat('phras',$phrasNr)" />
     <div class="phras">
@@ -309,29 +309,29 @@
       <div class="phras-begin">
         <xsl:text>Phraseme: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$phrasId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='ggs']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='ggs']" mode="html_for_whole_article">
     <div class="ggs">
       <div class="ggs-begin">
         <xsl:text>Gegensätze: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="re[@type='re.ggs']" mode="html_fulltext" >
-    <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+  <xsl:template match="re[@type='re.ggs']" mode="html_for_whole_article" >
+    <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
   </xsl:template>
 
-  <xsl:template match="re[@type='re.bdv']" mode="html_fulltext" >
-    <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+  <xsl:template match="re[@type='re.bdv']" mode="html_for_whole_article" >
+    <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
   </xsl:template>
 
-  <xsl:template match="re[@type='re.ggs']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_fulltext">
+  <xsl:template match="re[@type='re.ggs']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_for_whole_article">
     <xsl:variable name="reggsNr" select="count(preceding::ref) + 1" />
     <xsl:variable name="reggsId" select="concat('reggs',$reggsNr)" />
     <div class="highlight-boundary">
@@ -357,7 +357,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="re[@type='re.bdv']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_fulltext">
+  <xsl:template match="re[@type='re.bdv']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_for_whole_article">
     <xsl:variable name="rebdvNr" select="count(preceding::ref) + 1" />
     <xsl:variable name="rebdvId" select="concat('rebdv',$rebdvNr)" />
     <div class="highlight-boundary">
@@ -383,16 +383,16 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='wbg']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='wbg']" mode="html_for_whole_article">
     <div class="wbg">
       <div class="wbg-begin">
         <xsl:text>Wortbildungen: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='ggs']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='ggs']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_for_whole_article">
     <xsl:variable name="ggsNr" select="count(preceding::ref[not(matches(@target, '_s\d+$') and number(.))]) + 1" />
     <xsl:variable name="ggsId" select="concat('ggs',$ggsNr)" />
     <div class="highlight-boundary">
@@ -418,7 +418,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='bdv']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='bdv']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_for_whole_article">
     <xsl:variable name="bdvNr" select="count(preceding::ref[not(matches(@target, '_s\d+$') and number(.))]) + 1" />
     <xsl:variable name="bdvId" select="concat('bdv',$bdvNr)" />
     <div class="highlight-boundary">
@@ -444,7 +444,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='wbg']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='wbg']/ref[not(matches(@target, '_s\d+$') and number(.))]" mode="html_for_whole_article">
     <xsl:variable name="wbgNr" select="count(preceding::ref[not(matches(@target, '_s\d+$') and number(.))]) + count(preceding::re[@type='re.wbg']) + 1" />
     <xsl:variable name="wbgId" select="concat('wbg',$wbgNr)" />
     <div class="highlight-boundary">
@@ -470,26 +470,26 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="re[@type='re.wbg']" mode="html_fulltext">
+  <xsl:template match="re[@type='re.wbg']" mode="html_for_whole_article">
     <xsl:variable name="wbgNr" select="count(preceding::ref[not(matches(@target, '_s\d+$') and number(.))]) + count(preceding::re[@type='re.wbg']) + 1" />
     <xsl:variable name="wbgId" select="concat('wbg',$wbgNr)" />
     <div class="highlight-boundary">
       <div class="italic">
         <xsl:comment>start <xsl:value-of select="$wbgId" /></xsl:comment>
-        <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+        <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
         <xsl:comment>end <xsl:value-of select="$wbgId" /></xsl:comment>
       </div>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='ipLiPkt']" mode="html_fulltext">
-    <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+  <xsl:template match="dictScrap[@rend='ipLiPkt']" mode="html_for_whole_article">
+    <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='meta']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='meta']" mode="html_for_whole_article">
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='ra']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='ra']" mode="html_for_whole_article">
     <xsl:variable name="raNr" select="count(preceding::dictScrap[@rend='ra']) + 1" />
     <xsl:variable name="raId" select="concat('ra',$raNr)" />
     <div class="redensart">
@@ -497,78 +497,78 @@
       <div class="redensart-begin">
         <xsl:text>Redensart: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$raId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="text()" mode="html_fulltext">
+  <xsl:template match="text()" mode="html_for_whole_article">
     <xsl:value-of select="." />
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='it' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='it' and .//text()]" mode="html_for_whole_article">
     <div class="italic">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='hoch' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='hoch' and .//text()]" mode="html_for_whole_article">
     <div class="higher-and-smaller">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='tief' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='tief' and .//text()]" mode="html_for_whole_article">
     <div class="deep">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='rect' and (.//text() or .//*)]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='rect' and (.//text() or .//*)]" mode="html_for_whole_article">
     <div class="rect">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='sc' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='sc' and .//text()]" mode="html_for_whole_article">
     <div class="small-capitals">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='b' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='b' and .//text()]" mode="html_for_whole_article">
     <div class="bold">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="hi[@rendition='wide' and .//text()]" mode="html_fulltext">
+  <xsl:template match="hi[@rendition='wide' and .//text()]" mode="html_for_whole_article">
     <div class="wide">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="lb" mode="html_fulltext">
+  <xsl:template match="lb" mode="html_for_whole_article">
     <xsl:text> | </xsl:text>
   </xsl:template>
 
-  <xsl:template match="gram[@type='wortart' and .//text()]" mode="html_fulltext">
+  <xsl:template match="gram[@type='wortart' and .//text()]" mode="html_for_whole_article">
     <div class="type-of-word">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="gram[@type='flex' and .//text()]" mode="html_fulltext">
+  <xsl:template match="gram[@type='flex' and .//text()]" mode="html_for_whole_article">
     <div class="flex">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="oRef" mode="html_fulltext">
+  <xsl:template match="oRef" mode="html_for_whole_article">
     <xsl:text>-</xsl:text>
   </xsl:template>
 
-  <xsl:template match="ref" mode="html_fulltext">
+  <xsl:template match="ref" mode="html_for_whole_article">
     <xsl:choose>
       <xsl:when test="contains(@target, '#') and number(.)">
         <xsl:variable name="linkStart" select="concat(substring-before(@target, '#'), '#')" />
@@ -594,11 +594,11 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="sense[@rend='bedzif']" mode="html_fulltext">
-    <xsl:apply-templates mode="html_fulltext" />
+  <xsl:template match="sense[@rend='bedzif']" mode="html_for_whole_article">
+    <xsl:apply-templates mode="html_for_whole_article" />
   </xsl:template>
 
-  <xsl:template match="sense" mode="html_fulltext">
+  <xsl:template match="sense" mode="html_for_whole_article">
     <xsl:variable name="senseNumbers" as="xs:integer*">
       <xsl:choose>
         <xsl:when test="@rend and contains(@rend, '-')">
@@ -628,13 +628,13 @@
               <xsl:variable name="pre-sib" select="preceding-sibling::*[1]" />
               <xsl:if test="$pre-sib[local-name() = 'dictScrap' and @rend = 'meta']">
                 <h3>
-                  <xsl:apply-templates select="$pre-sib/*|$pre-sib/text()" mode="html_fulltext" />
+                  <xsl:apply-templates select="$pre-sib/*|$pre-sib/text()" mode="html_for_whole_article" />
                 </h3>
               </xsl:if>
               <ul class="info-list">
                 <xsl:for-each select="current-group()">
                   <li>
-                    <xsl:apply-templates select="." mode="html_fulltext" />
+                    <xsl:apply-templates select="." mode="html_for_whole_article" />
                   </li>
                 </xsl:for-each>
               </ul>
@@ -644,14 +644,14 @@
             <section class="citations-block">
               <xsl:for-each-group select="current-group()" group-starting-with="dictScrap[@rend='BBlock']">
                 <div class="citations-subblock">
-                  <xsl:apply-templates select="current-group()" mode="html_fulltext" />
+                  <xsl:apply-templates select="current-group()" mode="html_for_whole_article" />
                 </div>
               </xsl:for-each-group>
             </section>
           </xsl:when>
           <xsl:otherwise>
             <xsl:for-each select="current-group()">
-              <xsl:apply-templates select="." mode="html_fulltext" />
+              <xsl:apply-templates select="." mode="html_for_whole_article" />
             </xsl:for-each>
           </xsl:otherwise>
         </xsl:choose>
@@ -659,7 +659,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="def" mode="html_fulltext">
+  <xsl:template match="def" mode="html_for_whole_article">
     <xsl:variable name="defNumber" select="count(preceding::def) + 1" />
     <xsl:variable name="defAnchor" select="concat('def', $defNumber)" />
     <xsl:variable name="senseRendNumber" select="parent::sense/@rend" />
@@ -673,9 +673,9 @@
           </xsl:call-template>
         </div>
       </xsl:if>
-      <xsl:apply-templates select="text()|*" mode="html_fulltext" />
+      <xsl:apply-templates select="text()|*" mode="html_for_whole_article" />
       <xsl:apply-templates select="following-sibling::*[1][@rend='wbv']"
-        mode="html_fulltext_once" />
+        mode="html_for_whole_article_once" />
       <xsl:comment>end <xsl:value-of select="$defAnchor" /></xsl:comment>
     </div>
   </xsl:template>
@@ -699,42 +699,42 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='wbv']" mode="html_fulltext_once">
+  <xsl:template match="dictScrap[@rend='wbv']" mode="html_for_whole_article_once">
     <xsl:variable name="wbvNumber" select="count(preceding::dictScrap[@rend='wbv']) + 1" />
     <xsl:variable name="wbvId" select="concat('wbv', $wbvNumber)" />
     <div class="wbv">
       <xsl:comment>start <xsl:value-of select="$wbvId" /></xsl:comment>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$wbvId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='wbv']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='wbv']" mode="html_for_whole_article">
     <xsl:if test="not(preceding-sibling::*[1][local-name() = 'def'])">
-      <xsl:apply-templates select="." mode="html_fulltext_once" />
+      <xsl:apply-templates select="." mode="html_for_whole_article_once" />
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='stw']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='stw']" mode="html_for_whole_article">
     <xsl:variable name="stwNumber" select="count(preceding::dictScrap[@rend='stw']) + 1" />
     <xsl:variable name="stwId" select="concat('stw', $stwNumber)" />
     <div class="stw">
       <xsl:comment>start <xsl:value-of select="$stwId" /></xsl:comment>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$stwId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='bdv']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='bdv']" mode="html_for_whole_article">
     <div class="bdv">
       <div class="bdv-begin">
         <xsl:text>Bedeutungsverwandte: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='synt']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='synt']" mode="html_for_whole_article">
     <xsl:variable name="syntNumber" select="count(preceding::dictScrap[@rend='synt']) + 1" />
     <xsl:variable name="syntId" select="concat('synt', $syntNumber)" />
     <div class="synt">
@@ -742,36 +742,36 @@
       <div class="synt-begin">
         <xsl:text>Syntagmen: </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$syntId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='cit']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='cit']" mode="html_for_whole_article">
     <xsl:call-template name="printCitationsHeader" />
     <div class="citations">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='bls' and cit]" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='bls' and cit]" mode="html_for_whole_article">
     <xsl:call-template name="printCitationsHeader" />
     <div class="bls">
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='bls' and not(cit)]" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='bls' and not(cit)]" mode="html_for_whole_article">
     <xsl:call-template name="printCitationsHeader" />
     <p>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </p>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='BBlock']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='BBlock']" mode="html_for_whole_article">
     <xsl:call-template name="printCitationsHeader" />
     <h2>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </h2>
   </xsl:template>
 
@@ -784,7 +784,7 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='ref']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='ref']" mode="html_for_whole_article">
     <xsl:variable name="refNumber" select="count(preceding::dictScrap[@rend='ref']) + 1" />
     <xsl:variable name="refId" select="concat('zursache', $refNumber)" />
     <div class="dict-ref">
@@ -799,12 +799,12 @@
           </xsl:otherwise>
         </xsl:choose>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$refId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="dictScrap[@rend='sv']" mode="html_fulltext">
+  <xsl:template match="dictScrap[@rend='sv']" mode="html_for_whole_article">
     <xsl:variable name="svNumber" select="count(preceding::dictScrap[@rend='sv']) + 1" />
     <xsl:variable name="svId" select="concat('subvoce', $svNumber)" />
     <div class="subvoce">
@@ -812,28 +812,28 @@
       <div class="subvoce-begin">
         <xsl:text>‒ </xsl:text>
       </div>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$svId" /></xsl:comment>
     </div>
   </xsl:template>
 
-  <xsl:template match="cit" mode="html_fulltext">
+  <xsl:template match="cit" mode="html_for_whole_article">
     <div class="citation">
-      <xsl:apply-templates select="*" mode="html_fulltext" />
+      <xsl:apply-templates select="*" mode="html_for_whole_article" />
     </div>
   </xsl:template>
 
-  <xsl:template match="bibl" mode="html_fulltext">
+  <xsl:template match="bibl" mode="html_for_whole_article">
     <xsl:if test="preceding-sibling::*[1]/local-name() = 'bibl' and not(parent::etym) and not(parent::def)">
       <xsl:text> </xsl:text>
     </xsl:if>
-    <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+    <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     <xsl:if test="following-sibling::quote">
       <xsl:text>: </xsl:text>
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="bibl/name[@n]" mode="html_fulltext">
+  <xsl:template match="bibl/name[@n]" mode="html_for_whole_article">
     <xsl:variable name="currentCitationId">
       <xsl_text>source_</xsl_text>
       <xsl:value-of select="@n" />
@@ -846,36 +846,36 @@
     </a>
   </xsl:template>
 
-  <xsl:template match="name" mode="html_fulltext">
+  <xsl:template match="name" mode="html_for_whole_article">
     <div class="name">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="citedRange[.//text()]" mode="html_fulltext">
+  <xsl:template match="citedRange[.//text()]" mode="html_for_whole_article">
     <div class="cited-range">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="region[.//text()]" mode="html_fulltext">
+  <xsl:template match="region[.//text()]" mode="html_for_whole_article">
     <div class="region">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="date[.//text()]" mode="html_fulltext">
+  <xsl:template match="date[.//text()]" mode="html_for_whole_article">
     <div class="date">
       <xsl:value-of select="." />
     </div>
   </xsl:template>
 
-  <xsl:template match="quote[.//text()]" mode="html_fulltext">
+  <xsl:template match="quote[.//text()]" mode="html_for_whole_article">
     <xsl:variable name="quoteNr" select="count(preceding::quote) + 1" />
     <xsl:variable name="quoteId" select="concat('quote',$quoteNr)" />
     <div class="quote" id="{$quoteId}">
       <xsl:comment>start <xsl:value-of select="$quoteId" /></xsl:comment>
-      <xsl:apply-templates select="*|text()" mode="html_fulltext" />
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$quoteId" /></xsl:comment>
     </div>
   </xsl:template>
@@ -923,7 +923,7 @@
   <xsl:template match="def[.//text()]">
     <field name="bed">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
@@ -947,7 +947,7 @@
   <xsl:template match="dictScrap[@rend='synt']">
     <field name="synt">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="synt_text">
@@ -958,7 +958,7 @@
   <xsl:template match="dictScrap[@rend='wbv']">
     <field name="wbv">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext_once" />
+      <xsl:apply-templates select="." mode="html_for_whole_article_once" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="wbv_text">
@@ -969,7 +969,7 @@
   <xsl:template match="dictScrap[@rend='stw']">
     <field name="stw">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="stw_text">
@@ -980,7 +980,7 @@
   <xsl:template match="dictScrap[@rend='phras' or @rend='ra']">
     <field name="phras">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="phras_text">
@@ -991,7 +991,7 @@
   <xsl:template match="dictScrap[@rend='ref']">
     <field name="zursache">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="zursache_text">
@@ -1003,7 +1003,7 @@
     <xsl:for-each select="re[@type='re.wbg'] | ref[not(matches(@target, '_s\d+$') and number(.))]">
       <field name="wbg">
         <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:apply-templates select="." mode="html_fulltext" />
+        <xsl:apply-templates select="." mode="html_for_whole_article" />
         <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
       </field>
     </xsl:for-each>
@@ -1016,7 +1016,7 @@
     <xsl:for-each select="re[@type='re.wbg']">
       <field name="wbg">
         <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:apply-templates select="." mode="html_fulltext" />
+        <xsl:apply-templates select="." mode="html_for_whole_article" />
         <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
       </field>
     </xsl:for-each>
@@ -1029,7 +1029,7 @@
     <xsl:for-each select="re[@type='re.wbg']">
       <field name="wbg">
         <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:apply-templates select="." mode="html_fulltext" />
+        <xsl:apply-templates select="." mode="html_for_whole_article" />
         <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
       </field>
     </xsl:for-each>
@@ -1070,7 +1070,7 @@
     <xsl:for-each select="ref[not(matches(@target, '_s\d+$') and number(.))]">
       <field name="bdv">
         <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:apply-templates select="." mode="html_fulltext" />
+        <xsl:apply-templates select="." mode="html_for_whole_article" />
         <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
       </field>
     </xsl:for-each>
@@ -1090,7 +1090,7 @@
     <xsl:for-each select="ref[not(matches(@target, '_s\d+$') and number(.))]">
       <field name="ggs">
         <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:apply-templates select="." mode="html_fulltext" />
+        <xsl:apply-templates select="." mode="html_for_whole_article" />
         <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
       </field>
     </xsl:for-each>
@@ -1109,7 +1109,7 @@
   <xsl:template match="dictScrap[@rend='sv']">
     <field name="subvoce">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_fulltext" />
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="subvoce_text">
@@ -1124,7 +1124,7 @@
     </field>
     <field name="zitat">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="quote" mode="html_fulltext" />
+      <xsl:apply-templates select="quote" mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="zitat_text">
