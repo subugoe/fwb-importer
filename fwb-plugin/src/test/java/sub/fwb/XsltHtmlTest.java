@@ -44,8 +44,9 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotInsertSpaceAfterNeblemWithComma() throws Exception {
 		xslt.transform("src/test/resources/html/neblemWithComma.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 2);
+		String html = extractHtmlField(outputBaos.toString());
 
+		System.out.println(html);
 		assertXpathEvaluatesTo("neblem, bla", "//div[@class='article-head']", html);
 		// example: aberacht
 	}
@@ -53,7 +54,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotInsertSpaceInDef() throws Exception {
 		xslt.transform("src/test/resources/html/biblInsideDef.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("(Name)", "//div[@class='sense']", html);
 		// example: katzenauge
@@ -62,7 +63,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotInsertSpaceInBibl2() throws Exception {
 		xslt.transform("src/test/resources/html/biblInsideEtym2.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("(), (Pfeifer)", "//div[@class='etymology']", html);
 		// example: blahe
@@ -71,7 +72,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotInsertSpaceInBibl() throws Exception {
 		xslt.transform("src/test/resources/html/biblInsideEtym.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("aus (Lexer)", "//div[@class='etymology']", html);
 		// example: bleuen
@@ -80,7 +81,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldRecognizeInlineBdv() throws Exception {
 		xslt.transform("src/test/resources/html/bdv.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("", "//span[@class='unknown-element']", html);
 		// example: anfängen
@@ -89,7 +90,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPrintEtymology() throws Exception {
 		xslt.transform("src/test/resources/html/etymWithDescAndLang.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("aus lat. ›desc-test‹.", "//div[@class='etymology']", html);
 		// example: äs
@@ -98,7 +99,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPrintDescription() throws Exception {
 		xslt.transform("src/test/resources/html/etymWithDescAndLang.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("›desc-test‹", "//div[@class='description']", html);
 		// example: äs
@@ -107,7 +108,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPrintLanguage() throws Exception {
 		xslt.transform("src/test/resources/html/etymWithDescAndLang.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("lat.", "//div[@class='language']", html);
 		// example: äs
@@ -134,7 +135,7 @@ public class XsltHtmlTest {
 		xslt.setErrorOut(errorStream);
 
 		xslt.transform("src/test/resources/html/unknownElement.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("article head, new text", "//*", html);
 
@@ -146,7 +147,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldProduceZurSacheWithColon() throws Exception {
 		xslt.transform("src/test/resources/html/zurSacheWithoutColon.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Zur Sache: ", "//div[@class='dict-ref-begin']", html);
 	}
@@ -154,7 +155,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldProduceZurSacheWithoutColon() throws Exception {
 		xslt.transform("src/test/resources/html/zurSacheWithColon.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Zur Sache ", "//div[@class='dict-ref-begin']", html);
 		// example: bachbunge
@@ -163,7 +164,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldProduceItalicTypeOfWord() throws Exception {
 		xslt.transform("src/test/resources/html/typeOfWordItalic.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("der", "//div[@class='type-of-word']/div[@class='italic']", html);
 		// example: austag
@@ -172,7 +173,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotAddSpaceBeforeLinkInsideCit() throws Exception {
 		xslt.transform("src/test/resources/html/citationWithLink.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo(" [Luther 1545: ", "//div[@class='rect']", html);
 		// example: bewegung
@@ -181,7 +182,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldOutputWbvTwice() throws Exception {
 		xslt.transform("src/test/resources/html/definitionWithTwoWbvs.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("2", "count(//div[@class='wbv'])", html);
 		assertXpathEvaluatesTo("Wbv 2", "//div[@class='sense']/div[@class='wbv']", html);
@@ -191,7 +192,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldOutputWbvOnlyOnce() throws Exception {
 		xslt.transform("src/test/resources/html/complexDefWithWbvInside.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("1", "count(//div[@class='wbv'])", html);
 		// example: ausrichtig
@@ -200,7 +201,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformInfoList() throws Exception {
 		xslt.transform("src/test/resources/html/infoList.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Beispiele: ", "//div[@class='info-list-with-header']/h3", html);
 		assertXpathEvaluatesTo("wbg bla,", "//ul[@class='info-list']//li[1]", html);
@@ -211,7 +212,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPreserveSpaceBetweenCitationLinks() throws Exception {
 		xslt.transform("src/test/resources/html/spaceAfterCitationLink.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("1, 122; Dwb", "//div[@class='article-head']", html);
 	}
@@ -219,7 +220,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeParagraphOutOfBlsWithoutCit() throws Exception {
 		xslt.transform("src/test/resources/html/blsWithoutCit.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("No cit here.", "//p", html);
 	}
@@ -227,7 +228,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPutAllCitationsAndSubvoceInSection() throws Exception {
 		xslt.transform("src/test/resources/html/citationAndBlsAndBblock.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("1", "count(//section[@class='citations-block'])", html);
 		assertXpathEvaluatesTo("2", "count(//div[@class='citations-subblock'])", html);
@@ -236,7 +237,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPrintNumberForFirstDefinitionOnly() throws Exception {
 		xslt.transform("src/test/resources/html/twoDefinitions.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("1", "count(//div[@class='sense-number'])", html);
 	}
@@ -244,7 +245,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeHeaderForBlsInFront() throws Exception {
 		xslt.transform("src/test/resources/html/citationAndBlsInFront.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Belegblock: ", "//h1", html);
 		assertXpathEvaluatesTo("1", "count(//h1)", html);
@@ -253,7 +254,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeHeaderForOneBls() throws Exception {
 		xslt.transform("src/test/resources/html/bls.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Belegblock: ", "//h1", html);
 	}
@@ -261,7 +262,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeHeaderForOneCitation() throws Exception {
 		xslt.transform("src/test/resources/html/cite.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Belegblock: ", "//h1", html);
 	}
@@ -269,7 +270,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPutTogetherCitationsAndBlsWithBblocks() throws Exception {
 		xslt.transform("src/test/resources/html/citationAndBlsAndBblock.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Belegblock: ", "//h1", html);
 		assertXpathEvaluatesTo("1", "count(//h1)", html);
@@ -278,7 +279,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldPutTogetherCitationsAndBls() throws Exception {
 		xslt.transform("src/test/resources/html/citationAndBls.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Belegblock: ", "//h1", html);
 	}
@@ -286,7 +287,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldConvertListItems() throws Exception {
 		xslt.transform("src/test/resources/html/wbgListItems.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("item1", "//ul/li[1]/div[@class='highlight-boundary']", html);
 		assertXpathEvaluatesTo("item2", "//ul/li[2]/div[@class='highlight-boundary']", html);
@@ -295,7 +296,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldConvertRomanNumber() throws Exception {
 		xslt.transform("src/test/resources/html/romanNumber.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo(" I", "//div[@class='roman-number']", html);
 	}
@@ -303,7 +304,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldProcessComplexDefinitions() throws Exception {
 		xslt.transform("src/test/resources/html/complexDefinitions.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Zu a): ", "//h2", html);
 	}
@@ -311,7 +312,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTakeCorrectSenseRanges() throws Exception {
 		xslt.transform("src/test/resources/html/senseWithRange.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='sense'][1]/span[@id='sense1']", html);
 		assertXpathExists("//div[@class='sense'][1]/span[@id='sense2']", html);
@@ -326,7 +327,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotAddSpaceAfterParenthesis() throws Exception {
 		xslt.transform("src/test/resources/html/spaces_articleHead.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("bla (Lexer)", "//div[@class='article-head']", html);
 	}
@@ -334,7 +335,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldIgnoreEmptyRegion() throws Exception {
 		xslt.transform("src/test/resources/html/emptyRegion.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("0", "count(//div[@class='region'])", html);
 	}
@@ -350,7 +351,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeEmptyArticle() throws Exception {
 		xslt.transform("src/test/resources/html/articleField.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("/div[@class='article']", html);
 	}
@@ -358,7 +359,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertLemma() throws Exception {
 		xslt.transform("src/test/resources/html/lemma.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("testlemma", "//div[@class='lemma']", html);
 	}
@@ -366,7 +367,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertArticleHead() throws Exception {
 		xslt.transform("src/test/resources/html/articleHead.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("article head", "//div[@class='article-head']", html);
 	}
@@ -374,7 +375,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertNeblem() throws Exception {
 		xslt.transform("src/test/resources/html/neblem.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("2", "//div[@class='higher-and-smaller']", html);
 		assertXpathEvaluatesTo("2neblem1, neblem2,", "//div[@class='neblem']", html);
@@ -383,7 +384,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertPhras() throws Exception {
 		xslt.transform("src/test/resources/html/phras.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='phras']", html);
 		assertXpathExists("//div[@class='phras-begin']", html);
@@ -392,7 +393,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertGgs() throws Exception {
 		xslt.transform("src/test/resources/html/ggs.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='ggs']", html);
 		assertXpathExists("//div[@class='ggs-begin']", html);
@@ -403,7 +404,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertRa() throws Exception {
 		xslt.transform("src/test/resources/html/ra.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='redensart']", html);
 		assertXpathExists("//div[@class='redensart-begin']", html);
@@ -412,7 +413,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertHighlightings() throws Exception {
 		xslt.transform("src/test/resources/html/highlightings.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("italic", "//div[@class='italic']", html);
 		assertXpathEvaluatesTo("hoch", "//div[@class='higher-and-smaller']", html);
@@ -426,7 +427,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformLinebreak() throws Exception {
 		xslt.transform("src/test/resources/html/linebreak.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo(" | ", "//div[@class='article-head']", html);
 	}
@@ -434,7 +435,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformGrammar() throws Exception {
 		xslt.transform("src/test/resources/html/grammar.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Art", "//div[@class='type-of-word']", html);
 		assertXpathEvaluatesTo("", "//div[@class='type-of-word']/div[@class='italic']", html);
@@ -444,7 +445,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformReference() throws Exception {
 		xslt.transform("src/test/resources/html/reference.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("reference", "//a/@href", html);
 		assertXpathEvaluatesTo("click here", "//a", html);
@@ -453,7 +454,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertSenseWithDefinition() throws Exception {
 		xslt.transform("src/test/resources/html/sense.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='sense']", html);
 		assertXpathExists("//span[@id='sense1']", html);
@@ -463,7 +464,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldIgnoreSemanticsOfSenseWithBedzif() throws Exception {
 		xslt.transform("src/test/resources/html/senseWithBedzif.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("", "//div[@class='sense']", html);
 	}
@@ -471,7 +472,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertNumbersIfSeveralSenses() throws Exception {
 		xslt.transform("src/test/resources/html/twoSenses.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='sense']", html);
 		assertXpathExists("//div[@class='sense-number' and text()='1. ']", html);
@@ -481,7 +482,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertSenseWithWbv() throws Exception {
 		xslt.transform("src/test/resources/html/senseWithWbv.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Wortbildungsverweis", "//div[@class='definition']/div[@class='wbv']", html);
 	}
@@ -489,7 +490,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertStw() throws Exception {
 		xslt.transform("src/test/resources/html/stw.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Stw", "//div[@class='stw']", html);
 	}
@@ -497,7 +498,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldInsertAcronyms() throws Exception {
 		xslt.transform("src/test/resources/html/withBeginnings.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='bdv']", html);
 		assertXpathExists("//div[@class='bdv-begin']", html);
@@ -514,7 +515,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformCitation() throws Exception {
 		xslt.transform("src/test/resources/html/cite.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='citations']", html);
 		assertXpathExists("//h1", html);
@@ -530,7 +531,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeHtmlQuote() throws Exception {
 		xslt.transform("src/test/resources/html/cite.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='quote' and @id='quote1']", html);
 		assertXpathEvaluatesTo("Miller", "//a[@href='/source/source_xyu']", html);
@@ -539,7 +540,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldMakeLinkInDefinition() throws Exception {
 		xslt.transform("src/test/resources/html/definitionWithName.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("Meier", "//a[@class='name citation-source_link']", html);
 	}
@@ -547,7 +548,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldTransformBls() throws Exception {
 		xslt.transform("src/test/resources/html/bls.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathExists("//div[@class='bls']", html);
 		assertXpathExists("//div[@class='citation']", html);
@@ -556,7 +557,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldCreateAnchors() throws Exception {
 		xslt.transform("src/test/resources/html/anchors.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("sense1", "//div[@class='sense']/span/@id", html);
 		assertXpathEvaluatesTo("mylemma#sense2", "//a[1]/@href", html);
@@ -566,7 +567,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldDecideIfLinkIsItalic() throws Exception {
 		xslt.transform("src/test/resources/html/refsItalicOrNot.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("lemma", "//div[@class='italic']/a", html);
 		assertXpathEvaluatesTo("1", "//div[@class='article-head']/a", html);
@@ -575,7 +576,7 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldCreateHomonymForLemma() throws Exception {
 		xslt.transform("src/test/resources/homonym.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("2", "//div[@class='homonym']", html);
 	}
@@ -583,19 +584,17 @@ public class XsltHtmlTest {
 	@Test
 	public void shouldNotCreateHomonymForLemma() throws Exception {
 		xslt.transform("src/test/resources/html/withoutHomonym.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString(), 1);
+		String html = extractHtmlField(outputBaos.toString());
 
 		assertXpathEvaluatesTo("", "//div[@class='homonym']", html);
 	}
 
-	private String extractHtmlField(String s, int number) {
-		Pattern pattern = Pattern.compile("CDATA\\[(.*?)]]");
+	private String extractHtmlField(String s) {
+		Pattern pattern = Pattern.compile("artikel\"><!\\[CDATA\\[(.*?)]]");
 		Matcher matcher = pattern.matcher(s.replaceAll("\\n", " "));
 		String html = "";
-		for (int i = 0; i < number; i++) {
-			if (matcher.find()) {
-				html = matcher.group(1);
-			}
+		if (matcher.find()) {
+			html = matcher.group(1);
 		}
 		return html;
 	}
