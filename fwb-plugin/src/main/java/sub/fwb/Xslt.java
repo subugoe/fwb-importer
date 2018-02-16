@@ -25,6 +25,10 @@ import net.sf.saxon.s9api.XsltCompiler;
 import net.sf.saxon.s9api.XsltExecutable;
 import net.sf.saxon.s9api.XsltTransformer;
 
+/**
+ * Wrapper for an XSLT script that can have input parameters.
+ *
+ */
 public class Xslt {
 	private Processor processor = new Processor(false);
 	private XsltExecutable exe;
@@ -32,23 +36,39 @@ public class Xslt {
 	private PrintStream errorOut = System.out;
 	private Set<String> unknownButProcessedElements = new HashSet<>();
 
+	/**
+	 * All error messages coming from the XSLT script will be printed here.
+	 */
 	public void setErrorOut(PrintStream newErrorOut) {
 		errorOut = newErrorOut;
 	}
 
+	/**
+	 * Sets the script that will be executed.
+	 */
 	public void setXsltScript(String xsltPath) throws SaxonApiException, FileNotFoundException {
 		setXsltScript(new FileInputStream((new File(xsltPath))));
 	}
 
+	/**
+	 * Sets the script that will be executed.
+	 */
 	public void setXsltScript(InputStream xsltStream) throws SaxonApiException {
 		XsltCompiler comp = processor.newXsltCompiler();
 		exe = comp.compile(new StreamSource(xsltStream));
 	}
 
+	/**
+	 * Adds a parameter for the XSLT script. The parameter must be declared in the script.
+	 */
 	public void setParameter(String key, String value) {
 		parameters.put(key, value);
 	}
 
+	/**
+	 * Starts the transformation using the previously set XSLT script.
+	 * If the script produces error messages, those will be written to the previously set error output.
+	 */
 	public void transform(final String inputXmlPath, OutputStream outputXmlStream) throws SaxonApiException {
 		XdmNode source = processor.newDocumentBuilder().build(new StreamSource(new File(inputXmlPath)));
 		Serializer out = processor.newSerializer();
