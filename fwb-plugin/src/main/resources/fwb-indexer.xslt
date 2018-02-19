@@ -8,6 +8,10 @@
   <xsl:strip-space elements="*" />
 
   <xsl:param name="currentArticleId" />
+
+  <!-- Formatted like this: -->
+  <!-- ...###3v:Verb###4adv:Adverb###... -->
+  <!-- Each article has a code like '3v' in its 'xml:id'. -->
   <xsl:param name="wordTypes" />
   <xsl:param name="generalWordTypes" />
   <xsl:param name="subfacetWordTypes" />
@@ -59,11 +63,14 @@
     </field>
     <xsl:if test="$internalId != ''">
       <xsl:analyze-string select="$internalId" regex=".*(_[a-zäöüß]_).*">
+        <!-- for example: ampt_e_.s.0m -->
         <xsl:matching-substring>
+          <!-- additional virtual ID: ampt.s.0m -->
           <field name="virtual_id">
             <xsl:value-of select="substring-before(., regex-group(1))" />
             <xsl:value-of select="substring-after(., regex-group(1))" />
           </field>
+          <!-- additional virtual ID: ampte.s.0m -->
           <field name="virtual_id">
             <xsl:value-of select="substring-before(., regex-group(1))" />
             <xsl:variable name="groupLength" select="string-length(regex-group(1))" />
@@ -120,46 +127,41 @@
         <xsl:value-of select="." />
       </field>
     </xsl:for-each>
+    <!-- there can be several neblems ... -->
     <xsl:apply-templates select="dictScrap[@rend='artkopf']/re[@type='re.neblem']" />
     <field name="neblem_text">
+      <!-- ... but they should all be in one text field -->
       <xsl:value-of select="dictScrap[@rend='artkopf']/re[@type='re.neblem']" />
     </field>
+    <!-- there can be several etyms -->
     <xsl:apply-templates select="dictScrap[@rend='artkopf']/etym" />
     <field name="etym_text">
       <xsl:value-of select="dictScrap[@rend='artkopf']/etym" />
     </field>
     <field name="is_reference">
+      <!-- Reference articles don't have any 'sense' elements -->
       <xsl:value-of select="not(sense)" />
     </field>
   </xsl:template>
+
+  <xsl:function name="fwb:getWordTypeId">
+    <xsl:param name="internalArticleId" />
+    <xsl:if test="$internalArticleId != ''">
+      <!-- for example: ampt.s.0m -->
+      <!-- wordTypeId: 0m -->
+      <xsl:analyze-string select="$internalArticleId" regex="\.(\d[a-z]+)">
+        <xsl:matching-substring>
+          <xsl:sequence select="regex-group(1)" />
+        </xsl:matching-substring>
+      </xsl:analyze-string>
+    </xsl:if>
+  </xsl:function>
 
   <xsl:template match="re[@type='re.neblem']">
     <field name="neblem">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
       <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-  </xsl:template>
-
-  <xsl:template match="re[@type='re.ggs']">
-    <field name="ggs">
-      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_for_whole_article" />
-      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-    <field name="ggs_text">
-      <xsl:value-of select=".//text()" />
-    </field>
-  </xsl:template>
-
-  <xsl:template match="re[@type='re.bdv']">
-    <field name="bdv">
-      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_for_whole_article" />
-      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-    <field name="bdv_text">
-      <xsl:value-of select=".//text()" />
     </field>
   </xsl:template>
 
@@ -171,18 +173,9 @@
     </field>
   </xsl:template>
 
-  <xsl:function name="fwb:getWordTypeId">
-    <xsl:param name="internalArticleId" />
-    <xsl:if test="$internalArticleId != ''">
-      <xsl:analyze-string select="$internalArticleId" regex="\.(\d[a-z]+)">
-        <xsl:matching-substring>
-          <xsl:sequence select="regex-group(1)" />
-        </xsl:matching-substring>
-      </xsl:analyze-string>
-    </xsl:if>
-  </xsl:function>
-
   <xsl:template match="sense">
+      <xsl:apply-templates select=".//re[@type='re.ggs']" />
+      <xsl:apply-templates select=".//re[@type='re.bdv']" />
       <xsl:apply-templates select="def[.//text()]" />
       <xsl:call-template name="printDefTextAndNumber" />
       <xsl:apply-templates select="dictScrap[@rend='bdv']" />
@@ -198,12 +191,40 @@
       <xsl:apply-templates select="dictScrap[@rend='wbg']" />
       <xsl:apply-templates select="dictScrap[@rend='BBlock']" />
       <xsl:apply-templates select="dictScrap[@rend='wbv']" />
-      <xsl:apply-templates select=".//re[@type='re.ggs']" />
-      <xsl:apply-templates select=".//re[@type='re.bdv']" />
+  </xsl:template>
+
+  <xsl:template match="re[@type='re.ggs']">
+    <field name="ggs">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <field name="ggs_text">
+      <xsl:value-of select=".//text()" />
+    </field>
   </xsl:template>
 
   <xsl:template match="lb">
     <xsl:text> / </xsl:text>
+  </xsl:template>
+
+  <xsl:template match="re[@type='re.bdv']">
+    <field name="bdv">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <field name="bdv_text">
+      <xsl:value-of select=".//text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="def[.//text()]">
+    <field name="bed">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
   </xsl:template>
 
   <xsl:template name="printDefTextAndNumber">
@@ -221,16 +242,10 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="def[.//text()]">
-    <field name="bed">
-      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="." mode="html_for_whole_article" />
-      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-  </xsl:template>
-
   <xsl:template name="printDefinitionNumber">
+    <!-- either '1' or '1-5' -->
     <xsl:param name="rendNumber" />
+    <!-- returns '1.' or '1.-5.' -->
     <xsl:choose>
       <xsl:when test="number($rendNumber)">
         <xsl:value-of select="$rendNumber" />

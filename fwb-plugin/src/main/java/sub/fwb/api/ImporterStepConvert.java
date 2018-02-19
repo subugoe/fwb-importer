@@ -14,6 +14,11 @@ import sub.fwb.SourcesParser;
 import sub.fwb.WordTypesGenerator;
 import sub.fwb.Xslt;
 
+/**
+ * Converter step that starts a transformation of FWB input files
+ * (Excel and TEI) to Solr XML files.
+ *
+ */
 public class ImporterStepConvert extends ImporterStep {
 
 	private SourcesParser sourcesParser = new SourcesParser();
@@ -21,6 +26,9 @@ public class ImporterStepConvert extends ImporterStep {
 	private Xslt xslt = new Xslt();
 	private FileAccess fileAccess = new FileAccess();
 
+	/**
+	 * Reads an Excel file, a bunch of TEI files, and produces Solr XML files.
+	 */
 	@Override
 	public void execute(Map<String, String> params) throws Exception {
 		String gitDir = params.get("gitDir");

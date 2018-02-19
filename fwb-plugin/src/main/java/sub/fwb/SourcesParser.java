@@ -16,6 +16,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * Parser for the Excel file that is used in the FWB project to store book sources.
+ *
+ */
 public class SourcesParser {
 
 	private String[] headers = { "A 0 sort", "B 1 sigle", "C 2 kraftliste", "D 3 kurztitel", "E 4 ort und zeit", "F 5",
@@ -32,6 +36,10 @@ public class SourcesParser {
 	private final int ZITIERWEISE = 19;
 	private final int NAME = 21;
 
+	/**
+	 * Converts one Excel file to one Solr XML file. The Solr XML file will contain one 
+	 * <doc> element for each row in the Excel file.
+	 */
 	public void convertExcelToXml(File excelFile, File xmlResult) throws IOException {
 		FileInputStream file = new FileInputStream(excelFile);
 		StringBuffer buffer = new StringBuffer();
