@@ -26,6 +26,9 @@
      HTML element, which in turn becomes part of the big <div> element.
      Those part elements are mostly <div>'s with 'class' attributes.
      All the formatting happens in the front end and is not generated here.
+     Many of the part elements contain comment sections which mark their beginnings and endings.
+     These special comments are used for highlighting when the user searches in one distinct 
+     HTML search field (see below).
      The HTML article can be used both for searching and for displaying.
      Its templates have their own mode: 'html_for_whole_article'.
      
@@ -56,7 +59,7 @@
      This makes it possible to search only inside this one field and also to highlight only the 
      corresponding part inside the whole article, i. e. without highlighting the rest of the article.
      The trick is to highlight in the individual field and then replace the unhighlighted part 
-     in the article HTML field.
+     in the article HTML field (using the special comments mentioned above).
      The second field is called 'phras_text' and again contains only the text for the generation
      of preview snippets.
  -->
