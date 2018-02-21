@@ -10,6 +10,11 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * JUnit test class.
+ * Sends some queries to a running Solr server and checks if the expected results are returned.
+ * 
+ */ 
 public class SolrTester {
 	private static SolrWrapper solr;
 

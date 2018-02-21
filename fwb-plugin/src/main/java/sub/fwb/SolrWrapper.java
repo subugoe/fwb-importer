@@ -13,6 +13,10 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.noggit.JSONUtil;
 
+/**
+ * In-between class for all interactions with a Solr server.
+ *
+ */
 public class SolrWrapper {
 
 	private SolrClient solrServerClient;

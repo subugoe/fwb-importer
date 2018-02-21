@@ -9,8 +9,17 @@ import org.apache.commons.io.FileUtils;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A JUnit-ish test case.
+ * Compares the text from TEI files to the text of HTML fileds in the corresponding Solr XML files.
+ *
+ */
 public class TeiHtmlComparator {
 
+	/**
+	 * Extracts and compares the relevant texts of two files.
+	 * All tags and whitespace characters are removed first.
+	 */
 	public void compareTexts(File tei, File solrXml) throws IOException {
 
 		String teiString = FileUtils.readFileToString(tei);
@@ -20,7 +29,8 @@ public class TeiHtmlComparator {
 		teiString = teiString.replace("<quote>", ": ");
 		teiString = teiString.replace("<lb/>", " | ");
 		teiString = teiString.replace("> <", "");
-		// need to replace the accidental occurrences
+		// need to replace the accidental occurrences, because the XSLT script inserts these words into Solr XML
+		// and they must be removed there
 		teiString = teiString.replaceAll(
 				"(Bedeutungsverwandte: |Syntagmen: |Belegblock: |Gegensätze: |Phraseme: |Wortbildungen: |Zur Sache: |Redensart: )",
 				"");

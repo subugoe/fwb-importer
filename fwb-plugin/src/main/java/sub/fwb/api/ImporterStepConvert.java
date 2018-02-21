@@ -15,7 +15,7 @@ import sub.fwb.WordTypesGenerator;
 import sub.fwb.Xslt;
 
 /**
- * Converter step that starts a transformation of FWB input files
+ * Importer step that starts a transformation of FWB input files
  * (Excel and TEI) to Solr XML files.
  *
  */

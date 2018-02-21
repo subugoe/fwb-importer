@@ -9,10 +9,17 @@ import sub.ent.api.ImporterStep;
 import sub.ent.backend.FileAccess;
 import sub.fwb.TeiHtmlComparator;
 
+/**
+ * Importer step that compares text from TEI files to text in Solr XML files.
+ *
+ */
 public class ImporterStepCompare extends ImporterStep {
 
 	private FileAccess fileAccess = new FileAccess();
 
+	/**
+	 * Reads all the TEI files and the corresponding Solr XML files.
+	 */
 	@Override
 	public void execute(Map<String, String> params) throws Exception {
 		String teiInputDir = params.get("gitDir");
