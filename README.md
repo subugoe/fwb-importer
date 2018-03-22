@@ -4,6 +4,8 @@
 
 This project extends the solr-importer (https://github.com/subugoe/solr-importer) by implementing some plugin classes. The project's main purpose is to convert specifically formatted TEI files to Solr XML files. It also contains plugin classes which assert that the results are correct. Furthermore, it contains the complete configuration which is needed for a Solr server (schema, solrconfig.xml, etc.). In combination with the solr-importer, it becomes a web user interface (UI) tool that can be used to convert and import files delivered by the FWB-online project into the Solr server of its web site (https://fwb-online.de).
 
+Here in this readme, you can read how to operate the project. For more information on the code, refer to https://github.com/subugoe/fwb-importer/blob/master/fwb-plugin/src/main/java/docs/FwbPluginDocumentation.java.
+
 ## System requirements
 
 Docker, docker-compose, Git.
