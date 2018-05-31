@@ -10,3 +10,4 @@ docker.env
 data
 log.txt
 fwb-daten
+solrxml
