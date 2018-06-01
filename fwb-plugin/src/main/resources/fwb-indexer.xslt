@@ -502,6 +502,9 @@
       <xsl:text>source_</xsl:text>
       <xsl:value-of select="./bibl/name/@n" />
     </field>
+    <field name="sigle">
+      <xsl:value-of select="./bibl/name/@n" />
+    </field>
     <field name="zitat">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
       <xsl:apply-templates select="quote" mode="html_for_whole_article" />
@@ -528,6 +531,9 @@
   <xsl:template match="cit[not(quote)]">
     <field name="definition_source_instance">
       <xsl:text>source_</xsl:text>
+      <xsl:value-of select="./bibl/name/@n" />
+    </field>
+    <field name="sigle">
       <xsl:value-of select="./bibl/name/@n" />
     </field>
     <xsl:apply-templates select=".//region | .//date" />

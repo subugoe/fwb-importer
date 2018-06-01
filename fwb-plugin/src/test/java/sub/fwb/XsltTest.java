@@ -36,6 +36,15 @@ public class XsltTest {
 	}
 
 	@Test
+	public void shouldAddSigle() throws Exception {
+		xslt.transform("src/test/resources/sigle.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("my_sigle1", "//field[@name='sigle'][1]", result);
+		assertXpathEvaluatesTo("my_sigle2", "//field[@name='sigle'][2]", result);
+	}
+
+	@Test
 	public void shouldAddSecondInternalId() throws Exception {
 		xslt.transform("src/test/resources/virtualIds.xml", outputBaos);
 		String result = outputBaos.toString();

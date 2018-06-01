@@ -192,6 +192,7 @@
   <field name="definition_source_id" type="string" multiValued="true" />
   <!-- Belegstelle -->
   <field name="definition_source_instance" type="string" multiValued="true" />
+  <field name="sigle" type="string" multiValued="true" />
 
   <field name="bdv_id" type="string" multiValued="true" />
 
