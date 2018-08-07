@@ -22,8 +22,8 @@ import org.junit.Test;
 import sub.ent.api.ImporterStep;
 import sub.ent.api.ImporterStepCoreSwap;
 import sub.ent.api.ImporterStepUpload;
-import sub.ent.backend.CoreSwapper;
 import sub.ent.backend.Importer;
+import sub.ent.backend.SolrAccess;
 import sub.ent.backend.Uploader;
 import sub.ent.testing.EmbeddedSolr;
 import sub.fwb.api.ImporterStepCompare;
@@ -39,7 +39,7 @@ public class ImporterIntegrationTest {
 	private String gitDir = "src/test/resources/import";
 	private String solrXmlDir = "target/solrxml";
 
-	/* This is used as a signal to use the embedded Solr in these classes: */ Uploader u; CoreSwapper c;
+	/* This is used as a signal to use the embedded Solr in these classes: */ Uploader u; SolrAccess s;
 	private String solrUrl = "embedded";
 
 	private String importCore = "fwboffline";
