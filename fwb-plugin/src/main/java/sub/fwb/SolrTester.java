@@ -4,11 +4,11 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import sub.ent.backend.Environment;
 
 /**
  * JUnit test class.
@@ -16,14 +16,15 @@ import org.junit.Test;
  * 
  */ 
 public class SolrTester {
-	private static SolrWrapper solr;
-
+	private static SolrAccessForTesting solr = new SolrAccessForTesting();
+	private static Environment env = new Environment();
+	
 	@BeforeClass
 	public static void beforeAllTests() throws Exception {
 		String solrUrl = System.getProperty("SOLR_URL_FOR_TESTS", "http://localhost:8983/solr");
 		String core = System.getProperty("SOLR_CORE_FOR_TESTS", "fwb");
-		SolrClient solrServerClient = new HttpSolrClient(solrUrl);
-		solr = new SolrWrapper(solrServerClient, core);
+		solr.initialize(solrUrl, core);
+		solr.setCredentials(env.solrUser(), env.solrPassword());
 	}
 
 	@After

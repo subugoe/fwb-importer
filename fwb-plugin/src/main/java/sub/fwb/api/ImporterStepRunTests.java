@@ -22,11 +22,6 @@ public class ImporterStepRunTests extends ImporterStep {
 	public void execute(Map<String, String> params) throws Exception {
 		String solrUrl = params.get("solrUrl");
 		String solrImportCore = params.get("solrImportCore");
-		String solrUser = params.get("solrUser");
-		String solrPassword = params.get("solrPassword");
-		if (!empty(solrUser, solrPassword)) {
-			solrUrl = solrUrl.replace("://", "://" + solrUser + ":" + solrPassword + "@");
-		}
 		out.println();
 		out.println("    Running test queries.");
 		System.setProperty("SOLR_URL_FOR_TESTS", solrUrl);
@@ -37,14 +32,6 @@ public class ImporterStepRunTests extends ImporterStep {
 			out.println();
 			out.println("WARNING in " + fail.getTestHeader() + ": " + fail.getMessage());
 		}
-	}
-
-	private boolean empty(String... strings) {
-		for (String s : strings) {
-			if (s == null || "".equals(s))
-				return true;
-		}
-		return false;
 	}
 
 	@Override

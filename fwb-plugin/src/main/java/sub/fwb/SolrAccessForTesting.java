@@ -5,32 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
+import org.apache.solr.core.CoreContainer;
 import org.noggit.JSONUtil;
 
+import sub.ent.backend.SolrAccess;
+
 /**
- * In-between class for all interactions with a Solr server.
+ * In-between class for all interactions with a Solr server while testing.
  *
  */
-public class SolrWrapper {
+public class SolrAccessForTesting extends SolrAccess {
 
-	private SolrClient solrServerClient;
 	private String solrQueryString = "";
 	private SolrDocumentList docList;
 	private Map<String, Map<String, List<String>>> highlightings;
 	private List<String> suggestions;
-	private String core;
 
-	public SolrWrapper(SolrClient newSolrThing, String solrCore) {
-		solrServerClient = newSolrThing;
-		core = solrCore;
+	public void initializeEmbedded(String coreName) {
+		CoreContainer container = new CoreContainer("solr-embedded");
+		container.load();
+		solr = new EmbeddedSolrServer(container, coreName);
+		core = coreName;
 	}
-
+	
 	public void list(String userInputs) {
 		ask(new String[][] {}, userInputs, "/list");
 	}
@@ -65,7 +68,7 @@ public class SolrWrapper {
 		}
 		QueryResponse response;
 		try {
-			response = solrServerClient.query(core, solrQuery);
+			response = solr.query(core, solrQuery);
 		} catch (Exception e) {
 			throw new RuntimeException("Could not execute '" + query + "'", e);
 		}
@@ -105,7 +108,9 @@ public class SolrWrapper {
 	}
 
 	public int askForNumberOfLemmas(String wordPart) {
-		SolrWrapper tempSolr = new SolrWrapper(solrServerClient, core);
+		SolrAccessForTesting tempSolr = new SolrAccessForTesting();
+		tempSolr.initialize(url, core);
+		tempSolr.setCredentials(solrUser, solrPassword);
 		tempSolr.select("lemma:*" + wordPart + "*");
 
 		return (int) tempSolr.results();
@@ -137,7 +142,7 @@ public class SolrWrapper {
 		System.out.println("    " + solrQueryString);
 	}
 
-	public void addDocument(String[][] documentFields) throws Exception {
+	public void addDocumentFromArray(String[][] documentFields) throws Exception {
 		SolrInputDocument newDoc = new SolrInputDocument();
 		for (String[] docField : documentFields) {
 			newDoc.addField(docField[0], docField[1]);
@@ -151,17 +156,17 @@ public class SolrWrapper {
 		if (!newDoc.containsKey("lemma")) {
 			newDoc.addField("lemma", "mylemma");
 		}
-		solrServerClient.add(core, newDoc);
-		solrServerClient.commit(core);
+		solr.add(core, newDoc);
+		solr.commit(core);
 	}
 
-	public void clean() throws Exception {
-		solrServerClient.deleteByQuery(core, "*:*");
-		solrServerClient.commit(core);
+	public void cleanAndCommit() throws Exception {
+		solr.deleteByQuery(core, "*:*");
+		solr.commit(core);
 	}
 
 	public void close() throws IOException {
-		solrServerClient.close();
+		solr.close();
 	}
 
 }
