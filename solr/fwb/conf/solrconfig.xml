@@ -2,7 +2,8 @@
 
 <config>
 
-  <luceneMatchVersion>5.4.1</luceneMatchVersion>
+  <luceneMatchVersion>7.4.0</luceneMatchVersion>
+  <schemaFactory class="ClassicIndexSchemaFactory"/>
 
   <!-- This contains all the customizations that start with 'sub.fwb'. -->
   <lib path="conf/fwb-solr-mods.jar" />
@@ -12,10 +13,6 @@
     <!-- This must be high, so that wildcard searches work reasonably. -->
     <maxBooleanClauses>20000</maxBooleanClauses>
   </query>
-
-  <!-- These are used for phrase searches with wildcards. Contain some little changes to the underlying 'complexphrase' parser. -->
-  <queryParser name="wildcardphrase" class="sub.fwb.WildcardPhraseQParserPlugin"/>
-  <queryParser name="wildcardphrase_exakt" class="sub.fwb.WildcardPhraseQParserPluginExact"/>
 
   <!-- Common parameters for the custom search handlers -->
   <initParams path="/search,/list,/article-hl,/article">

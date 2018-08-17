@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
 
   <bean id="sleep" class="sub.ent.api.ImporterStepSleep" />
   <bean id="convert" class="sub.fwb.api.ImporterStepConvert" />
@@ -12,12 +15,12 @@
   <bean id="importer" class="sub.ent.backend.Importer">
     <property name="steps">
       <list>
-        <ref local="sleep" />
-        <ref local="convert" />
-        <ref local="compare" />
-        <ref local="upload" />
-        <ref local="runTests" />
-        <ref local="coreSwap" />
+        <ref bean="sleep" />
+        <ref bean="convert" />
+        <ref bean="compare" />
+        <ref bean="upload" />
+        <ref bean="runTests" />
+        <ref bean="coreSwap" />
       </list>
     </property>
   </bean>
