@@ -10,9 +10,9 @@ import java.util.Map;
 
 import sub.ent.api.ImporterStep;
 import sub.ent.backend.FileAccess;
+import sub.ent.backend.Xslt;
 import sub.fwb.SourcesParser;
 import sub.fwb.WordTypesGenerator;
-import sub.fwb.Xslt;
 
 /**
  * Importer step that starts a transformation of FWB input files

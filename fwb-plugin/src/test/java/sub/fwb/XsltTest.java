@@ -14,6 +14,8 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import sub.ent.backend.Xslt;
+
 public class XsltTest {
 
 	private OutputStream outputBaos;

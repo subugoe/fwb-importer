@@ -16,6 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import sub.ent.backend.Xslt;
+
 public class XsltHtmlTest {
 
 	private OutputStream outputBaos;
