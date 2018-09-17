@@ -484,6 +484,22 @@ public class XsltTest {
 	}
 
 	@Test
+	public void shouldAddZursacheFromUsg() throws Exception {
+		xslt.transform("src/test/resources/zursache-usg-ref.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("<span class=\"usg-ref\"><!--start zursache1-->in usg<!--end zursache1--></span>", "//field[@name='zursache']", result);
+	}
+
+	@Test
+	public void shouldAddZursacheTextFromUsg() throws Exception {
+		xslt.transform("src/test/resources/zursache-usg-ref.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("in usg", "//field[@name='zursache_text']", result);
+	}
+
+	@Test
 	public void shouldAddRelatedReference() throws Exception {
 		xslt.transform("src/test/resources/sense_relatedReference.xml", outputBaos);
 		String result = outputBaos.toString();

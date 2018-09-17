@@ -3,9 +3,7 @@
   <text>
     <body>
       <entry>
-        <sense>
-          <dictScrap rend="ref">dictRef <bibl xml:space="preserve"><name n="abc" cert="high">Meier</name></bibl>.</dictScrap>
-        </sense>
+        <dictScrap rend="artkopf">article head, <usg rend="ref">in usg</usg></dictScrap>
       </entry>
     </body>
   </text>

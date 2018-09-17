@@ -44,11 +44,19 @@ public class XsltHtmlTest {
 	}
 
 	@Test
+	public void shouldInsertZursacheFromArticleHead() throws Exception {
+		xslt.transform("src/test/resources/html/zursache-usg-ref.xml", outputBaos);
+		String html = extractHtmlField(outputBaos.toString());
+
+		assertXpathEvaluatesTo("in usg", "//span[@class='usg-ref']", html);
+		// example: abbrechen
+	}
+
+	@Test
 	public void shouldNotInsertSpaceAfterNeblemWithComma() throws Exception {
 		xslt.transform("src/test/resources/html/neblemWithComma.xml", outputBaos);
 		String html = extractHtmlField(outputBaos.toString());
 
-		System.out.println(html);
 		assertXpathEvaluatesTo("neblem, bla", "//div[@class='article-head']", html);
 		// example: aberacht
 	}
@@ -144,23 +152,6 @@ public class XsltHtmlTest {
 		String warningMessage = errorBaos.toString();
 		assertThat(warningMessage, containsString("WARNING"));
 		assertThat(warningMessage, containsString("Unknown element <newElement>"));
-	}
-
-	@Test
-	public void shouldProduceZurSacheWithColon() throws Exception {
-		xslt.transform("src/test/resources/html/zurSacheWithoutColon.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString());
-
-		assertXpathEvaluatesTo("Zur Sache: ", "//div[@class='dict-ref-begin']", html);
-	}
-
-	@Test
-	public void shouldProduceZurSacheWithoutColon() throws Exception {
-		xslt.transform("src/test/resources/html/zurSacheWithColon.xml", outputBaos);
-		String html = extractHtmlField(outputBaos.toString());
-
-		assertXpathEvaluatesTo("Zur Sache ", "//div[@class='dict-ref-begin']", html);
-		// example: bachbunge
 	}
 
 	@Test
@@ -509,7 +500,6 @@ public class XsltHtmlTest {
 		assertXpathExists("//div[@class='wbg']", html);
 		assertXpathExists("//div[@class='wbg-begin']", html);
 		assertXpathExists("//div[@class='dict-ref']", html);
-		assertXpathExists("//div[@class='dict-ref-begin']", html);
 		assertXpathExists("//div[@class='subvoce']", html);
 		assertXpathExists("//div[@class='subvoce-begin']", html);
 	}

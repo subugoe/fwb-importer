@@ -202,6 +202,7 @@
     <field name="etym_text">
       <xsl:value-of select="dictScrap[@rend='artkopf']/etym" />
     </field>
+    <xsl:apply-templates select="dictScrap[@rend='artkopf']/usg[@rend='ref']" />
     <field name="is_reference">
       <!-- Reference articles don't have any 'sense' elements -->
       <xsl:value-of select="not(sense)" />
@@ -234,6 +235,17 @@
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
       <xsl:apply-templates select="." mode="html_for_whole_article" />
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+  </xsl:template>
+
+  <xsl:template match="usg[@rend='ref']">
+    <field name="zursache">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <field name="zursache_text">
+      <xsl:value-of select=".//text()" />
     </field>
   </xsl:template>
 
@@ -1146,19 +1158,19 @@
     <xsl:variable name="refId" select="concat('zursache', $refNumber)" />
     <div class="dict-ref">
       <xsl:comment>start <xsl:value-of select="$refId" /></xsl:comment>
-      <div class="dict-ref-begin">
-        <xsl:choose>
-          <xsl:when test="ends-with(normalize-space(text()[1]), ':')">
-            <xsl:text>Zur Sache </xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:text>Zur Sache: </xsl:text>
-          </xsl:otherwise>
-        </xsl:choose>
-      </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$refId" /></xsl:comment>
     </div>
+  </xsl:template>
+
+  <xsl:template match="usg[@rend='ref']" mode="html_for_whole_article">
+    <xsl:variable name="refNumber" select="count(preceding::usg[@rend='ref']) + 1" />
+    <xsl:variable name="refId" select="concat('zursache', $refNumber)" />
+    <span class="usg-ref">
+      <xsl:comment>start <xsl:value-of select="$refId" /></xsl:comment>
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
+      <xsl:comment>end <xsl:value-of select="$refId" /></xsl:comment>
+    </span>
   </xsl:template>
 
   <xsl:template match="dictScrap[@rend='sv']" mode="html_for_whole_article">
