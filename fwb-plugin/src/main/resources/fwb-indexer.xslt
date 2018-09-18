@@ -1166,11 +1166,11 @@
   <xsl:template match="usg[@rend='ref']" mode="html_for_whole_article">
     <xsl:variable name="refNumber" select="count(preceding::usg[@rend='ref']) + 1" />
     <xsl:variable name="refId" select="concat('zursache', $refNumber)" />
-    <span class="usg-ref">
+    <div class="usg-ref">
       <xsl:comment>start <xsl:value-of select="$refId" /></xsl:comment>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$refId" /></xsl:comment>
-    </span>
+    </div>
   </xsl:template>
 
   <xsl:template match="dictScrap[@rend='sv']" mode="html_for_whole_article">
