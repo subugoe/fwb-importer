@@ -906,9 +906,9 @@
   </xsl:template>
 
   <xsl:template match="hi[@rendition='b' and .//text()]" mode="html_for_whole_article">
-    <div class="bold">
+    <strong>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
-    </div>
+    </strong>
   </xsl:template>
 
   <xsl:template match="hi[@rendition='wide' and .//text()]" mode="html_for_whole_article">

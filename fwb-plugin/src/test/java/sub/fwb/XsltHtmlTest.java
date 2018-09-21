@@ -413,7 +413,7 @@ public class XsltHtmlTest {
 		assertXpathEvaluatesTo("tief", "//div[@class='deep']", html);
 		assertXpathEvaluatesTo("rect", "//div[@class='rect']", html);
 		assertXpathEvaluatesTo("sc", "//div[@class='small-capitals']", html);
-		assertXpathEvaluatesTo("bold", "//div[@class='bold']", html);
+		assertXpathEvaluatesTo("bold", "//strong", html);
 		assertXpathEvaluatesTo("wide", "//div[@class='wide']", html);
 	}
 
