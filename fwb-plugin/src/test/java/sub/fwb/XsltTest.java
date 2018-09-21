@@ -488,7 +488,7 @@ public class XsltTest {
 		xslt.transform("src/test/resources/zursache-usg-ref.xml", outputBaos);
 		String result = outputBaos.toString();
 
-		assertXpathEvaluatesTo("<span class=\"usg-ref\"><!--start zursache1-->in usg<!--end zursache1--></span>", "//field[@name='zursache']", result);
+		assertXpathEvaluatesTo("<div class=\"usg-ref\"><!--start zursache1-->in usg<!--end zursache1--></div>", "//field[@name='zursache']", result);
 	}
 
 	@Test

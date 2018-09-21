@@ -48,7 +48,7 @@ public class XsltHtmlTest {
 		xslt.transform("src/test/resources/html/zursache-usg-ref.xml", outputBaos);
 		String html = extractHtmlField(outputBaos.toString());
 
-		assertXpathEvaluatesTo("in usg", "//span[@class='usg-ref']", html);
+		assertXpathEvaluatesTo("in usg", "//div[@class='usg-ref']", html);
 		// example: abbrechen
 	}
 
