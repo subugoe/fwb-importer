@@ -203,6 +203,7 @@
       <xsl:value-of select="dictScrap[@rend='artkopf']/etym" />
     </field>
     <xsl:apply-templates select="dictScrap[@rend='artkopf']/usg[@rend='ref']" />
+    <xsl:apply-templates select="dictScrap[@rend='artkopf']/usg[@rend='stw']" />
     <field name="is_reference">
       <!-- Reference articles don't have any 'sense' elements -->
       <xsl:value-of select="not(sense)" />
@@ -245,6 +246,17 @@
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
     <field name="zursache_text">
+      <xsl:value-of select=".//text()" />
+    </field>
+  </xsl:template>
+
+  <xsl:template match="usg[@rend='stw']">
+    <field name="stw">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <field name="stw_text">
       <xsl:value-of select=".//text()" />
     </field>
   </xsl:template>
@@ -1170,6 +1182,16 @@
       <xsl:comment>start <xsl:value-of select="$refId" /></xsl:comment>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$refId" /></xsl:comment>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="usg[@rend='stw']" mode="html_for_whole_article">
+    <xsl:variable name="stwNumber" select="count(preceding::usg[@rend='stw']) + 1" />
+    <xsl:variable name="stwId" select="concat('usgstw', $stwNumber)" />
+    <div class="usg-stw">
+      <xsl:comment>start <xsl:value-of select="$stwId" /></xsl:comment>
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
+      <xsl:comment>end <xsl:value-of select="$stwId" /></xsl:comment>
     </div>
   </xsl:template>
 

@@ -489,6 +489,7 @@ public class XsltTest {
 		String result = outputBaos.toString();
 
 		assertXpathEvaluatesTo("<div class=\"usg-ref\"><!--start zursache1-->in usg<!--end zursache1--></div>", "//field[@name='zursache']", result);
+		// example: abbrechen
 	}
 
 	@Test
@@ -497,6 +498,7 @@ public class XsltTest {
 		String result = outputBaos.toString();
 
 		assertXpathEvaluatesTo("in usg", "//field[@name='zursache_text']", result);
+		// example: abbrechen
 	}
 
 	@Test
@@ -513,6 +515,24 @@ public class XsltTest {
 		String result = outputBaos.toString();
 
 		assertXpathEvaluatesTo("this is a syntagma", "//field[@name='synt_text']", result);
+	}
+
+	@Test
+	public void shouldAddStwFromUsg() throws Exception {
+		xslt.transform("src/test/resources/usg-stw.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("<div class=\"usg-stw\"><!--start usgstw1-->in usg stw<!--end usgstw1--></div>", "//field[@name='stw']", result);
+		// example: al 2 Konj.
+	}
+
+	@Test
+	public void shouldAddStwTextFromUsg() throws Exception {
+		xslt.transform("src/test/resources/usg-stw.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("in usg stw", "//field[@name='stw_text']", result);
+		// example: al 2 Konj.
 	}
 
 	@Test

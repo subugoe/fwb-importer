@@ -44,6 +44,15 @@ public class XsltHtmlTest {
 	}
 
 	@Test
+	public void shouldInsertStwFromArticleHead() throws Exception {
+		xslt.transform("src/test/resources/usg-stw.xml", outputBaos);
+		String html = extractHtmlField(outputBaos.toString());
+
+		assertXpathEvaluatesTo("in usg stw", "//div[@class='usg-stw']", html);
+		// example: al 2 Konj.
+	}
+
+	@Test
 	public void shouldInsertZursacheFromArticleHead() throws Exception {
 		xslt.transform("src/test/resources/html/zursache-usg-ref.xml", outputBaos);
 		String html = extractHtmlField(outputBaos.toString());
