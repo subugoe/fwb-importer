@@ -47,11 +47,83 @@ public class SufoTester {
 	
 	
 	@Test
-	public void imbiss() throws Exception {
+	public void amad() throws Exception {
 
-		solr.list("imbiss");
+		solr.list("amahd");
 
-		mustBeFirstLemma("imbis");
+		mustBeFirstLemma("amad");
+	}
+
+	@Test
+	public void kaiser() throws Exception {
+
+		solr.list("kaiser");
+
+		mustBeFirstLemma("keiser");
+	}
+
+	@Test
+	public void gott() throws Exception {
+
+		solr.list("gott");
+
+		mustBeFirstLemma("gott");
+	}
+
+	@Test
+	public void amt() throws Exception {
+
+		solr.list("amt");
+
+		mustBeFirstLemma("amt");
+	}
+
+	@Test
+	public void anfangen() throws Exception {
+
+		solr.list("anfangen");
+
+		mustBeFirstLemma("anfängen");
+	}
+
+	@Test
+	public void arzt() throws Exception {
+
+		solr.list("arzt");
+
+		mustBeFirstLemma("arzt");
+	}
+
+	@Test
+	public void papst() throws Exception {
+
+		solr.list("papst");
+
+		mustBeFirstLemma("papst");
+	}
+
+	@Test
+	public void backenzahn() throws Exception {
+
+		solr.list("backenzahn");
+
+		mustBeFirstLemma("backenzan");
+	}
+
+	@Test
+	public void panier() throws Exception {
+
+		solr.list("bannerherr");
+
+		mustBeFirstLemma("bannerherre");
+	}
+
+	@Test
+	public void jammer() throws Exception {
+
+		solr.list("jammervoll");
+
+		mustBeFirstLemma("jamerfol");
 	}
 
 	
