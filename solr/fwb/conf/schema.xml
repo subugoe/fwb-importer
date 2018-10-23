@@ -224,6 +224,7 @@
   <copyField source="lemma" dest="lemma_exakt" />
   <copyField source="artikel_text" dest="lemma_text" />
   <copyField source="artikel_text" dest="lemma_text_exakt" />
+  <copyField source="sufo" dest="sufo_exakt" />
   <copyField source="neblem" dest="neblem_exakt" />
   <copyField source="neblem_text" dest="neblem_text_exakt" />
   <copyField source="def" dest="def_exakt" />

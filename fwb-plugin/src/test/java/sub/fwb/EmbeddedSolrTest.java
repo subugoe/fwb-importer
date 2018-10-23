@@ -31,6 +31,33 @@ public class EmbeddedSolrTest {
 	}
 	
 	@Test
+	public void shouldFindSufoUsingGeneralSearchExact() throws Exception {
+		String[][] doc = { { "sufo", "Imbis" } };
+		solr.addDocumentFromArray(doc);
+
+		solr.search("Imbis EXAKT");
+		assertEquals(1, results());
+	}
+	
+	@Test
+	public void shouldFindSufoUsingGeneralSearch() throws Exception {
+		String[][] doc = { { "sufo", "imbis" } };
+		solr.addDocumentFromArray(doc);
+
+		solr.search("imbis");
+		assertEquals(1, results());
+	}
+	
+	@Test
+	public void shouldFindSufo() throws Exception {
+		String[][] doc = { { "sufo", "imbis" } };
+		solr.addDocumentFromArray(doc);
+
+		solr.search("sufo:imbis");
+		assertEquals(1, results());
+	}
+	
+	@Test
 	public void shouldFindNotExactComplexPhrase() throws Exception {
 		String[][] doc = { { "artikel", "imbis ward" } };
 		solr.addDocumentFromArray(doc);
