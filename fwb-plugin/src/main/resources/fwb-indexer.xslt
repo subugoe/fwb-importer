@@ -115,6 +115,21 @@
         <xsl:value-of select="." />
       </field>
     </xsl:for-each>
+
+  <field name="sufo_text">
+    <xsl:for-each select="note[@type='orth.de_DE']">
+      <xsl:value-of select="." />
+      <xsl:text> ##</xsl:text>
+    </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="//def">
+        <xsl:value-of select="//def[1]" />
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="//entry/*" mode="only_article_text" />
+      </xsl:otherwise>
+    </xsl:choose>
+  </field>
   </xsl:template>
 
   <xsl:template match="entry">

@@ -38,6 +38,24 @@ public class XsltTest {
 	}
 
 	@Test
+	public void shouldAddSufoTextFromArticle() throws Exception {
+		xslt.transform("src/test/resources/sufo_withoutDefinition.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("1", "count(//field[@name='sufo_text'])", result);
+		assertXpathEvaluatesTo("mysufo1 ##mysufo2 ##test_lemma, ", "//field[@name='sufo_text']", result);
+	}
+
+	@Test
+	public void shouldAddSufoTextFromDefinition() throws Exception {
+		xslt.transform("src/test/resources/sufo_withDefinition.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("1", "count(//field[@name='sufo_text'])", result);
+		assertXpathEvaluatesTo("mysufo1 ##mysufo2 ##def1", "//field[@name='sufo_text']", result);
+	}
+
+	@Test
 	public void shouldAddSigle() throws Exception {
 		xslt.transform("src/test/resources/sigle.xml", outputBaos);
 		String result = outputBaos.toString();

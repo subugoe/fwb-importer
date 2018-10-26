@@ -36,7 +36,7 @@
     <lst name="invariants">
       <str name="fl">lemma,sufo,homonym,roman_number,wortart,wortart_allgemein,internal_id,id,score,artikel_text</str>
       <str name="facet">true</str>
-      <str name="hl.fl">lemma_text,neblem_text,bed_text,bdv_text,zitat_text,phras_text,wbv_text,ggs_text,stw_text,synt_text,wbg_text,zursache_text,etym_text,subvoce_text,artikel_text</str>
+      <str name="hl.fl">lemma_text,neblem_text,bed_text,bdv_text,zitat_text,phras_text,wbv_text,ggs_text,stw_text,synt_text,wbg_text,zursache_text,etym_text,subvoce_text,artikel_text,sufo_text</str>
     </lst>
     <lst name="defaults">
       <str name="facet.field">wortart_allgemein</str>

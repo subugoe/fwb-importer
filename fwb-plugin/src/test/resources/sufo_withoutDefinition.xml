@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <teiHeader>
+  	<fileDesc>
+  	  <notesStmt>
+        <note type="orth.de_DE">mysufo1</note>
+        <note type="orth.de_DE">mysufo2</note>
+      </notesStmt>
+  	</fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <entry>
+        <form type="lemma">
+          <orth>test_lemma,</orth>
+        </form>
+      </entry>
+    </body>
+  </text>
+</TEI>

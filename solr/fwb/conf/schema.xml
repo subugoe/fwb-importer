@@ -135,6 +135,7 @@
   <field name="lemma" type="text_de" multiValued="false" />
   <field name="lemma_text" type="text_de" multiValued="false" />
   <field name="sufo" type="text_de" />
+  <field name="sufo_text" type="text_de" multiValued="false" />
   <field name="neblem" type="text_de" />
   <field name="neblem_text" type="text_de" />
   <field name="def" type="text_de" />
@@ -225,6 +226,7 @@
   <copyField source="artikel_text" dest="lemma_text" />
   <copyField source="artikel_text" dest="lemma_text_exakt" />
   <copyField source="sufo" dest="sufo_exakt" />
+  <copyField source="sufo_text" dest="sufo_text_exakt" />
   <copyField source="neblem" dest="neblem_exakt" />
   <copyField source="neblem_text" dest="neblem_text_exakt" />
   <copyField source="def" dest="def_exakt" />
