@@ -34,6 +34,10 @@ Now you can compile the combination of the two projects by executing:
 
 In the background, Docker images will be downloaded and built, so on the first time it might take a while. Also, the projects are compiled with Gradle, but it is all contained inside of Docker images, so you should not worry about it.
 
+On some systems, the compilation might fail with a message that some external library could not be loaded. In such a case, try to add the following line to the file Dockerfile-compile (after the FROM command):
+
+```USER root```
+
 By default, the importer is configured to start on port 9090. If you want to change this (e. g to port 9091), you have to edit the file docker-compose.yml:
 
 ```
