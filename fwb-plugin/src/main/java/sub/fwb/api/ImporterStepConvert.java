@@ -35,7 +35,8 @@ public class ImporterStepConvert extends ImporterStep {
 		String solrXmlDir = params.get("solrXmlDir");
 		File outputDir = new File(solrXmlDir);
 		File inputDir = new File(gitDir);
-		File inputExcel = new File(inputDir, "FWB-Quellenliste.xlsx");
+		File excelInputDir = new File(inputDir, "TechData");
+		File inputExcel = new File(excelInputDir, "FWB-Quellenliste.xlsx");
 		
 		fileAccess.cleanDir(outputDir);
 		out.println("    Converting Excel to index file.");
