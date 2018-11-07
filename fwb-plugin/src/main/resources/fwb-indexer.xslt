@@ -883,6 +883,9 @@
   </xsl:template>
 
   <xsl:template match="dictScrap[@rend='meta']" mode="html_for_whole_article">
+    <div class="meta">
+      <xsl:apply-templates mode="html_for_whole_article" />
+    </div>
   </xsl:template>
 
   <xsl:template match="dictScrap[@rend='ra']" mode="html_for_whole_article">
@@ -1021,12 +1024,6 @@
         <xsl:choose>
           <xsl:when test="current-grouping-key() = 1">
             <div class="info-list-with-header">
-              <xsl:variable name="pre-sib" select="preceding-sibling::*[1]" />
-              <xsl:if test="$pre-sib[local-name() = 'dictScrap' and @rend = 'meta']">
-                <h3>
-                  <xsl:apply-templates select="$pre-sib/*|$pre-sib/text()" mode="html_for_whole_article" />
-                </h3>
-              </xsl:if>
               <ul class="info-list">
                 <xsl:for-each select="current-group()">
                   <li>
