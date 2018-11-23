@@ -44,6 +44,15 @@ public class XsltHtmlTest {
 	}
 
 	@Test
+	public void shouldInsertHeadingWithoutColon_stringDoesNotEndInColon() throws Exception {
+		xslt.transform("src/test/resources/html/headings_withColonInTei_inMiddleOfString.xml", outputBaos);
+		String html = extractHtmlField(outputBaos.toString());
+
+		assertXpathEvaluatesTo("Bedeutungsverwandte ", "//div[@class='bdv-begin']", html);
+		// example: affenschwanz
+	}
+
+	@Test
 	public void shouldInsertHeadingWithoutColon() throws Exception {
 		xslt.transform("src/test/resources/html/headings_withColonInTei.xml", outputBaos);
 		String html = extractHtmlField(outputBaos.toString());

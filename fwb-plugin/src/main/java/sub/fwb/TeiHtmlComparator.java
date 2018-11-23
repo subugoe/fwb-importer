@@ -32,9 +32,9 @@ public class TeiHtmlComparator {
 		// need to replace the accidental occurrences, because the XSLT script inserts these words into Solr XML
 		// and they must be removed there
 		teiString = teiString.replaceAll(
-				"(Bedeutungsverwandte: |Syntagmen: |Belegblock: |Gegensätze: |Phraseme: |Wortbildungen: |Zur Sache: |Redensart: )",
+				"(Bedeutungsverwandte: |Syntagmen: |Belegblock: |Gegensätze: |Phraseme: |Wortbildungen: |Redensart: )",
 				"");
-		teiString = teiString.replaceAll("Zur Sache ", "");
+		teiString = teiString.replaceAll("(Bedeutungsverwandte |Syntagmen |Gegensätze |Phraseme |Wortbildungen |Redensart )", "");
 		teiString = removeTags(teiString);
 		teiString = teiString.replaceAll("\\s+", "").trim();
 
@@ -47,9 +47,9 @@ public class TeiHtmlComparator {
 		solrString = solrString.replaceAll("<div class=\"homonym\">.*?</div>", "");
 		solrString = solrString.replace("> <", "");
 		solrString = solrString.replaceAll(
-				"(Bedeutungsverwandte: |Syntagmen: |Belegblock: |Gegensätze: |Phraseme: |Wortbildungen: |Zur Sache: |Redensart: )",
+				"(Bedeutungsverwandte: |Syntagmen: |Belegblock: |Gegensätze: |Phraseme: |Wortbildungen: |Redensart: )",
 				"");
-		solrString = solrString.replaceAll("Zur Sache ", "");
+		solrString = solrString.replaceAll("(Bedeutungsverwandte |Syntagmen |Gegensätze |Phraseme |Wortbildungen |Redensart )", "");
 		solrString = removeTags(solrString);
 		solrString = solrString.replaceAll("\\s+", "").trim();
 
