@@ -44,6 +44,23 @@ public class XsltHtmlTest {
 	}
 
 	@Test
+	public void shouldInsertHeadingWithoutColon() throws Exception {
+		xslt.transform("src/test/resources/html/headings_withColonInTei.xml", outputBaos);
+		String html = extractHtmlField(outputBaos.toString());
+
+		assertXpathEvaluatesTo("Bedeutungsverwandte ", "//div[@class='bdv-begin']", html);
+		// example: keiser
+	}
+
+	@Test
+	public void shouldInsertHeadingWithColon() throws Exception {
+		xslt.transform("src/test/resources/html/headings_withoutColonInTei.xml", outputBaos);
+		String html = extractHtmlField(outputBaos.toString());
+
+		assertXpathEvaluatesTo("Bedeutungsverwandte: ", "//div[@class='bdv-begin']", html);
+	}
+
+	@Test
 	public void shouldInsertStwFromArticleHead() throws Exception {
 		xslt.transform("src/test/resources/usg-stw.xml", outputBaos);
 		String html = extractHtmlField(outputBaos.toString());

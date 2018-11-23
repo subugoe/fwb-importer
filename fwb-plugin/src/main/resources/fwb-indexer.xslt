@@ -1121,7 +1121,8 @@
   <xsl:template match="dictScrap[@rend='bdv']" mode="html_for_whole_article">
     <div class="bdv">
       <div class="bdv-begin">
-        <xsl:text>Bedeutungsverwandte: </xsl:text>
+        <xsl:text>Bedeutungsverwandte</xsl:text>
+        <xsl:value-of select="if (ends-with(normalize-space(text()[1]), ':')) then ' ' else ': '" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
