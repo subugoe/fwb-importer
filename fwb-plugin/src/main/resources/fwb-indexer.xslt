@@ -704,18 +704,22 @@
       <xsl:comment>start <xsl:value-of select="$phrasId" /></xsl:comment>
       <div class="phras-begin">
         <xsl:text>Phraseme</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$phrasId" /></xsl:comment>
     </div>
   </xsl:template>
 
+  <xsl:template name="printColonOrSpace">
+    <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+  </xsl:template>
+
   <xsl:template match="dictScrap[@rend='ggs']" mode="html_for_whole_article">
     <div class="ggs">
       <div class="ggs-begin">
         <xsl:text>Gegensätze</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
@@ -785,7 +789,7 @@
     <div class="wbg">
       <div class="wbg-begin">
         <xsl:text>Wortbildungen</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
@@ -898,7 +902,7 @@
       <xsl:comment>start <xsl:value-of select="$raId" /></xsl:comment>
       <div class="redensart-begin">
         <xsl:text>Redensart</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$raId" /></xsl:comment>
@@ -1126,7 +1130,7 @@
     <div class="bdv">
       <div class="bdv-begin">
         <xsl:text>Bedeutungsverwandte</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </div>
@@ -1139,7 +1143,7 @@
       <xsl:comment>start <xsl:value-of select="$syntId" /></xsl:comment>
       <div class="synt-begin">
         <xsl:text>Syntagmen</xsl:text>
-        <xsl:value-of select="if (   ends-with(normalize-space(text()[1]), ':')   or   contains(text()[1], '):')   ) then ' ' else ': '" />
+        <xsl:call-template name="printColonOrSpace" />
       </div>
       <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       <xsl:comment>end <xsl:value-of select="$syntId" /></xsl:comment>
