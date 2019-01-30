@@ -31,6 +31,15 @@ public class EmbeddedSolrTest {
 	}
 	
 	@Test
+	public void shouldFindSigle() throws Exception {
+		String[][] doc = { { "sigle", "123" } };
+		solr.addDocumentFromArray(doc);
+
+		solr.search("sigle:123");
+		assertEquals(1, results());
+	}
+	
+	@Test
 	public void shouldProduceHlSnippetForSufo() throws Exception {
 		String[][] doc = { { "sufo", "imbis" }, { "artikel_text", "article" }, { "sufo_text", "imbis##article" } };
 		solr.addDocumentFromArray(doc);
