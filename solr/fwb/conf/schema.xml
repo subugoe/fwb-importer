@@ -257,5 +257,7 @@
   <copyField source="wbv_text" dest="wbv_text_exakt" />
   <copyField source="zitat" dest="zitat_exakt" />
   <copyField source="zitat_text" dest="zitat_text_exakt" />
+  <copyField source="biblio" dest="biblio_exakt" />
+  <copyField source="biblio_text" dest="biblio_text_exakt" />
 
 </schema>
