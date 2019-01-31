@@ -38,6 +38,25 @@ public class XsltTest {
 	}
 
 	@Test
+	public void shouldAddBiblio() throws Exception {
+		xslt.transform("src/test/resources/citations.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("2", "count(//field[@name='biblio'])", result);
+		assertXpathEvaluatesTo("<div class=\"highlight-boundary\"><!--start bibl1--> <a class=\"name citation-source_link\" href=\"/source/source_11\">Müller</a> : <!--end bibl1--></div>", "//field[@name='biblio'][1]", result);
+	}
+
+	@Test
+	public void shouldAddBiblioText() throws Exception {
+		xslt.transform("src/test/resources/citations.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("2", "count(//field[@name='biblio_text'])", result);
+		assertXpathEvaluatesTo("Müller ", "//field[@name='biblio_text'][1]", result);
+		assertXpathEvaluatesTo("Meier", "//field[@name='biblio_text'][2]", result);
+	}
+
+	@Test
 	public void shouldAddSufoTextFromArticle() throws Exception {
 		xslt.transform("src/test/resources/sufo_withoutDefinition.xml", outputBaos);
 		String result = outputBaos.toString();

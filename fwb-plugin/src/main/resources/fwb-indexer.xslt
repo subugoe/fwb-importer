@@ -553,6 +553,12 @@
       <xsl:apply-templates select="quote//lb | quote//text()" />
     </field>
     <xsl:apply-templates select=".//region | .//date" />
+    <field name="biblio">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="bibl" mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <xsl:apply-templates select="bibl" />
   </xsl:template>
 
   <xsl:template match="cit//region">
@@ -576,8 +582,20 @@
       <xsl:value-of select="./bibl/name/@n" />
     </field>
     <xsl:apply-templates select=".//region | .//date" />
+    <field name="biblio">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="bibl" mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+    <xsl:apply-templates select="bibl" />
   </xsl:template>
 
+  <xsl:template match="bibl">
+    <field name="biblio_text">
+      <xsl:value-of select="." />
+    </field>
+  </xsl:template>
+  
   <xsl:template match="entry" mode="only_article_text">
     <field name="artikel_text">
       <xsl:apply-templates select="*" mode="only_article_text" />
@@ -1237,13 +1255,19 @@
   </xsl:template>
 
   <xsl:template match="bibl" mode="html_for_whole_article">
-    <xsl:if test="preceding-sibling::*[1]/local-name() = 'bibl' and not(parent::etym) and not(parent::def)">
-      <xsl:text> </xsl:text>
-    </xsl:if>
-    <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
-    <xsl:if test="following-sibling::quote">
-      <xsl:text>: </xsl:text>
-    </xsl:if>
+    <xsl:variable name="biblNumber" select="count(preceding::bibl) + 1" />
+    <xsl:variable name="biblId" select="concat('bibl', $biblNumber)" />
+    <div class="highlight-boundary">
+      <xsl:comment>start <xsl:value-of select="$biblId" /></xsl:comment>
+      <xsl:if test="preceding-sibling::*[1]/local-name() = 'bibl' and not(parent::etym) and not(parent::def)">
+        <xsl:text> </xsl:text>
+      </xsl:if>
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
+      <xsl:if test="following-sibling::quote">
+        <xsl:text>: </xsl:text>
+      </xsl:if>
+      <xsl:comment>end <xsl:value-of select="$biblId" /></xsl:comment>
+    </div>
   </xsl:template>
 
   <xsl:template match="bibl/name[@n]" mode="html_for_whole_article">

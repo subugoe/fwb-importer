@@ -164,6 +164,8 @@
   <field name="wbg_text" type="text_de" />
   <field name="wbv" type="text_de" />
   <field name="wbv_text" type="text_de" />
+  <field name="biblio" type="text_de" />
+  <field name="biblio_text" type="text_de" />
 
   <field name="printed_source" type="string" />
   <field name="volume" type="string" />

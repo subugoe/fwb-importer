@@ -17,7 +17,7 @@
   <!-- Common parameters for the custom search handlers -->
   <initParams path="/search,/list,/article-hl,/article">
     <lst name="invariants">
-      <str name="qf">lemma^10000 neblem^1000 bed^70 bdv^60 zitat^55 phras^45 wbv^45 ggs^25 stw^40 synt^10 wbg^20 zursache^20 etym^10 subvoce^5 sufo^9000 sigle^1</str>
+      <str name="qf">lemma^10000 neblem^1000 bed^70 bdv^60 zitat^55 phras^45 wbv^45 ggs^25 stw^40 synt^10 wbg^20 zursache^20 etym^10 subvoce^5 sufo^9000 sigle^1 biblio^1</str>
       <str name="tie">0.01</str>
       <str name="df">artikel</str>
     </lst>
@@ -36,7 +36,7 @@
     <lst name="invariants">
       <str name="fl">lemma,sufo,homonym,roman_number,wortart,wortart_allgemein,internal_id,id,score,artikel_text</str>
       <str name="facet">true</str>
-      <str name="hl.fl">lemma_text,neblem_text,bed_text,bdv_text,zitat_text,phras_text,wbv_text,ggs_text,stw_text,synt_text,wbg_text,zursache_text,etym_text,subvoce_text,artikel_text,sufo_text</str>
+      <str name="hl.fl">lemma_text,neblem_text,bed_text,bdv_text,zitat_text,phras_text,wbv_text,ggs_text,stw_text,synt_text,wbg_text,zursache_text,etym_text,subvoce_text,artikel_text,sufo_text,biblio_text</str>
     </lst>
     <lst name="defaults">
       <str name="facet.field">wortart_allgemein</str>
@@ -68,7 +68,7 @@
   <requestHandler name="/article-hl" class="sub.fwb.HlQueryModifyingSearchHandler">
     <lst name="invariants">
       <str name="hl">true</str>
-      <str name="hl.fl">artikel,zitat,neblem,bed,wbg,stw,zursache,phras,bdv,ggs,synt,wbv,etym,subvoce</str>
+      <str name="hl.fl">artikel,zitat,neblem,bed,wbg,stw,zursache,phras,bdv,ggs,synt,wbv,etym,subvoce,biblio</str>
       <str name="hl.fragsize">0</str>
       <str name="hl.requireFieldMatch">true</str>
       <str name="hl.maxAnalyzedChars">-1</str>
