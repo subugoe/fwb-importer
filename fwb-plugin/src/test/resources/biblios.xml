@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <dictScrap rend="artkopf" xml:space="preserve"><bibl xml:space="preserve"><name n="007">Kandler</name>, Sprachgeschichte</bibl></dictScrap>
+        <sense>
+          <dictScrap rend="bls">
+            <cit>
+              <bibl xml:space="preserve"><name n="22">Meier</name></bibl>
+            </cit>
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

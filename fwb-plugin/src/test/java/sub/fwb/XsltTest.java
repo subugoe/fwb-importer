@@ -38,6 +38,15 @@ public class XsltTest {
 	}
 
 	@Test
+	public void shouldAddBiblioFromHead() throws Exception {
+		xslt.transform("src/test/resources/biblios.xml", outputBaos);
+		String result = outputBaos.toString();
+
+		assertXpathEvaluatesTo("2", "count(//field[@name='biblio_text'])", result);
+		assertXpathEvaluatesTo("2", "count(//field[@name='biblio'])", result);
+	}
+
+	@Test
 	public void shouldAddBiblio() throws Exception {
 		xslt.transform("src/test/resources/citations.xml", outputBaos);
 		String result = outputBaos.toString();

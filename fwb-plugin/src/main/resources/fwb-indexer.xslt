@@ -223,8 +223,23 @@
       <!-- Reference articles don't have any 'sense' elements -->
       <xsl:value-of select="not(sense)" />
     </field>
+    <xsl:apply-templates select=".//bibl"/>
   </xsl:template>
 
+  <xsl:template match="bibl">
+    <field name="sigle">
+      <xsl:value-of select="name/@n" />
+    </field>
+    <field name="biblio_text">
+      <xsl:value-of select="." />
+    </field>
+    <field name="biblio">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+      <xsl:apply-templates select="." mode="html_for_whole_article" />
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+  </xsl:template>
+  
   <xsl:function name="fwb:getWordTypeId">
     <xsl:param name="internalArticleId" />
     <xsl:if test="$internalArticleId != ''">
@@ -541,9 +556,6 @@
       <xsl:text>source_</xsl:text>
       <xsl:value-of select="./bibl/name/@n" />
     </field>
-    <field name="sigle">
-      <xsl:value-of select="./bibl/name/@n" />
-    </field>
     <field name="zitat">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
       <xsl:apply-templates select="quote" mode="html_for_whole_article" />
@@ -553,12 +565,6 @@
       <xsl:apply-templates select="quote//lb | quote//text()" />
     </field>
     <xsl:apply-templates select=".//region | .//date" />
-    <field name="biblio">
-      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="bibl" mode="html_for_whole_article" />
-      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-    <xsl:apply-templates select="bibl" />
   </xsl:template>
 
   <xsl:template match="cit//region">
@@ -578,24 +584,9 @@
       <xsl:text>source_</xsl:text>
       <xsl:value-of select="./bibl/name/@n" />
     </field>
-    <field name="sigle">
-      <xsl:value-of select="./bibl/name/@n" />
-    </field>
     <xsl:apply-templates select=".//region | .//date" />
-    <field name="biblio">
-      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <xsl:apply-templates select="bibl" mode="html_for_whole_article" />
-      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
-    </field>
-    <xsl:apply-templates select="bibl" />
   </xsl:template>
 
-  <xsl:template match="bibl">
-    <field name="biblio_text">
-      <xsl:value-of select="." />
-    </field>
-  </xsl:template>
-  
   <xsl:template match="entry" mode="only_article_text">
     <field name="artikel_text">
       <xsl:apply-templates select="*" mode="only_article_text" />
