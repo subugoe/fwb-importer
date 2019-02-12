@@ -198,6 +198,7 @@
   <field name="sigle" type="string" multiValued="true" />
 
   <field name="bdv_id" type="string" multiValued="true" />
+  <field name="sufo_count" type="int" />
 
   <!-- Bibliographie (type=quelle) -->
   <field name="source_page" type="string" />
