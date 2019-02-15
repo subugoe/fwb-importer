@@ -199,6 +199,7 @@
 
   <field name="bdv_id" type="string" multiValued="true" />
   <field name="sufo_count" type="int" />
+  <field name="sources_json" type="string" indexed="false" />
 
   <!-- Bibliographie (type=quelle) -->
   <field name="source_page" type="string" />
