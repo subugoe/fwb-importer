@@ -79,6 +79,9 @@
   <xsl:param name="wordTypes" />
   <xsl:param name="generalWordTypes" />
   <xsl:param name="subfacetWordTypes" />
+  
+  <!-- File containing FWB sources. The default value is needed for unit tests. -->
+  <xsl:param name="quellenliste" select="non-existent-file.xml" />
 
   <xsl:template match="/">
     <add>
@@ -93,6 +96,7 @@
         <xsl:apply-templates select="//body//sense" />
         <xsl:apply-templates select="//body/entry" mode="only_article_text" />
         <xsl:apply-templates select="//body/entry" mode="html_for_whole_article" />
+        <xsl:apply-templates select="TEI" mode="json" />
       </doc>
     </add>
   </xsl:template>
@@ -1311,4 +1315,224 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="TEI" mode="json">
+    <field name="sources_json">
+      <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+        <xsl:text>{</xsl:text>
+        <xsl:apply-templates select="//sense" mode="json" />
+        <xsl:text>}</xsl:text>
+      <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+    </field>
+  </xsl:template>
+
+  <xsl:template match="sense" mode="json">
+    <xsl:variable name="tuedelchen">
+      <xsl:text>"</xsl:text>
+    </xsl:variable>
+    <xsl:variable name="gaensefuss">
+      <xsl:text>'</xsl:text>
+    </xsl:variable>
+    <xsl:text>"</xsl:text>
+    <xsl:value-of select="if(string-length(@rend)) then (@rend) else ('0')"/>
+    <xsl:text>":{</xsl:text>
+    <xsl:text>"Definition":"</xsl:text>
+    <xsl:for-each select="def">
+      <xsl:value-of select="replace(., $tuedelchen, $gaensefuss)"/>
+    </xsl:for-each>
+    <xsl:text>",</xsl:text>
+    <xsl:text>"Siglen":[</xsl:text>
+    <xsl:apply-templates select="dictScrap[@rend='cit'] | dictScrap[@rend='bls']" mode="json"/>
+    <xsl:text>]</xsl:text>
+    <xsl:text>}</xsl:text>
+    <xsl:if test="count(following::sense) &gt; 0">
+      <xsl:text>,</xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="dictScrap[@rend='cit'] | dictScrap[@rend='bls']" mode="json">
+    <xsl:for-each select="cit">
+      <xsl:variable name="theBibl" select="bibl"/>
+      <xsl:variable name="sigle" select="$theBibl/name/@n"/>
+      <xsl:variable name="bibId" select="concat('bibl-', $sigle)"/>
+      <xsl:variable name="entry" select="document($quellenliste)//bibl[@xml:id=$bibId]"/>
+      <xsl:choose>
+        <xsl:when test="count(bibl/citedRange) = 0">
+          <xsl:text>{</xsl:text>
+          <xsl:call-template name="prTableLine">
+            <xsl:with-param name="sigle" select="$sigle"/>
+            <xsl:with-param name="bibl" select="$theBibl"/>
+            <xsl:with-param name="citedRange" select="bibl/name"/><!-- Fake! Wir benötigen ein Element, das nominell parallel zu citedRange steht, auch wenn - wie hier - gar kein citedRange vorhanden ist! -->
+            <xsl:with-param name="entry" select="$entry"/>
+          </xsl:call-template>
+          <xsl:text>}</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:for-each select="bibl/citedRange">
+            <xsl:text>{</xsl:text>
+            <xsl:call-template name="prTableLine">
+              <xsl:with-param name="sigle" select="$sigle"/>
+              <xsl:with-param name="bibl" select="$theBibl"/>
+              <xsl:with-param name="citedRange" select="."/>
+              <xsl:with-param name="entry" select="$entry"/>
+            </xsl:call-template>
+            <xsl:text>}</xsl:text>
+            <xsl:if test="position() != last()">
+              <xsl:text>,</xsl:text>
+            </xsl:if>
+          </xsl:for-each>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+    
+    <!-- Komma als Trenner zwischen Quellen und Belegstellen: -->
+    <xsl:if
+      test="following-sibling::dictScrap[@rend='cit'] or following-sibling::dictScrap[@rend='bls']">
+      <xsl:text>,</xsl:text>
+    </xsl:if>
+  </xsl:template>
+  
+    <!-- Ausgabe eines JSON Eintrags mit den einzelnen Analyseergebnissen -->
+  <xsl:template name="prTableLine">
+    <xsl:param name="sigle"/>
+    <xsl:param name="bibl"/>
+    <xsl:param name="citedRange"/>
+    <xsl:param name="entry"/>
+
+    <xsl:text>"Sigle":"</xsl:text>
+    <xsl:value-of select="$sigle"/>
+    <xsl:text>",</xsl:text>
+    <xsl:text>"Textsorte":[</xsl:text>
+    <xsl:call-template name="getTextsorte">
+      <xsl:with-param name="entry" select="$entry"/>
+    </xsl:call-template>
+    <xsl:text>],</xsl:text>
+
+    <xsl:text>"Sinnwelt":[</xsl:text>
+    <xsl:call-template name="getRealm">
+      <xsl:with-param name="entry" select="$entry"/>
+      <xsl:with-param name="type" select="'realm'"/>
+    </xsl:call-template>
+    <xsl:text>],</xsl:text>
+
+    <xsl:text>"Klassifikation":[</xsl:text>
+    <xsl:call-template name="getRealm">
+      <xsl:with-param name="entry" select="$entry"/>
+      <xsl:with-param name="type" select="'classification'"/>
+    </xsl:call-template>
+    <xsl:text>],</xsl:text>
+
+    <xsl:text>"Kommunikationsintention":[</xsl:text>
+    <xsl:call-template name="getRealm">
+      <xsl:with-param name="entry" select="$entry"/>
+      <xsl:with-param name="type" select="'komint'"/>
+    </xsl:call-template>
+    <xsl:text>],</xsl:text>
+
+    <xsl:text>"Raum":[</xsl:text>
+    <xsl:call-template name="getRegion">
+      <xsl:with-param name="quelle" select="$bibl"/>
+      <xsl:with-param name="entry" select="$entry"/>
+      <xsl:with-param name="citedRange" select="$citedRange"/>
+    </xsl:call-template>
+    <xsl:text>],</xsl:text>
+
+    <xsl:text>"Zeit":[</xsl:text>
+    <xsl:call-template name="getDate">
+      <xsl:with-param name="quelle" select="$bibl"/>
+      <xsl:with-param name="entry" select="$entry"/>
+      <xsl:with-param name="citedRange" select="$citedRange"/>
+    </xsl:call-template>
+    <xsl:text>]</xsl:text>
+  </xsl:template>
+
+  <!-- Die Routinen zur Ermittlung der Daten: -->
+  <xsl:template name="getTextsorte">
+    <xsl:param name="entry"/>
+
+    <xsl:for-each select="$entry/term[@type='genre']/abbr">
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>"</xsl:text>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="getRealm">
+    <xsl:param name="entry"/>
+    <xsl:param name="type"/>
+    <xsl:for-each select="tokenize($entry/term[@type=$type], '[,;.]+')">
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="normalize-space(.)"/>
+      <xsl:text>"</xsl:text>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="getRegion">
+    <xsl:param name="quelle"/>
+    <xsl:param name="entry"/>
+    <xsl:param name="citedRange"/>
+    
+    <!-- diffizile Selektion der richtigen Region(en), falls mehrere citedRange's pro bibl existieren:
+         Dann dürfen nur die Regionen gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
+         Dies leistet das Prädikat nach *[name()...]
+         -->
+    <xsl:variable name="src" select="if ($quelle/region/@key) then ($quelle/region[preceding-sibling::*[name()=$citedRange/name()][1] = $citedRange]) else ($entry/region)"/>
+    <xsl:for-each select="$src/@key">
+      <xsl:for-each select="tokenize(., ',')">
+        <xsl:text>"</xsl:text>
+        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:text>"</xsl:text>
+        <xsl:if test="position() != last()">
+          <xsl:text>,</xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
+  <xsl:template name="getDate">
+    <xsl:param name="quelle"/>
+    <xsl:param name="entry"/>
+    <xsl:param name="citedRange"/>
+
+    <!-- diffizile Selektion der richtigen Datumsangabe(n), falls mehrere citedRange's pro bibl existieren:
+         Dann dürfen nur die Date's gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
+         Dies leistet das Prädikat nach *[name()...]
+         -->
+    <xsl:variable name="src" 
+      select="if ($quelle/date/@confidence &gt; 0) then ($quelle/date[preceding-sibling::*[name()=$citedRange/name()][1] = $citedRange]) else  ($entry/date)"/>
+    <xsl:for-each select="$src">
+      <xsl:text>{</xsl:text>
+      <xsl:text>"confidence":"</xsl:text>
+      <xsl:value-of select="@confidence"/>
+      <xsl:text>",</xsl:text>
+      <xsl:text>"from":"</xsl:text>
+      <xsl:value-of select="@from"/>
+      <xsl:text>",</xsl:text>
+      <xsl:text>"to":"</xsl:text>
+      <xsl:value-of select="@to"/>
+      <xsl:text>",</xsl:text>
+      <xsl:text>"from-custom":"</xsl:text>
+      <xsl:value-of select="@from-custom"/>
+      <xsl:text>",</xsl:text>
+      <xsl:text>"to-custom":"</xsl:text>
+      <xsl:value-of select="@to-custom"/>
+      <xsl:text>"</xsl:text>
+      <xsl:text>}</xsl:text>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+  
 </xsl:stylesheet>

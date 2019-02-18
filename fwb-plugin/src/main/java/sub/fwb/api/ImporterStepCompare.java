@@ -22,12 +22,13 @@ public class ImporterStepCompare extends ImporterStep {
 	 */
 	@Override
 	public void execute(Map<String, String> params) throws Exception {
-		String teiInputDir = params.get("gitDir");
+		String inputDir = params.get("gitDir");
+		File teiInputDir = new File(new File(inputDir), "V00");
 		String solrXmlDir = params.get("solrXmlDir");
 		out.println();
 		out.println("    Comparing text from TEIs to HTML text in index files:");
 		TeiHtmlComparator comparator = new TeiHtmlComparator();
-		List<File> allFiles = fileAccess.getAllXmlFilesFromDir(new File(teiInputDir));
+		List<File> allFiles = fileAccess.getAllXmlFilesFromDir(teiInputDir);
 		Collections.sort(allFiles);
 		int i = 1;
 		for (File tei : allFiles) {

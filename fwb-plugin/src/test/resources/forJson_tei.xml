@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <text>
+    <body>
+      <entry>
+        <sense rend="1">
+          <def>def1</def>
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve"><name n="89" cert="high">Name1</name>, Sat. <citedRange n="89" facs="3, 13, 24">3, 13, 24</citedRange> (<region key="alem.">orhein.</region> <date from="1520" to="1520" confidence="1">1520</date>)</bibl>
+              <quote>Quote1</quote>
+            </cit>
+            <cit>
+              <bibl xml:space="preserve"><name n="777" cert="high">Name2</name>, Prot. <citedRange n="777" facs="1, 3957">1, 3957</citedRange> (<region key="rhfrk.">rhfrk.</region>, <date from="1513" to="1513" confidence="1">1513</date>)</bibl>
+              <quote>Quote2</quote>
+            </cit>
+          </dictScrap>
+          <dictScrap rend="bls">
+            <cit>
+              <bibl xml:space="preserve"><name n="363" cert="high">Name3</name>, Kollegiatstifte <citedRange n="363" facs="289, 5">289, 5</citedRange>; </bibl>
+            </cit>
+          </dictScrap>
+        </sense>
+        <sense rend="2">
+          <def>def2</def>
+          <dictScrap rend="cit">
+            <cit>
+              <bibl xml:space="preserve"><name n="89" cert="high">Name1def2</name>, Sat. <citedRange n="89" facs="3, 13, 24">3, 13, 24</citedRange> (<region key="alem.">orhein.</region> <date from="1520" to="1520" confidence="1">1520</date>)</bibl>
+              <quote>Quote1def2</quote>
+            </cit>
+          </dictScrap>
+        </sense>
+      </entry>
+    </body>
+  </text>
+</TEI>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<text>
+  <body>
+    <div type="bibliography">
+      <listBibl>
+        <bibl xml:id="bibl-89">
+          <name>Schade</name>, Sat. u. Pasqu. 
+          <region key="unknown"></region>
+          <date from="1520" to="1587" confidence="0.00588">1520-1587</date>
+          <term type="genre">
+            <abbr>Did.</abbr>
+            <abbr>Theol.</abbr>
+          </term>
+          <term type="realm">Alltag, Dichtung</term>
+          <term type="classification">Literatur</term>
+          <term type="komint">unterhaltend, agitierend</term>
+          <term type="citation">Band, Seite, Vers/Zeile</term>
+          <term type="PPN">331076284</term>
+          <term type="bibliography">Satiren und Pasquille aus der Reformationszeit. Hrsg. v. Oskar Schade. 3 Bände in einem Band. 2. Ausgabe. Hannover 1863. Reprografischer Nachdruck Hildesheim 1966.</term>
+          <ptr target="https://hds.hebis.de/ubffm/Record/HEB032396457" type="permalink"/>
+          <ptr target="http://books.google.de/books?id=T8–23NjEmgC&amp;oe=UTF-8&amp;redir_esc=y" type="facs"/>
+        </bibl>
+        <bibl xml:id="bibl-363">
+          <name>Struck</name>, Kollegiatstifte 
+          <region key="mosfrk.">mosfrk.</region>
+          <date from="1350" to="1500" confidence="0.00265">1350-1500</date>
+          <term type="genre">
+            <abbr>Rewi.</abbr>
+          </term>
+          <term type="realm">Institutionen</term>
+          <term type="classification">Recht, Religion</term>
+          <term type="komint">dokumentierend</term>
+          <term type="citation">Urkunde, Zeile</term>
+          <term type="PPN">125249527</term>
+          <term type="bibliography">Die Kollegiatstifte Dietkirchen, Diez, Gemünden, Idstein und Weilburg. Regesten (vor 841) – 1500. Bearb. v. Wolf Heino Struck. Wiesbaden 1959. (Veröffentlichungen der Historischen Kommission für Nassau 12. Quellen zur Geschichte der Klöster und Stifte im Gebiet der mittleren Lahn bis zum Ausgang des Mittelalters 2).</term>
+        </bibl>
+        <bibl xml:id="bibl-777">
+          <name>Krebs</name>, Prot. Spey. Domkap. 
+          <region key="rhfrk.">rhfrk.</region>
+          <date from="1500" to="1531" confidence="0.0125">1500-1531</date>
+          <term type="genre">
+            <abbr>Rewi.</abbr>
+          </term>
+          <term type="realm">Institutionen, Religion</term>
+          <term type="classification">Recht, Religion</term>
+          <term type="komint">dokumentierend</term>
+          <term type="citation">Band, Protokoll, Zeile</term>
+          <term type="PPN">18673560X; 186735650</term>
+          <term type="bibliography">Die Protokolle des Speyerer Domkapitels. I. Band: 1500–1517; II. Band: 1518–1531. Bearb. v. Manfred Krebs. Stuttgart 1968; 1969. (Veröffentlichungen der Kommission für Geschichtliche Landeskunde in Baden-Württemberg. Reihe A: Quellen. 17; 21).</term>
+        </bibl>
+      </listBibl>
+    </div>
+  </body>
+</text>
+</TEI>

@@ -35,8 +35,10 @@ public class ImporterStepConvert extends ImporterStep {
 		String solrXmlDir = params.get("solrXmlDir");
 		File outputDir = new File(solrXmlDir);
 		File inputDir = new File(gitDir);
-		File excelInputDir = new File(inputDir, "TechData");
-		File inputExcel = new File(excelInputDir, "FWB-Quellenliste.xlsx");
+		File techDataInputDir = new File(inputDir, "TechData");
+		File inputExcel = new File(techDataInputDir, "FWB-Quellenliste.xlsx");
+		File teiInputDir = new File(inputDir, "V00");
+		File inputSourcesXml = new File(techDataInputDir, "FWB-Quellen.xml");
 		
 		fileAccess.cleanDir(outputDir);
 		out.println("    Converting Excel to index file.");
@@ -58,8 +60,10 @@ public class ImporterStepConvert extends ImporterStep {
 		InputStream subfacetWordTypes = ImporterStepConvert.class.getResourceAsStream("/wordtypes_subfacet.txt");
 		String subfacetWordTypesList = wordTyper.prepareForXslt(subfacetWordTypes);
 		xslt.setParameter("subfacetWordTypes", subfacetWordTypesList);
+		
+		xslt.setParameter("quellenliste", inputSourcesXml.getAbsolutePath());
 
-		List<File> allFiles = fileAccess.getAllXmlFilesFromDir(inputDir);
+		List<File> allFiles = fileAccess.getAllXmlFilesFromDir(teiInputDir);
 		Collections.sort(allFiles);
 
 		out.println("    Converting TEIs to index files:");
