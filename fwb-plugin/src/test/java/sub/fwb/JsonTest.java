@@ -43,7 +43,9 @@ public class JsonTest {
 		String result = outputBaos.toString();
 		
 		String expectedJson = 
-				"{"
+				"{\"Felder\":"
+				+ "[\"Sigle\",\"Textsorte\",\"Sinnwelt\",\"Klassifikation\",\"Kommunikationsintention\",\"Raum\",\"Zeit\"],"
+				+ "\"Bedeutungen\":{"
 				+ "\"1\":"
 				+ "{"
 				+ "\"Definition\":\"def1\","
@@ -87,7 +89,12 @@ public class JsonTest {
 				+ "\"Kommunikationsintention\":[\"unterhaltend\",\"agitierend\"],"
 				+ "\"Raum\":[\"alem.\"],"
 				+ "\"Zeit\":[{\"confidence\":\"1\",\"from\":\"1520\",\"to\":\"1520\",\"from-custom\":\"\",\"to-custom\":\"\""
-				+ "}]}]}}";
+				+ "}]}]}},"
+				+ "\"Übersichten\":{"
+				+ "\"Textsorte\":[\"Did.\",\"Rewi.\",\"Theol.\"],"
+				+ "\"Sinnwelt\":[\"Alltag\",\"Dichtung\",\"Institutionen\",\"Religion\"],"
+				+ "\"Klassifikation\":[\"Literatur\",\"Recht\",\"Religion\"],"
+				+ "\"Kommunikationsintention\":[\"agitierend\",\"dokumentierend\",\"unterhaltend\"]}}";
 		
 		assertXpathEvaluatesTo(expectedJson, "//field[@name='sources_json']", result);
 

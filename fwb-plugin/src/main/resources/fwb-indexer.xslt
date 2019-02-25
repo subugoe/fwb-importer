@@ -1318,9 +1318,35 @@
   <xsl:template match="TEI" mode="json">
     <field name="sources_json">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-        <xsl:text>{</xsl:text>
-        <xsl:apply-templates select="//sense" mode="json" />
-        <xsl:text>}</xsl:text>
+      <!-- Liste der Felder, die ausgegeben werden (als Service an die Nutzer) -->
+      <xsl:text>{"Felder":["Sigle","Textsorte","Sinnwelt","Klassifikation","Kommunikationsintention","Raum","Zeit"],</xsl:text>
+      <xsl:text>"Bedeutungen":{</xsl:text>
+      <xsl:apply-templates select="//sense" mode="json" />
+      <xsl:text>},</xsl:text>
+      
+      <!-- Liste der Wertebereiche (= "Übersichten") der einzelnen Textsorten -->
+      <xsl:text>"Übersichten":{</xsl:text>
+      <xsl:text>"Textsorte":[</xsl:text>
+      <xsl:call-template name="getTextsorten"/>
+      <xsl:text>],</xsl:text>
+      <xsl:text>"Sinnwelt":[</xsl:text>
+      <xsl:call-template name="getRealms">
+        <xsl:with-param name="type" select="'realm'"/>
+      </xsl:call-template>
+      <xsl:text>],</xsl:text>
+      <xsl:text>"Klassifikation":[</xsl:text>
+      <xsl:call-template name="getRealms">
+        <xsl:with-param name="type" select="'classification'"/>
+      </xsl:call-template>
+      <xsl:text>],</xsl:text>
+      <xsl:text>"Kommunikationsintention":[</xsl:text>
+      <xsl:call-template name="getRealms">
+        <xsl:with-param name="type" select="'komint'"/>
+      </xsl:call-template>
+      <xsl:text>]</xsl:text>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>}</xsl:text>
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
@@ -1446,6 +1472,41 @@
       <xsl:with-param name="citedRange" select="$citedRange"/>
     </xsl:call-template>
     <xsl:text>]</xsl:text>
+  </xsl:template>
+
+  <xsl:template name="getTextsorten">
+    <xsl:for-each select="distinct-values(document($quellenliste)//term[@type='genre']/abbr)">
+      <xsl:sort select="."/>
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>"</xsl:text>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+
+  <xsl:template name="getRealms">
+    <xsl:param name="type"/>
+    <xsl:variable name="entries">
+      <xsl:for-each select="distinct-values(document($quellenliste)//term[@type=$type])">
+        <xsl:for-each select="tokenize(., '[,;.]+')">
+          <entry>
+            <xsl:value-of select="normalize-space(.)"/>
+          </entry>
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:for-each select="distinct-values($entries/*)">
+      <xsl:sort select="."/>
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>"</xsl:text>
+      <xsl:if test="position() != last()">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
 
   <!-- Die Routinen zur Ermittlung der Daten: -->
