@@ -58,6 +58,7 @@ public class SourcesParser {
 			buffer.append("<field name=\"type\">quelle</field>\n");
 			String sigle = asString(row.getCell(SIGLE));
 			buffer.append("<field name=\"id\">source_" + sigle + "</field>\n");
+			buffer.append("<field name=\"source_sigle\">" + sigle + "</field>\n");
 
 			appendFromStronglist(row, buffer);
 
@@ -89,6 +90,17 @@ public class SourcesParser {
 
 			buffer.append("</div>\n");
 			buffer.append("]]></field>\n");
+			
+			if (!permalink.isEmpty()) {
+				buffer.append("<field name=\"source_permalink\"><![CDATA[" + permalink + "]]></field>\n");
+			}
+			if (!digi.isEmpty()) {
+				buffer.append("<field name=\"source_digilink\"><![CDATA[" + digi + "]]></field>\n");
+			}
+			buffer.append("<field name=\"source_biblio\"><![CDATA[" + asString(row.getCell(BIBLIO)) + "]]></field>\n");
+			String strongList = asString(row.getCell(KRAFTLISTE));
+			buffer.append("<field name=\"source_sort\"><![CDATA[" + getSortEntry(strongList) + "]]></field>\n");
+			
 			buffer.append("</doc>\n");
 
 		}
@@ -96,6 +108,11 @@ public class SourcesParser {
 
 		buffer.append("</add>");
 		FileUtils.writeStringToFile(xmlResult, buffer.toString(), "UTF-8");
+	}
+
+	private String getSortEntry(String strongList) {
+		String extracted = extractUsingRegex("\\$c(.*?)#", strongList).get(0);
+		return extracted.replace("Ä", "A").replace("ä", "a").replace("Ö", "O").replace("ö", "o").replace("Ü", "U").replace("ü", "u").replace("ß", "s").trim();
 	}
 
 	private void appendFromStronglist(Row row, StringBuffer buffer) {
