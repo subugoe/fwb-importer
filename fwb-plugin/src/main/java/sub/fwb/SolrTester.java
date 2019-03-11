@@ -49,7 +49,7 @@ public class SolrTester {
 
 		solr.select("type:quelle");
 
-		assertThat(results(), greaterThan(1500));
+		assertThat(results(), greaterThan(1400));
 	}
 
 	// @Test
