@@ -52,9 +52,12 @@ public class SourcesParser {
 
 		// for (int i = 1; i <= 49; i++) {
 		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+			Row row = sheet.getRow(i);
+			String strongList = asString(row.getCell(KRAFTLISTE));
+			if (extract(strongList).startsWith("x"))
+				continue;
 
 			buffer.append("<doc>\n");
-			Row row = sheet.getRow(i);
 			buffer.append("<field name=\"type\">quelle</field>\n");
 			String sigle = asString(row.getCell(SIGLE));
 			buffer.append("<field name=\"id\">source_" + sigle + "</field>\n");
@@ -98,7 +101,7 @@ public class SourcesParser {
 				buffer.append("<field name=\"source_digilink\"><![CDATA[" + digi + "]]></field>\n");
 			}
 			buffer.append("<field name=\"source_biblio\"><![CDATA[" + asString(row.getCell(BIBLIO)) + "]]></field>\n");
-			String strongList = asString(row.getCell(KRAFTLISTE));
+			buffer.append("<field name=\"source_header\"><![CDATA[" + extract(strongList) + "]]></field>\n");
 			buffer.append("<field name=\"source_sort\"><![CDATA[" + getSortEntry(strongList) + "]]></field>\n");
 			
 			buffer.append("</doc>\n");
@@ -111,7 +114,7 @@ public class SourcesParser {
 	}
 
 	private String getSortEntry(String strongList) {
-		String extracted = extractUsingRegex("\\$c(.*?)#", strongList).get(0);
+		String extracted = extract(strongList);
 		return extracted.replace("Ä", "A").replace("ä", "a").replace("Ö", "O").replace("ö", "o").replace("Ü", "U").replace("ü", "u").replace("ß", "s").trim();
 	}
 
@@ -130,7 +133,7 @@ public class SourcesParser {
 			return;
 		}
 		String stronglist = asString(row.getCell(KRAFTLISTE));
-		String entryValue = extractUsingRegex("\\$c(.*?)#", stronglist).get(0);
+		String entryValue = extract(stronglist);
 		buffer.append("<field name=\"" + fieldName + "\"><![CDATA[" + entryValue + "]]></field>\n");
 	}
 
@@ -149,7 +152,7 @@ public class SourcesParser {
 	}
 
 	private void appendHeader(String strongListField, StringBuffer buffer) {
-		String entryValue = extractUsingRegex("\\$c(.*?)#", strongListField).get(0);
+		String entryValue = extract(strongListField);
 		buffer.append("  <div class=\"source-details-header\">" + entryValue + "</div>\n");
 	}
 
@@ -185,6 +188,13 @@ public class SourcesParser {
 			return true;
 		}
 		return false;
+	}
+	
+	private String extract(String strongList) {
+		if (strongList == null)
+			return "";
+		
+		return extractUsingRegex("\\$c(.*?)#", strongList).get(0);
 	}
 
 	private List<String> extractUsingRegex(String regex, String s) {
