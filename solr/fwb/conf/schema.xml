@@ -214,8 +214,8 @@
   <field name="source_html" type="text_de" multiValued="false" />
   <field name="source_sort" type="string" />
   <field name="source_header" type="string" />
-  <field name="source_permalink" type="string" />
-  <field name="source_digilink" type="string" />
+  <field name="source_permalink" type="string" multiValued="true" />
+  <field name="source_digilink" type="string" multiValued="true" />
   <field name="source_biblio" type="string" />
   <field name="source_sigle" type="string" />
 

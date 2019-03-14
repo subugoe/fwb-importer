@@ -75,12 +75,18 @@ public class SourcesParser {
 
 			Map<String, String> links = new HashMap<String, String>();
 			String permalink = asString(row.getCell(PERMALINK));
+			String[] splitPermalinks = permalink.trim().split("\\s+");
 			if (!permalink.isEmpty()) {
-				links.put("Permalink", permalink);
+				for (String p : splitPermalinks) {
+					links.put("Permalink", p);
+				}
 			}
 			String digi = asString(row.getCell(DIGITALISAT_ONLINE));
+			String[] splitDigilinks = digi.trim().split("\\s+");
 			if (!digi.isEmpty()) {
-				links.put("Digitalisat online", digi);
+				for (String d : splitDigilinks) {
+					links.put("Digitalisat online", d);
+				}
 			}
 //			String pdf = asString(row.getCell(12));
 //			if (!pdf.isEmpty()) {
@@ -95,10 +101,14 @@ public class SourcesParser {
 			buffer.append("]]></field>\n");
 			
 			if (!permalink.isEmpty()) {
-				buffer.append("<field name=\"source_permalink\"><![CDATA[" + permalink + "]]></field>\n");
+				for (String p : splitPermalinks) {
+					buffer.append("<field name=\"source_permalink\"><![CDATA[" + p + "]]></field>\n");
+				}
 			}
 			if (!digi.isEmpty()) {
-				buffer.append("<field name=\"source_digilink\"><![CDATA[" + digi + "]]></field>\n");
+				for (String d : splitDigilinks) {
+					buffer.append("<field name=\"source_digilink\"><![CDATA[" + d + "]]></field>\n");
+				}
 			}
 			buffer.append("<field name=\"source_biblio\"><![CDATA[" + asString(row.getCell(BIBLIO)) + "]]></field>\n");
 			buffer.append("<field name=\"source_header\"><![CDATA[" + extract(strongList) + "]]></field>\n");
