@@ -630,21 +630,23 @@
 
   <xsl:template match="*" mode="html_for_whole_article">
     <xsl:if test=".//text()">
-      <xsl:message>
-        <xsl:text>Unknown element &lt;</xsl:text>
-        <xsl:value-of select="local-name()" />
-        <xsl:if test="@rend">
-          <xsl:text> rend="</xsl:text>
-          <xsl:value-of select="@rend" />
-          <xsl:text>"</xsl:text>
-        </xsl:if>
-        <xsl:if test="@type">
-          <xsl:text> type="</xsl:text>
-          <xsl:value-of select="@type" />
-          <xsl:text>"</xsl:text>
-        </xsl:if>
-        <xsl:text>&gt; - first occurrence: </xsl:text>
-      </xsl:message>
+      <xsl:if test="local-name() != 'add' and local-name() != 'oVar'">
+        <xsl:message>
+          <xsl:text>Unknown element &lt;</xsl:text>
+          <xsl:value-of select="local-name()" />
+          <xsl:if test="@rend">
+            <xsl:text> rend="</xsl:text>
+            <xsl:value-of select="@rend" />
+            <xsl:text>"</xsl:text>
+          </xsl:if>
+          <xsl:if test="@type">
+            <xsl:text> type="</xsl:text>
+            <xsl:value-of select="@type" />
+            <xsl:text>"</xsl:text>
+          </xsl:if>
+          <xsl:text>&gt; - first occurrence: </xsl:text>
+        </xsl:message>
+      </xsl:if>
       <span class="unknown-element">
         <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
       </span>
