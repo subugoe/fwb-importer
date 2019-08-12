@@ -10,6 +10,7 @@ allprojects {
 		}
 	}
 	apply plugin: 'java'
+	sourceCompatibility = 1.8
 
 	defaultTasks "clean", "build"
 	dependencies {
