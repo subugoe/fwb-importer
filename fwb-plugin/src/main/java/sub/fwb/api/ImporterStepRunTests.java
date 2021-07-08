@@ -16,6 +16,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import sub.ent.api.ImporterStep;
+import sub.fwb.FWBEnvironment;
 import sub.fwb.SolrTester;
 import sub.ent.backend.Environment;
 
@@ -28,7 +29,7 @@ public class ImporterStepRunTests extends ImporterStep {
 	/**
 	 * Gets a Solr endpoint and executes some tests on the Solr index.
 	 */
-	private static Environment env = new Environment();
+	private static FWBEnvironment fwbenv = new FWBEnvironment();
 
 	@Override
 	public void execute(Map<String, String> params) throws Exception {
@@ -58,10 +59,10 @@ public class ImporterStepRunTests extends ImporterStep {
 	 */
 	private void clearCache() throws IOException {
 		try {
-			String webPage = "https://fwbdev.sub.uni-goettingen.de/api/cache/clear";
-			String name = "FWB";
-			String password = env.solrPassword();
-
+			String webPage = fwbenv.cacheUrl();
+			String name = fwbenv.fwbUser();
+			String password = fwbenv.fwbPassword();
+			
 			String authString = name + ":" + password;
 			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
 			String authStringEnc = new String(authEncBytes);
@@ -83,10 +84,10 @@ public class ImporterStepRunTests extends ImporterStep {
 				}
 				in.close();
 
-				// print result
 				System.out.println(response.toString());
 			} else {
-				System.out.println("GET request not worked");
+				System.out.println("GET request not worked, return server response is: '" + responseCode + "'");
+			
 			}
 			out.println("    Clearing Cache");
 
