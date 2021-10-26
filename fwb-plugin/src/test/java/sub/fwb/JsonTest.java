@@ -99,15 +99,5 @@ public class JsonTest {
 		assertXpathEvaluatesTo(expectedJson, "//field[@name='sources_json']", result);
 
 	}
-
-	//@Test
-	public void test() throws Exception {
-		
-		xslt.setXsltScript("/Users/dn/Downloads/analyzer.JSON.xsl");
-		xslt.setParameter("quellenliste", "/Users/dn/Downloads/FWB-Quellen.xml");
-		
-		xslt.transform("/Users/dn/mydocker/git/fwb-daten/V00/i/imb/imbis.imbis.s.0m.xml", 
-				new FileOutputStream(new File("/Users/dn/Downloads/imbis.json")));
-	}
 	
 }
