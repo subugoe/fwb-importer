@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema name="fwb" version="1.5">
+
+  <similarity class="sub.fwb.SimplifiedSimilarity" />
+
+  <uniqueKey>id</uniqueKey>
+
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="false" />
+  <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="false" />
+  <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="false" />
+  <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" />
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="false"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="false" />
+
+  <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="true"
+      termVectors="true"
+      termPositions="true"
+      termOffsets="true">
+    <analyzer type="index">
+      <charFilter class="solr.HTMLStripCharFilterFactory" />
+      <tokenizer class="solr.PatternTokenizerFactory" pattern="[‒&amp;&lt;&gt;&quot;&apos;\p{Z}\s′`″”∣%«»‛\$⅓⅙⅔·⅕#˄˚\{\}\\¼¾©@‚°=½§…℔*₰¶⸗˺˹„“+–\/?!;›‹\.,’·‘:]+" />
+      <filter class="solr.LowerCaseFilterFactory" />
+      <filter class="sub.fwb.UmlautFilterFactory" file="umlaut_mappings.txt" />
+      <filter class="sub.fwb.LemmaNormalizingFilterFactory" />
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.PatternTokenizerFactory" pattern="[‒&amp;&lt;&gt;&quot;&apos;\p{Z}\s′`″”∣%«»‛\$⅓⅙⅔·⅕#˄˚\{\}\\¼¾©@‚°=½§…℔*₰¶⸗˺˹„“+–\/?!;›‹\.,’·‘:]+" />
+      <filter class="solr.LowerCaseFilterFactory" />
+    </analyzer>
+  </fieldType>
+
+  <fieldType name="text_de_exakt" class="solr.TextField" positionIncrementGap="100" 
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="true"
+      termVectors="true"
+      termPositions="true"
+      termOffsets="true">
+    <analyzer type="index">
+      <charFilter class="solr.HTMLStripCharFilterFactory" />
+      <tokenizer class="solr.PatternTokenizerFactory" pattern="[‒&amp;&lt;&gt;&quot;&apos;\p{Z}\s′`″”∣%«»‛\$⅓⅙⅔·⅕#˄˚\{\}\\¼¾©@‚°=½§…℔*₰¶⸗˺˹„“+–\/?!;›‹\.,’·‘:]+" />
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.PatternTokenizerFactory" pattern="[‒&amp;&lt;&gt;&quot;&apos;\p{Z}\s′`″”∣%«»‛\$⅓⅙⅔·⅕#˄˚\{\}\\¼¾©@‚°=½§…℔*₰¶⸗˺˹„“+–\/?!;›‹\.,’·‘:]+" />
+    </analyzer>
+  </fieldType>
+
+  <fieldType name="text_old_german" class="solr.TextField" positionIncrementGap="100"
+      indexed="true"
+      stored="true"
+      required="false"
+      multiValued="true"
+      termVectors="true"
+      termPositions="true"
+      termOffsets="true">
+    <analyzer type="index">
+      <charFilter class="solr.HTMLStripCharFilterFactory" />
+      <tokenizer class="solr.StandardTokenizerFactory" />
+      <filter class="solr.LowerCaseFilterFactory" />
+      <filter class="sub.fwb.UmlautFilterFactory" file="umlaut_mappings_for_quotes.txt" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="a" replacement="e" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="b" replacement="p" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ch" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="c" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="g" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="q" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="th" replacement="t" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="d" replacement="t" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="f" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="u" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="w" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="j" replacement="i" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="y" replacement="i" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ß" replacement="s" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ss" replacement="s" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="sz" replacement="s" />
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory" />
+      <filter class="solr.LowerCaseFilterFactory" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="a" replacement="e" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="b" replacement="p" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ch" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="c" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="g" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="q" replacement="k" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="th" replacement="t" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="d" replacement="t" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="f" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="u" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="w" replacement="v" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="j" replacement="i" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="y" replacement="i" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ß" replacement="s" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="ss" replacement="s" />
+      <filter class="sub.fwb.WildcardsAcceptingPatternReplaceFilterFactory" pattern="sz" replacement="s" />
+    </analyzer>
+  </fieldType>
+
+  <fieldtype name="phrase_suggest" class="solr.TextField" indexed="true" stored="true" required="false">
+    <analyzer>
+      <tokenizer class="solr.KeywordTokenizerFactory" />
+      <filter class="solr.LowerCaseFilterFactory" />
+      <filter class="solr.TrimFilterFactory" />
+    </analyzer>
+  </fieldtype>
+
+  <field name="id" type="string" required="true" />
+  <!-- artikel / quelle -->
+  <field name="type" type="string" required="true" />
+
+  <!-- Artikel (type=artikel) -->
+  <field name="artikel" type="text_de" multiValued="false" />
+  <field name="artikel_text" type="text_de" multiValued="false" />
+  <field name="lemma" type="text_de" multiValued="false" />
+  <field name="lemma_text" type="text_de" multiValued="false" />
+  <field name="sufo" type="text_de" />
+  <field name="sufo_text" type="text_de" multiValued="false" />
+  <field name="neblem" type="text_de" />
+  <field name="neblem_text" type="text_de" />
+  <field name="def" type="text_de" />
+  <field name="def_text" type="text_de" />
+  <field name="bed" type="text_de" />
+  <field name="bed_text" type="text_de" />
+  <field name="etym" type="text_de" />
+  <field name="etym_text" type="text_de" />
+  <field name="zitat" type="text_old_german" />
+  <field name="zitat_text" type="text_old_german" />
+  <field name="bdv" type="text_de" />
+  <field name="bdv_text" type="text_de" />
+  <field name="subvoce" type="text_de" />
+  <field name="subvoce_text" type="text_de" />
+  <field name="ggs" type="text_de" />
+  <field name="ggs_text" type="text_de" />
+  <field name="phras" type="text_de" />
+  <field name="phras_text" type="text_de" />
+  <field name="zursache" type="text_de" />
+  <field name="zursache_text" type="text_de" />
+  <field name="synt" type="text_de" />
+  <field name="synt_text" type="text_de" />
+  <field name="stw" type="text_de" />
+  <field name="stw_text" type="text_de" />
+  <field name="wbg" type="text_de" />
+  <field name="wbg_text" type="text_de" />
+  <field name="wbv" type="text_de" />
+  <field name="wbv_text" type="text_de" />
+  <field name="biblio" type="text_de" />
+  <field name="biblio_text" type="text_de" />
+
+  <field name="printed_source" type="string" />
+  <field name="volume" type="string" />
+  <field name="col" type="string" />
+  <!-- ID aus dem TEI -->
+  <field name="internal_id" type="string" />
+  <field name="virtual_id" type="string" multiValued="true" />
+  <field name="sortkey" type="string" />
+  <field name="roman_number" type="string" />
+  <field name="homonym" type="int" />
+  <field name="wortart" type="string" />
+  <field name="wortart_allgemein" type="string" />
+  <field name="wortart_facette" type="string" />
+  <field name="wortart_subfacette" type="string" multiValued="true" />
+  <field name="article_version" type="string" />
+  <!-- true bei Artikeln die *.ref* -->
+  <field name="is_reference" type="boolean" />
+  <field name="unblocking_date" type="date" />
+  <field name="region" type="string" multiValued="true" />
+  <field name="datum" type="string" multiValued="true" />
+
+  <field name="head_comment" type="text_de" multiValued="false" />
+
+  <field name="def_number" type="string" multiValued="true" />
+  <field name="sense_number" type="int" />
+  <!-- referenzierte Quellenangabe -->
+  <field name="definition_source_id" type="string" multiValued="true" />
+  <!-- Belegstelle -->
+  <field name="definition_source_instance" type="string" multiValued="true" />
+  <field name="sigle" type="string" multiValued="true" />
+
+  <field name="bdv_id" type="string" multiValued="true" />
+  <field name="sufo_count" type="int" />
+  <field name="sources_json" type="string" indexed="false" />
+
+  <!-- Bibliographie (type=quelle) -->
+  <field name="source_page" type="string" />
+  <field name="source_short" type="string" />
+  <field name="source_title" type="text_de" multiValued="false" />
+  <field name="source_date_display" type="text_de" multiValued="false" />
+  <field name="source_date" type="date" />
+  <field name="source_author" type="string" multiValued="true" />
+  <field name="source_author_secondary" type="string" multiValued="true" />
+  <field name="source_author_display" type="string" />
+  <field name="source_herausgeber" type="string" multiValued="true" />
+  <field name="source_html" type="text_de" multiValued="false" />
+  <field name="source_sort" type="string" />
+  <field name="source_header" type="string" />
+  <field name="source_permalink" type="string" multiValued="true" />
+  <field name="source_digilink" type="string" multiValued="true" />
+  <field name="source_biblio" type="string" />
+  <field name="source_sigle" type="string" />
+
+  <!-- transaction log -->
+  <field name="_version_" type="long" indexed="true" stored="true" />
+  <!-- enable nested documents -->
+  <field name="_root_" type="string" indexed="true" stored="false" />
+
+  <field name="all_suggest" type="phrase_suggest" indexed="true" stored="false" multiValued="false" required="false" />
+
+  <dynamicField name="*_exakt" type="text_de_exakt" />
+
+  <copyField source="lemma" dest="all_suggest" />
+
+  <copyField source="artikel" dest="artikel_exakt" />
+  <copyField source="artikel_text" dest="artikel_text_exakt" />
+  <copyField source="lemma" dest="lemma_exakt" />
+  <copyField source="artikel_text" dest="lemma_text" />
+  <copyField source="artikel_text" dest="lemma_text_exakt" />
+  <copyField source="sufo" dest="sufo_exakt" />
+  <copyField source="sufo_text" dest="sufo_text_exakt" />
+  <copyField source="neblem" dest="neblem_exakt" />
+  <copyField source="neblem_text" dest="neblem_text_exakt" />
+  <copyField source="def" dest="def_exakt" />
+  <copyField source="def_text" dest="def_text_exakt" />
+  <copyField source="bed" dest="bed_exakt" />
+  <copyField source="bed_text" dest="bed_text_exakt" />
+  <copyField source="etym" dest="etym_exakt" />
+  <copyField source="etym_text" dest="etym_text_exakt" />
+  <copyField source="bdv" dest="bdv_exakt" />
+  <copyField source="bdv_text" dest="bdv_text_exakt" />
+  <copyField source="subvoce" dest="subvoce_exakt" />
+  <copyField source="subvoce_text" dest="subvoce_text_exakt" />
+  <copyField source="ggs" dest="ggs_exakt" />
+  <copyField source="ggs_text" dest="ggs_text_exakt" />
+  <copyField source="phras" dest="phras_exakt" />
+  <copyField source="phras_text" dest="phras_text_exakt" />
+  <copyField source="zursache" dest="zursache_exakt" />
+  <copyField source="zursache_text" dest="zursache_text_exakt" />
+  <copyField source="synt" dest="synt_exakt" />
+  <copyField source="synt_text" dest="synt_text_exakt" />
+  <copyField source="stw" dest="stw_exakt" />
+  <copyField source="stw_text" dest="stw_text_exakt" />
+  <copyField source="wbg" dest="wbg_exakt" />
+  <copyField source="wbg_text" dest="wbg_text_exakt" />
+  <copyField source="wbv" dest="wbv_exakt" />
+  <copyField source="wbv_text" dest="wbv_text_exakt" />
+  <copyField source="zitat" dest="zitat_exakt" />
+  <copyField source="zitat_text" dest="zitat_text_exakt" />
+  <copyField source="biblio" dest="biblio_exakt" />
+  <copyField source="biblio_text" dest="biblio_text_exakt" />
+
+</schema>

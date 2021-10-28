@@ -662,32 +662,4 @@ public class XsltTest {
 
 		assertXpathEvaluatesTo("2", "//field[@name='homonym']", result);
 	}
-
-	@Test
-	public void should() throws Exception {
-		// xslt.transform("/home/dennis/temp/in_tei/i/imb/imbis.imbis.s.0m.xml",
-		// outputBaos);
-
-	}
-
-	@Test
-	public void shouldRef() throws Exception {
-		// File f = new File("/home/dennis/temp/wortarten.txt");
-		// WordTypesGenerator gen = new WordTypesGenerator();
-		//
-		// String result = gen.prepareForXslt(f);
-		// xslt.setParameter("wordTypes", result);
-		//
-		// xslt.transform("/home/dennis/temp/i/i/it.it.s.9ref.xml", outputBaos);
-
-	}
-
-	@Test
-	public void shouldMakeTestFile() throws Exception {
-		// xslt.setParameter("currentArticleId", "testId");
-		// xslt.transform("/home/dennis/temp/test.xml",
-		// outputBaos);
-
-	}
-
 }

@@ -42,15 +42,4 @@ public class TeiHtmlComparatorTest {
 		comparator.compareTexts(tei, solr);
 	}
 
-	@Ignore
-	@Test
-	public void test2() throws IOException {
-
-		File tei = new File("/home/dennis/temp/test/munzfreiheit.münzfreiheit.s.1f.xml");
-		File solr = new File("/home/dennis/temp/out/munzfreiheit.münzfreiheit.s.1f.xml");
-
-		TeiHtmlComparator comparator = new TeiHtmlComparator();
-		comparator.compareTexts(tei, solr);
-	}
-
 }

@@ -1,21 +1,8 @@
 version: '2'
 
 services:
-
   solr:
-    image: solr:7.4.0
-    restart: always
-    volumes:
-      - ./solr:/opt/solr/server/solr
-    ports:
-      - 8983:8983
-
-  compile:
-    build:
-      context: .
-      dockerfile: Dockerfile-compile
-    volumes:
-      - .:/project
+    image: docker.gitlab.gwdg.de/subugoe/adw/fwb-solr:main
 
   gitclone:
     build: gitclone
@@ -27,8 +14,8 @@ services:
   importer:
     build:
       context: .
-      dockerfile: Dockerfile-importer
-    restart: always
+      dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - 9090:8080
     volumes:

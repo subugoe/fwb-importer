@@ -1,0 +1,146 @@
+# for all words
+ä:a,ae
+Ä:A,Ae
+ö:o,oe
+Ö:O,Oe
+ü:u,ue
+Ü:U,Ue
+
+ú:u
+ñ:n
+Ø:0
+ø:0
+ó:o
+à:a
+ê:e
+ë:e
+â:a
+ô:o
+î:i
+û:u
+æ:ae
+á:a
+é:e
+ò:o
+œ:oe
+è:e
+ù:u
+ì:i
+í:i
+ç:c
+ъ:b
+
+# only for old quotes
+ÿ:y
+ů:u
+ï:i
+ı:i
+ý:y
+ã:a
+õ:o
+ā:a
+ō:o
+ē:e
+ī:i
+ū:u
+ė:e
+ŭ:u
+ẽ:e
+ũ:u
+ś:s
+ŏ:o
+ǒ:o
+ǎ:a
+ǔ:u
+ẅ:w
+ă:a
+ṣ:s
+ẏ:y
+ẹ:e
+σ:o
+ĕ:e
+ĩ:i
+ẃ:w
+å:a
+ń:n
+ỹ:y
+ě:e
+ṅ:n
+ȳ:y
+ň:n
+ṡ:s
+ć:c
+ę:e
+č:c
+ẘ:w
+ị:i
+ǧ:g
+ḥ:h
+ṁ:m
+ạ:a
+ṙ:r
+ľ:l
+Γ:g
+γ:g
+
+# combining letters/accents over or under other letters
+
+# 'e', e. g. in oͤ
+U+0364:
+
+# '~', e. g. in u͂
+U+0342:
+
+# 'u', e. g. in aͧ
+U+0367:
+
+# 'i', e. g. in uͥ
+U+0365:
+
+# 'v', e. g. in oͮ
+U+036E:
+
+# 'a', e. g. in eͣ
+U+0363:
+
+# 'o', e. g. in wͦ
+U+0366:
+
+# ':', e. g. in u֔
+U+0594:
+
+# '/', e. g. in v́
+U+0301:
+
+# '^', e. g. in ŷ
+U+0302:
+
+# 'v', e. g. in ǔ
+U+030C:
+
+# '-', e. g. in ē
+U+0304:
+
+# '..', e. g. in v̈
+U+0308:
+
+# '.', e. g. in u̇
+U+0307:
+
+# 'U', e. g. in ŭ
+U+0306:
+
+# '~', e. g. in m̃
+U+0303:
+
+# '.', e. g. in ẹ
+U+0323:
+
+# '\', e. g. in ǹ
+U+0300:
+
+# 'o', e. g. in ẙ
+U+030A:
+
+# 'U', e. g. in g̮
+U+032E:
