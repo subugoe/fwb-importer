@@ -3,8 +3,9 @@ FROM gradle:6.8 as build
 WORKDIR /project
 
 COPY . /project
-
-RUN gradle --gradle-user-home /project/.gradle-user-home
+RUN rm -rf solr-importer && \
+    git clone https://github.com/subugoe/solr-importer && \
+    gradle --gradle-user-home /project/.gradle-user-home
 
 FROM java:8
 
