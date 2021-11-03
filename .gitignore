@@ -3,6 +3,7 @@ build
 target
 bin
 .*
+!.gitlab-ci.yml
 !.dockerignore
 !.gitignore
 !.gitkeep
