@@ -18,7 +18,7 @@ Note: All the following commands must be executed inside this project's main dir
 
 The first thing you have to do is add the solr-importer to the project:
 
-```./1-clone-solr-importer.sh```
+```git clone https://github.com/subugoe/solr-importer```
 
 Next, you must configure the importer by creating and editing a text file:
 
@@ -30,7 +30,7 @@ Next, you must configure the importer by creating and editing a text file:
 
 Now you can compile the combination of the two projects by executing:
 
-```./2-compile.sh```
+```./3-start-importer.sh```
 
 In the background, Docker images will be downloaded and built, so on the first time it might take a while. Also, the projects are compiled with Gradle, but it is all contained inside of Docker images, so you should not worry about it.
 
@@ -62,7 +62,7 @@ Note: As a developer, you can start the importer for quick tests inside an IDE. 
 When source code is changed, the importer needs to be updated. The easiest way is again to use the shell scripts:
 
 ```
-./6-update-sources.sh
-./2-compile.sh
+git -C solr-importer pull
+git pull
 ./3-start-importer.sh
 ```

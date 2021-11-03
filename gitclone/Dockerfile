@@ -1,7 +1,6 @@
-FROM debian:8
+FROM bitnami/git:2
 
-RUN apt-get update && apt-get install -y git
-
+COPY ./git /git
 COPY clone-repo.sh /tmp/clone-repo.sh
 
 CMD /tmp/clone-repo.sh

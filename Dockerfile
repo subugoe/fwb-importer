@@ -4,7 +4,7 @@ WORKDIR /project
 
 COPY . /project
 
-CMD gradle --gradle-user-home /project/.gradle-user-home
+RUN gradle --gradle-user-home /project/.gradle-user-home
 
 FROM java:8
 

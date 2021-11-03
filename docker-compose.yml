@@ -1,4 +1,4 @@
-version: '2'
+version: '3.8'
 
 services:
   solr:
@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
-      - 9090:8080
+      - "9090:8080"
     volumes:
       - ./gitclone/git:/git
       - ./import-files:/import-files
