@@ -4,23 +4,15 @@ services:
   solr:
     image: docker.gitlab.gwdg.de/subugoe/adw/fwb-solr:main
 
-  gitclone:
-    build: gitclone
-    volumes:
-      - ./gitclone/git:/git
-    env_file:
-      - docker.env
-
   importer:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        GIT_URL: ${GIT_URL}
     restart: unless-stopped
     ports:
       - "9090:8080"
-    volumes:
-      - ./gitclone/git:/git
-      - ./import-files:/import-files
     environment:
       - GIT_INPUT_DIR=/git/fwb-daten
       - OUTPUT_DIR=/import-files
