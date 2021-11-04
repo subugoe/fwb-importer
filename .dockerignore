@@ -4,3 +4,4 @@ solr
 .gradle-user-home
 .git
 git/fwb-daten/
+solr-importer
