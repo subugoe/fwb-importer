@@ -19,10 +19,6 @@ Docker, docker-compose, Git.
 
 ## Installation of the importer
 
-For convenience purposes, all installation commands are encapsulated inside shell scripts.
-If you need to execute finer-grained commands or if you are on Windows, you should look into the shell script files.
-In general, they contain simple docker-compose or Git commands.
-
 Note: All the following commands must be executed inside this project's main directory.
 
 The first thing you have to do is add the solr-importer to the project:
