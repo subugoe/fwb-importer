@@ -55,7 +55,7 @@ to edit the file docker-compose.yml:
       - 9091:8080      
 ```
 
-## Starting the importer
+## Starting the importer locally
 
 After completing the above installation, the importer with its Web UI can be started by executing:
 
