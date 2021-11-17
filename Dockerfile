@@ -17,3 +17,6 @@ RUN mkdir /git && \
 COPY --from=build /project/solr-importer/web/build/libs/web-0.0.1-SNAPSHOT.jar /tmp/web-importer.jar
 
 CMD java -jar /tmp/web-importer.jar
+
+VOLUME /git
+VOLUME /import-files
