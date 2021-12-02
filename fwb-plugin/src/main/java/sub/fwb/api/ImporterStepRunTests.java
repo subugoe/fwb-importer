@@ -29,7 +29,7 @@ public class ImporterStepRunTests extends ImporterStep {
 	/**
 	 * Gets a Solr endpoint and executes some tests on the Solr index.
 	 */
-	private static FWBEnvironment fwbenv = new FWBEnvironment();
+	private static final FWBEnvironment fwbenv = new FWBEnvironment();
 
 	@Override
 	public void execute(Map<String, String> params) throws Exception {
@@ -52,21 +52,20 @@ public class ImporterStepRunTests extends ImporterStep {
 	public String getStepDescription() {
 		return "Testabfragen in Solr";
 	}
-	
+
 	/**
 	 * Clearing the FWB API cache after finish indexing
-	 * @throws IOException
 	 */
 	private void clearCache() throws IOException {
 		try {
 			String webPage = fwbenv.cacheUrl();
 			String name = fwbenv.fwbUser();
 			String password = fwbenv.fwbPassword();
-			
+
 			String authString = name + ":" + password;
 			byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
 			String authStringEnc = new String(authEncBytes);
-			
+
 			URL url = new URL(webPage);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestProperty("Authorization", "Basic " + authStringEnc);
@@ -77,21 +76,21 @@ public class ImporterStepRunTests extends ImporterStep {
 				BufferedReader in = new BufferedReader(new InputStreamReader(
 						urlConnection.getInputStream()));
 				String inputLine;
-				StringBuffer response = new StringBuffer();
+				StringBuilder response = new StringBuilder();
 
 				while ((inputLine = in.readLine()) != null) {
 					response.append(inputLine);
 				}
 				in.close();
 
-				System.out.println(response.toString());
+				System.out.println(response);
 			} else {
 				System.out.println("GET request not worked, return server response is: '" + responseCode + "'");
-			
+
 			}
 			out.println("    Clearing Cache");
 
-	
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

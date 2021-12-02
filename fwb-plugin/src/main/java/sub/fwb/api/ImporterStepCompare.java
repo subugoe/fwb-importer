@@ -38,7 +38,9 @@ public class ImporterStepCompare extends ImporterStep {
 				comparator.compareTexts(tei, solrXml);
 			} catch(AssertionError e) {
 				out.println();
-				out.println("WARNING " + e.getMessage());
+				out.println("WARNING " + e.getMessage()
+						.replace(" expected:", "\n\n")
+						.replace(" but was:", "\n\n"));
 				out.println();
 			}
 			i++;

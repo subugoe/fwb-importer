@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class EmbeddedSolrTest {
 
-	private static SolrAccessForTesting solr = new SolrAccessForTesting();
+	private static final SolrAccessForTesting solr = new SolrAccessForTesting();
 
 	@BeforeClass
 	public static void beforeAllTests() throws Exception {
@@ -29,7 +29,7 @@ public class EmbeddedSolrTest {
 		solr.cleanAndCommit();
 		solr.printResults();
 	}
-	
+
 	@Test
 	public void shouldFindSigle() throws Exception {
 		String[][] doc = { { "sigle", "123" } };
@@ -38,7 +38,7 @@ public class EmbeddedSolrTest {
 		solr.search("sigle:123");
 		assertEquals(1, results());
 	}
-	
+
 	@Test
 	public void shouldProduceHlSnippetForSufo() throws Exception {
 		String[][] doc = { { "sufo", "imbis" }, { "artikel_text", "article" }, { "sufo_text", "imbis##article" } };
@@ -48,7 +48,7 @@ public class EmbeddedSolrTest {
 		String hlSnippet = solr.getHighlightings().get("1234").get("artikel_text").get(0);
 		assertEquals("article", hlSnippet);
 	}
-	
+
 	@Test
 	public void shouldFindSufoUsingGeneralSearchExact() throws Exception {
 		String[][] doc = { { "sufo", "Imbis" } };
@@ -56,11 +56,11 @@ public class EmbeddedSolrTest {
 
 		solr.search("Imbis EXAKT");
 		assertEquals(1, results());
-		
+
 		solr.search("imbis EXAKT");
 		assertEquals(0, results());
 	}
-	
+
 	@Test
 	public void shouldFindSufoUsingGeneralSearch() throws Exception {
 		String[][] doc = { { "sufo", "imbis" } };
@@ -69,7 +69,7 @@ public class EmbeddedSolrTest {
 		solr.search("imbis");
 		assertEquals(1, results());
 	}
-	
+
 	@Test
 	public void shouldFindSufo() throws Exception {
 		String[][] doc = { { "sufo", "imbis" } };
@@ -78,7 +78,7 @@ public class EmbeddedSolrTest {
 		solr.search("sufo:imbis");
 		assertEquals(1, results());
 	}
-	
+
 	@Test
 	public void shouldFindNotExactComplexPhrase() throws Exception {
 		String[][] doc = { { "artikel", "imbis ward" } };

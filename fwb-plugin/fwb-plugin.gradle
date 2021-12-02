@@ -1,9 +1,5 @@
-
-group = 'sub.fwb'
-version = '0.0.1-SNAPSHOT'
-
 dependencies {
-	compile project(':solr-importer:core')
+	implementation project(':solr-importer:core')
 }
 
 build.doLast {

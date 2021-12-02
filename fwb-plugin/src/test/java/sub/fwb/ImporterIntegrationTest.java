@@ -30,19 +30,19 @@ import sub.fwb.api.ImporterStepConvert;
 
 public class ImporterIntegrationTest {
 
-	private File coreProps1 = new File("solr-embedded/fwb/core.properties");
-	private File coreProps1Copy = new File("solr-embedded/fwb/core.properties.copy");
-	private File coreProps2 = new File("solr-embedded/fwboffline/core.properties");
-	private File coreProps2Copy = new File("solr-embedded/fwboffline/core.properties.copy");
+	private final File coreProps1 = new File("solr-embedded/fwb/core.properties");
+	private final File coreProps1Copy = new File("solr-embedded/fwb/core.properties.copy");
+	private final File coreProps2 = new File("solr-embedded/fwboffline/core.properties");
+	private final File coreProps2Copy = new File("solr-embedded/fwboffline/core.properties.copy");
 
 	private String gitDir = "src/test/resources/import";
-	private String solrXmlDir = "target/solrxml";
+	private final String solrXmlDir = "target/solrxml";
 
 	/* This is used as a signal to use the embedded Solr in this class: */ SolrAccess s;
 	private String solrUrl = "embedded";
 
-	private String importCore = "fwboffline";
-	private String onlineCore = "fwb";
+	private final String importCore = "fwboffline";
+	private final String onlineCore = "fwb";
 
 	@Before
 	public void setUp() throws Exception {
