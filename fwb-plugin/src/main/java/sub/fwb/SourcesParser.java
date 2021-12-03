@@ -18,11 +18,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Parser for the Excel file that is used in the FWB project to store book sources.
- *
  */
 public class SourcesParser {
 
-	private String[] headers = { "A 0 sort", "B 1 sigle", "C 2 kraftliste", "D 3 kurztitel", "E 4 ort und zeit", "F 5",
+	private final String[] headers = { "A 0 sort", "B 1 sigle", "C 2 kraftliste", "D 3 kurztitel", "E 4 ort und zeit", "F 5",
 			"G 6 raum / ort", "H 7 raum (karte)", "I 8", "J 9 zeit", "K 10 zeit numerisch", "L 11", "M 12 pdf",
 			"N 13 epdf", "O 14 digitalisat online", "P 15 eonline", "Q 16 permalink", "R 17 biblio", "S 18 ppn",
 			"T 19 zitierweise", "U 20 textsorte", "V 21 name", "W 22 sinnwelt", "X 23 klassifikation",
@@ -37,7 +36,7 @@ public class SourcesParser {
 	private final int NAME = 21;
 
 	/**
-	 * Converts one Excel file to one Solr XML file. The Solr XML file will contain one 
+	 * Converts one Excel file to one Solr XML file. The Solr XML file will contain one
 	 * <doc> element for each row in the Excel file.
 	 */
 	public void convertExcelToXml(File excelFile, File xmlResult) throws IOException {
@@ -60,8 +59,8 @@ public class SourcesParser {
 			buffer.append("<doc>\n");
 			buffer.append("<field name=\"type\">quelle</field>\n");
 			String sigle = asString(row.getCell(SIGLE));
-			buffer.append("<field name=\"id\">source_" + sigle + "</field>\n");
-			buffer.append("<field name=\"source_sigle\">" + sigle + "</field>\n");
+			buffer.append("<field name=\"id\">source_").append(sigle).append("</field>\n");
+			buffer.append("<field name=\"source_sigle\">").append(sigle).append("</field>\n");
 
 			appendFromStronglist(row, buffer);
 
@@ -88,10 +87,6 @@ public class SourcesParser {
 					links.put("Digitalisat online", d);
 				}
 			}
-//			String pdf = asString(row.getCell(12));
-//			if (!pdf.isEmpty()) {
-//				links.put("PDF", pdf);
-//			}
 
 			if (!links.isEmpty()) {
 				appendRowWithLinks(links, buffer);
@@ -99,21 +94,21 @@ public class SourcesParser {
 
 			buffer.append("</div>\n");
 			buffer.append("]]></field>\n");
-			
+
 			if (!permalink.isEmpty()) {
 				for (String p : splitPermalinks) {
-					buffer.append("<field name=\"source_permalink\"><![CDATA[" + p + "]]></field>\n");
+					buffer.append("<field name=\"source_permalink\"><![CDATA[").append(p).append("]]></field>\n");
 				}
 			}
 			if (!digi.isEmpty()) {
 				for (String d : splitDigilinks) {
-					buffer.append("<field name=\"source_digilink\"><![CDATA[" + d + "]]></field>\n");
+					buffer.append("<field name=\"source_digilink\"><![CDATA[").append(d).append("]]></field>\n");
 				}
 			}
-			buffer.append("<field name=\"source_biblio\"><![CDATA[" + asString(row.getCell(BIBLIO)) + "]]></field>\n");
-			buffer.append("<field name=\"source_header\"><![CDATA[" + extract(strongList) + "]]></field>\n");
-			buffer.append("<field name=\"source_sort\"><![CDATA[" + getSortEntry(strongList) + "]]></field>\n");
-			
+			buffer.append("<field name=\"source_biblio\"><![CDATA[").append(asString(row.getCell(BIBLIO))).append("]]></field>\n");
+			buffer.append("<field name=\"source_header\"><![CDATA[").append(extract(strongList)).append("]]></field>\n");
+			buffer.append("<field name=\"source_sort\"><![CDATA[").append(getSortEntry(strongList)).append("]]></field>\n");
+
 			buffer.append("</doc>\n");
 
 		}
@@ -131,20 +126,25 @@ public class SourcesParser {
 	private void appendFromStronglist(Row row, StringBuffer buffer) {
 		String entryKind = asString(row.getCell(NAME));
 		String fieldName = "";
-		if ("1".equals(entryKind)) {
-			fieldName = "source_author";
-		} else if ("2".equals(entryKind)) {
-			fieldName = "source_author_secondary";
-		} else if ("3".equals(entryKind)) {
-			fieldName = "source_herausgeber";
-		} else if ("4".equals(entryKind)) {
-			fieldName = "source_title";
-		} else {
-			return;
+		switch (entryKind) {
+			case "1":
+				fieldName = "source_author";
+				break;
+			case "2":
+				fieldName = "source_author_secondary";
+				break;
+			case "3":
+				fieldName = "source_herausgeber";
+				break;
+			case "4":
+				fieldName = "source_title";
+				break;
+			default:
+				return;
 		}
 		String stronglist = asString(row.getCell(KRAFTLISTE));
 		String entryValue = extract(stronglist);
-		buffer.append("<field name=\"" + fieldName + "\"><![CDATA[" + entryValue + "]]></field>\n");
+		buffer.append("<field name=\"").append(fieldName).append("\"><![CDATA[").append(entryValue).append("]]></field>\n");
 	}
 
 	private String asString(Cell cell) {
@@ -163,13 +163,13 @@ public class SourcesParser {
 
 	private void appendHeader(String strongListField, StringBuffer buffer) {
 		String entryValue = extract(strongListField);
-		buffer.append("  <div class=\"source-details-header\">" + entryValue + "</div>\n");
+		buffer.append("  <div class=\"source-details-header\">").append(entryValue).append("</div>\n");
 	}
 
 	private void appendRowOfSpans(String left, String right, StringBuffer buffer) {
 		buffer.append("  <div class=\"source-details-row\">\n");
-		buffer.append("  <span class=\"column-left\">" + left + "</span>\n");
-		buffer.append("  <span class=\"column-right\">" + right + "</span>\n");
+		buffer.append("  <span class=\"column-left\">").append(left).append("</span>\n");
+		buffer.append("  <span class=\"column-right\">").append(right).append("</span>\n");
 		buffer.append("  </div>\n");
 	}
 
@@ -199,11 +199,11 @@ public class SourcesParser {
 		}
 		return false;
 	}
-	
+
 	private String extract(String strongList) {
 		if (strongList == null)
 			return "";
-		
+
 		return extractUsingRegex("\\$c(.*?)#", strongList).get(0);
 	}
 

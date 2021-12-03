@@ -18,7 +18,6 @@ import sub.ent.backend.SolrAccess;
 
 /**
  * In-between class for all interactions with a Solr server while testing.
- *
  */
 public class SolrAccessForTesting extends SolrAccess {
 
@@ -33,7 +32,7 @@ public class SolrAccessForTesting extends SolrAccess {
 		solr = new EmbeddedSolrServer(container, coreName);
 		core = coreName;
 	}
-	
+
 	public void list(String userInputs) {
 		ask(new String[][] {}, userInputs, "/list");
 	}

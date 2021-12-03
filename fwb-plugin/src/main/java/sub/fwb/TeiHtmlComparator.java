@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 /**
  * A JUnit-ish test case.
  * Compares the text from TEI files to the text of HTML fileds in the corresponding Solr XML files.
- *
  */
 public class TeiHtmlComparator {
 

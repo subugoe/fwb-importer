@@ -1,6 +1,5 @@
 package sub.fwb.api;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,8 +16,7 @@ import org.junit.runner.notification.Failure;
 
 import sub.ent.api.ImporterStep;
 import sub.fwb.FWBEnvironment;
-import sub.fwb.SolrTester;
-import sub.ent.backend.Environment;
+import sub.fwb.SolrTest;
 
 /**
  * Importer step that checks if the import succeeded.
@@ -40,7 +38,7 @@ public class ImporterStepRunTests extends ImporterStep {
 		System.setProperty("SOLR_URL_FOR_TESTS", solrUrl);
 		System.setProperty("SOLR_CORE_FOR_TESTS", solrImportCore);
 		JUnitCore junit = new JUnitCore();
-		Result testResult = junit.run(SolrTester.class);
+		Result testResult = junit.run(SolrTest.class);
 		for (Failure fail : testResult.getFailures()) {
 			out.println();
 			out.println("WARNING in " + fail.getTestHeader() + ": " + fail.getMessage());

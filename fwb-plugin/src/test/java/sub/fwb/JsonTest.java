@@ -36,13 +36,13 @@ public class JsonTest {
 	public void afterEachTest() {
 		 System.out.println(outputBaos.toString());
 	}
-	
+
 	@Test
 	public void createsJson() throws Exception {
 		xslt.transform("src/test/resources/forJson_tei.xml", outputBaos);
 		String result = outputBaos.toString();
-		
-		String expectedJson = 
+
+		String expectedJson =
 				"{\"Felder\":"
 				+ "[\"Sigle\",\"Textsorte\",\"Sinnwelt\",\"Klassifikation\",\"Kommunikationsintention\",\"Raum\",\"Zeit\"],"
 				+ "\"Bedeutungen\":{"
@@ -95,9 +95,9 @@ public class JsonTest {
 				+ "\"Sinnwelt\":[\"Alltag\",\"Dichtung\",\"Institutionen\",\"Religion\"],"
 				+ "\"Klassifikation\":[\"Literatur\",\"Recht\",\"Religion\"],"
 				+ "\"Kommunikationsintention\":[\"agitierend\",\"dokumentierend\",\"unterhaltend\"]}}";
-		
+
 		assertXpathEvaluatesTo(expectedJson, "//field[@name='sources_json']", result);
 
 	}
-	
+
 }

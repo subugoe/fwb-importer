@@ -13,12 +13,12 @@ import sub.ent.backend.Environment;
 /**
  * JUnit test class.
  * Sends some queries to a running Solr server and checks if the expected results are returned.
- * 
- */ 
-public class SolrTester {
-	private static SolrAccessForTesting solr = new SolrAccessForTesting();
-	private static Environment env = new Environment();
-	
+ *
+ */
+public class SolrTest {
+	private static final SolrAccessForTesting solr = new SolrAccessForTesting();
+	private static final Environment env = new Environment();
+
 	@BeforeClass
 	public static void beforeAllTests() throws Exception {
 		String solrUrl = System.getProperty("SOLR_URL_FOR_TESTS", "http://localhost:8983/solr");

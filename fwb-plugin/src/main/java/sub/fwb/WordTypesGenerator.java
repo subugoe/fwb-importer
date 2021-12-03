@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 /**
  * Preprocessor for text files containing mappings
  * of word type codes to written word types.
- *
  */
 public class WordTypesGenerator {
 

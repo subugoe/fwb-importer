@@ -2,10 +2,9 @@ package sub.fwb;
 
 /**
  * Access to environment variables.
- *
  */
 public class FWBEnvironment {
-	
+
 	public final String UNDEFINED_VALUE = "undefined";
 
 	/**

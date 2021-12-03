@@ -21,10 +21,10 @@ import sub.fwb.WordTypesGenerator;
  */
 public class ImporterStepConvert extends ImporterStep {
 
-	private SourcesParser sourcesParser = new SourcesParser();
-	private WordTypesGenerator wordTyper = new WordTypesGenerator();
-	private Xslt xslt = new Xslt();
-	private FileAccess fileAccess = new FileAccess();
+	private final SourcesParser sourcesParser = new SourcesParser();
+	private final WordTypesGenerator wordTyper = new WordTypesGenerator();
+	private final Xslt xslt = new Xslt();
+	private final FileAccess fileAccess = new FileAccess();
 
 	/**
 	 * Reads an Excel file, a bunch of TEI files, and produces Solr XML files.
@@ -39,7 +39,7 @@ public class ImporterStepConvert extends ImporterStep {
 		File inputExcel = new File(techDataInputDir, "FWB-Quellenliste.xlsx");
 		File teiInputDir = new File(inputDir, "V00");
 		File inputSourcesXml = new File(techDataInputDir, "FWB-Quellen.xml");
-		
+
 		fileAccess.cleanDir(outputDir);
 		out.println("    Converting Excel to index file.");
 
@@ -60,7 +60,7 @@ public class ImporterStepConvert extends ImporterStep {
 		InputStream subfacetWordTypes = ImporterStepConvert.class.getResourceAsStream("/wordtypes_subfacet.txt");
 		String subfacetWordTypesList = wordTyper.prepareForXslt(subfacetWordTypes);
 		xslt.setParameter("subfacetWordTypes", subfacetWordTypesList);
-		
+
 		xslt.setParameter("quellenliste", inputSourcesXml.getAbsolutePath());
 
 		List<File> allFiles = fileAccess.getAllXmlFilesFromDir(teiInputDir);
@@ -75,7 +75,7 @@ public class ImporterStepConvert extends ImporterStep {
 			xslt.transform(currentFile.getAbsolutePath(), fileOs);
 			currentId++;
 		}
-		
+
 	}
 
 	private void printCurrentStatus(int currentNumber, int lastNumber) {

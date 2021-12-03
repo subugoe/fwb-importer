@@ -17,6 +17,9 @@ allprojects {
 		implementation ('org.apache.solr:solr-core:7.4.0') {
 			exclude group: 'junit', module: 'junit'
 		}
+		implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+		implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+		implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1'
 		implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '5.0.2.201807311906-r'
 		implementation group: 'net.sf.saxon', name: 'Saxon-HE', version: '9.7.0-21'
 		testImplementation group: 'xmlunit', name: 'xmlunit', version: '1.6'
