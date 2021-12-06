@@ -27,8 +27,8 @@ neblem
       <div class="neblem">
         <!--start neblem2-->neblemarea2<!--end neblem2-->
       </div>
-      
-      
+
+
 etym
 
       <entry>
@@ -39,7 +39,7 @@ etym
       <field name="etym"><![CDATA[<div class="etymology"><!--start etym1-->aus <div class="language">lat.</div><!--end etym1--></div>]]></field>
       <field name="etym_text">aus lat.</field>
 
-      
+
 ggs
 
         <sense>
@@ -51,4 +51,3 @@ ggs
       <field name="ggs"><![CDATA[<div class="highlight-boundary"><!--start reggs2--><div class="italic"><a href="ende.s.*">inline-ggs</a></div><!--end reggs2--></div>]]></field>
       <field name="ggs_text">inline-ggs</field>
 
-      

@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<!--
      The XSLT script is probably the most important and also the most complex part of the FWB plug-in.
      It navigates through a TEI file and generates XML elements for a Solr XML file.
      The TEI files contain articles of the FWB dictionary.
      Each article is composed of many different parts that together explain all the meanings of a word.
      You can refer to XSLT test classes in 'src/test/java' that reference
      such files and define unit tests.
-     
+
      The general idea of the script is to produce Solr index files that contain all the necessary data
      to be able to find and present the FWB dictionary articles.
-     
-     
+
+
      Simple data fields.
-     
+
      The output file contains some general fields like e. g. different IDs, word types, or sort keys,
      which can be used to adapt searches and generate facets.
-     
-     
+
+
      HTML article.
-     
-     Most prominently, in the output, there is a huge field that contains the whole article 
+
+     Most prominently, in the output, there is a huge field that contains the whole article
      nested inside of HTML elements.
      It is not a complete HTML page, but rather a big <div> element that can be pasted into an HTML page.
      For each specific TEI element, there is an XSLT template that produces the corresponding
@@ -27,15 +27,15 @@
      Those part elements are mostly <div>'s with 'class' attributes.
      All the formatting happens in the front end and is not generated here.
      Many of the part elements contain comment sections which mark their beginnings and endings.
-     These special comments are used for highlighting when the user searches in one distinct 
+     These special comments are used for highlighting when the user searches in one distinct
      HTML search field (see below).
      The HTML article can be used both for searching and for displaying.
      Its templates have their own mode: 'html_for_whole_article'.
-     
-     
+
+
      Text article.
-     
-     One other Solr field also contains the whole article, but this time only the text, 
+
+     One other Solr field also contains the whole article, but this time only the text,
      i. e. without any HTML tags.
      The convention here is that the names of such fields end in '_text'.
      This version of the article is used to generate text snippets which are shown as a preview
@@ -43,22 +43,22 @@
      The field is only necessary, because Solr cannot generate text snippets of similar lengths
      from the field that contains HTML tags.
      The mode of the templates is 'only_article_text'.
-     
-     
+
+
      HTML and text search fields.
-     
+
      In addition to fields with the whole article, there are fields that contain
      little parts of the article.
      These fields hold individual words or sentences for which the user can search in the advanced search.
      For example, in the TEI files there are parts marked as 'phrases'.
      For each such phrase, the XSLT script creates two fields.
-     The first one is called 'phrase' and contains the phrase inside of HTML tags, analogously 
+     The first one is called 'phrase' and contains the phrase inside of HTML tags, analogously
      to the above HTML article.
      In fact, the template for this field reuses the HTML template described above,
      so that it is an exact copy of the corresponding part in the article.
-     This makes it possible to search only inside this one field and also to highlight only the 
+     This makes it possible to search only inside this one field and also to highlight only the
      corresponding part inside the whole article, i. e. without highlighting the rest of the article.
-     The trick is to highlight in the individual field and then replace the unhighlighted part 
+     The trick is to highlight in the individual field and then replace the unhighlighted part
      in the article HTML field (using the special comments mentioned above).
      The second field is called 'phras_text' and again contains only the text for the generation
      of preview snippets.
@@ -79,7 +79,7 @@
   <xsl:param name="wordTypes" />
   <xsl:param name="generalWordTypes" />
   <xsl:param name="subfacetWordTypes" />
-  
+
   <!-- File containing FWB sources. The default value is needed for unit tests. -->
   <xsl:param name="quellenliste" select="non-existent-file.xml" />
 
@@ -246,7 +246,7 @@
       <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
     </field>
   </xsl:template>
-  
+
   <xsl:function name="fwb:getWordTypeId">
     <xsl:param name="internalArticleId" />
     <xsl:if test="$internalArticleId != ''">
@@ -647,9 +647,7 @@
           <xsl:text>&gt; - first occurrence: </xsl:text>
         </xsl:message>
       </xsl:if>
-      <span class="unknown-element">
-        <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
-      </span>
+      <xsl:apply-templates select="*|text()" mode="html_for_whole_article" />
     </xsl:if>
   </xsl:template>
 
@@ -1043,7 +1041,7 @@
           <xsl:comment>jump target</xsl:comment>
         </span>
       </xsl:for-each>
-      <xsl:for-each-group select="*" 
+      <xsl:for-each-group select="*"
         group-adjacent="if (self::dictScrap[@rend='ipLiPkt']) then 1
          else if (self::dictScrap[@rend='BBlock' or @rend='cit' or @rend='bls' or @rend='sv']) then 2
          else 3">
@@ -1325,7 +1323,7 @@
       <xsl:text>"Bedeutungen":{</xsl:text>
       <xsl:apply-templates select="//sense" mode="json" />
       <xsl:text>},</xsl:text>
-      
+
       <!-- Liste der Wertebereiche (= "Übersichten") der einzelnen Textsorten -->
       <xsl:text>"Übersichten":{</xsl:text>
       <xsl:text>"Textsorte":[</xsl:text>
@@ -1376,7 +1374,7 @@
       <xsl:text>,</xsl:text>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="dictScrap[@rend='cit'] | dictScrap[@rend='bls']" mode="json">
     <xsl:for-each select="cit">
       <xsl:variable name="theBibl" select="bibl"/>
@@ -1414,14 +1412,14 @@
         <xsl:text>,</xsl:text>
       </xsl:if>
     </xsl:for-each>
-    
+
     <!-- Komma als Trenner zwischen Quellen und Belegstellen: -->
     <xsl:if
       test="following-sibling::dictScrap[@rend='cit'] or following-sibling::dictScrap[@rend='bls']">
       <xsl:text>,</xsl:text>
     </xsl:if>
   </xsl:template>
-  
+
     <!-- Ausgabe eines JSON Eintrags mit den einzelnen Analyseergebnissen -->
   <xsl:template name="prTableLine">
     <xsl:param name="sigle"/>
@@ -1542,7 +1540,7 @@
     <xsl:param name="quelle"/>
     <xsl:param name="entry"/>
     <xsl:param name="citedRange"/>
-    
+
     <!-- diffizile Selektion der richtigen Region(en), falls mehrere citedRange's pro bibl existieren:
          Dann dürfen nur die Regionen gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
          Dies leistet das Prädikat nach *[name()...]
@@ -1562,7 +1560,7 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
-  
+
   <xsl:template name="getDate">
     <xsl:param name="quelle"/>
     <xsl:param name="entry"/>
@@ -1572,7 +1570,7 @@
          Dann dürfen nur die Date's gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
          Dies leistet das Prädikat nach *[name()...]
          -->
-    <xsl:variable name="src" 
+    <xsl:variable name="src"
       select="if ($quelle/date/@confidence &gt; 0) then ($quelle/date[preceding-sibling::*[name()=$citedRange/name()][1] = $citedRange]) else  ($entry/date)"/>
     <xsl:for-each select="$src">
       <xsl:text>{</xsl:text>
@@ -1597,5 +1595,5 @@
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
-  
+
 </xsl:stylesheet>

@@ -41,7 +41,7 @@ public class ImporterStepRunTests extends ImporterStep {
 		Result testResult = junit.run(SolrTest.class);
 		for (Failure fail : testResult.getFailures()) {
 			out.println();
-			out.println("WARNING in " + fail.getTestHeader() + ": " + fail.getMessage());
+			out.println("WARNING in " + fail.getTestHeader() + " - " + fail.getTrace() + ": " + fail.getMessage());
 		}
 		clearCache();
 	}
