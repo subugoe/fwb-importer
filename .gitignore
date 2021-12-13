@@ -13,3 +13,6 @@ log.txt
 fwb-daten
 solrxml
 import-files/lock
+gradlew
+gradlew.bat
+gradle/
