@@ -11,6 +11,8 @@ services:
       args:
         GIT_URL: ${GIT_URL}
     restart: unless-stopped
+    links:
+      - mail
     ports:
       - "9090:8080"
     environment:
@@ -20,3 +22,7 @@ services:
       - SOLR_ONLINE_CORE=fwb
     env_file:
       - docker.env
+  mail:
+    image: mailhog/mailhog
+    ports:
+      - "9091:8025"
