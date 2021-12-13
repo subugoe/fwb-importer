@@ -13,7 +13,7 @@
 
      Simple data fields.
 
-     The output file contains some general fields like e. g. different IDs, word types, or sort keys,
+     The output file contains some general fields like e.g. different IDs, word types, or sort keys,
      which can be used to adapt searches and generate facets.
 
 
@@ -36,7 +36,7 @@
      Text article.
 
      One other Solr field also contains the whole article, but this time only the text,
-     i. e. without any HTML tags.
+     i.e. without any HTML tags.
      The convention here is that the names of such fields end in '_text'.
      This version of the article is used to generate text snippets which are shown as a preview
      when the user sees the list of all the found results.
@@ -57,7 +57,7 @@
      In fact, the template for this field reuses the HTML template described above,
      so that it is an exact copy of the corresponding part in the article.
      This makes it possible to search only inside this one field and also to highlight only the
-     corresponding part inside the whole article, i. e. without highlighting the rest of the article.
+     corresponding part inside the whole article, i.e. without highlighting the rest of the article.
      The trick is to highlight in the individual field and then replace the unhighlighted part
      in the article HTML field (using the special comments mentioned above).
      The second field is called 'phras_text' and again contains only the text for the generation
@@ -1318,13 +1318,13 @@
   <xsl:template match="TEI" mode="json">
     <field name="sources_json">
       <xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
-      <!-- Liste der Felder, die ausgegeben werden (als Service an die Nutzer) -->
+      <!-- List of fields that will be output (as a service to users) -->
       <xsl:text>{"Felder":["Sigle","Textsorte","Sinnwelt","Klassifikation","Kommunikationsintention","Raum","Zeit"],</xsl:text>
       <xsl:text>"Bedeutungen":{</xsl:text>
       <xsl:apply-templates select="//sense" mode="json" />
       <xsl:text>},</xsl:text>
 
-      <!-- Liste der Wertebereiche (= "Übersichten") der einzelnen Textsorten -->
+      <!-- List of value ranges (= "Übersichten") of the individual text types -->
       <xsl:text>"Übersichten":{</xsl:text>
       <xsl:text>"Textsorte":[</xsl:text>
       <xsl:call-template name="getTextsorten"/>
@@ -1387,7 +1387,7 @@
           <xsl:call-template name="prTableLine">
             <xsl:with-param name="sigle" select="$sigle"/>
             <xsl:with-param name="bibl" select="$theBibl"/>
-            <xsl:with-param name="citedRange" select="bibl/name"/><!-- Fake! Wir benötigen ein Element, das nominell parallel zu citedRange steht, auch wenn - wie hier - gar kein citedRange vorhanden ist! -->
+            <xsl:with-param name="citedRange" select="bibl/name"/><!-- Fake! We need an element that is nominally parallel to citedRange, even if - like here - there is no citedRange at all! -->
             <xsl:with-param name="entry" select="$entry"/>
           </xsl:call-template>
           <xsl:text>}</xsl:text>
@@ -1413,14 +1413,14 @@
       </xsl:if>
     </xsl:for-each>
 
-    <!-- Komma als Trenner zwischen Quellen und Belegstellen: -->
+    <!-- Comma as separator between sources and citations: -->
     <xsl:if
       test="following-sibling::dictScrap[@rend='cit'] or following-sibling::dictScrap[@rend='bls']">
       <xsl:text>,</xsl:text>
     </xsl:if>
   </xsl:template>
 
-    <!-- Ausgabe eines JSON Eintrags mit den einzelnen Analyseergebnissen -->
+    <!-- Output of a JSON entry with the individual analysis results -->
   <xsl:template name="prTableLine">
     <xsl:param name="sigle"/>
     <xsl:param name="bibl"/>
@@ -1509,7 +1509,7 @@
     </xsl:for-each>
   </xsl:template>
 
-  <!-- Die Routinen zur Ermittlung der Daten: -->
+  <!-- The routines for determining the data: -->
   <xsl:template name="getTextsorte">
     <xsl:param name="entry"/>
 
@@ -1541,9 +1541,9 @@
     <xsl:param name="entry"/>
     <xsl:param name="citedRange"/>
 
-    <!-- diffizile Selektion der richtigen Region(en), falls mehrere citedRange's pro bibl existieren:
-         Dann dürfen nur die Regionen gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
-         Dies leistet das Prädikat nach *[name()...]
+    <!-- Difficult selection of the correct region(s), if several citedRange's per bibl exist:
+         Then only those regions may be selected which occur directly after the citedRange in question.
+         This is done by the predicate after *[name()...]
          -->
     <xsl:variable name="src" select="if ($quelle/region/@key) then ($quelle/region[preceding-sibling::*[name()=$citedRange/name()][1] = $citedRange]) else ($entry/region)"/>
     <xsl:for-each select="$src/@key">
@@ -1566,9 +1566,9 @@
     <xsl:param name="entry"/>
     <xsl:param name="citedRange"/>
 
-    <!-- diffizile Selektion der richtigen Datumsangabe(n), falls mehrere citedRange's pro bibl existieren:
-         Dann dürfen nur die Date's gewählt werden, die direkt nach der betreffenden citedRange vorkommen.
-         Dies leistet das Prädikat nach *[name()...]
+    <!-- Difficult selection of the correct date(s), if several citedRange's per bibl exist:
+         Then only those dates may be selected which occur directly after the citedRange in question.
+         This is done by the predicate after *[name()...]
          -->
     <xsl:variable name="src"
       select="if ($quelle/date/@confidence &gt; 0) then ($quelle/date[preceding-sibling::*[name()=$citedRange/name()][1] = $citedRange]) else  ($entry/date)"/>
