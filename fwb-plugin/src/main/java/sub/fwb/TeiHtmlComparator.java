@@ -24,6 +24,7 @@ public class TeiHtmlComparator {
 		String teiString = FileUtils.readFileToString(tei);
 		teiString = teiString.replaceAll("\n\\s*", "");
 		teiString = extract("<body>(.*?)</body>", teiString);
+		teiString = teiString.replace(" xml:space=\"preserve\"", "");
 		teiString = teiString.replace("<oRef/>", "-");
 		teiString = teiString.replace("<quote>", ": ");
 		teiString = teiString.replace("<lb/>", " | ");
