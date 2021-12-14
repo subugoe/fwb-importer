@@ -17,3 +17,7 @@ services:
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
   - template: Security/Container-Scanning.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+
+sast:
+  stage: test
