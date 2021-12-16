@@ -1289,7 +1289,16 @@
 
   <xsl:template match="citedRange[.//text()]" mode="html_for_whole_article">
     <div class="cited-range">
-      <xsl:value-of select="." />
+      <xsl:choose>
+        <xsl:when test="@target">
+          <a class="citation-page-link" href="{@target}">
+            <xsl:value-of select="." />
+          </a>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="." />
+        </xsl:otherwise>
+      </xsl:choose>
     </div>
   </xsl:template>
 
