@@ -4,7 +4,7 @@ ARG GIT_URL
 WORKDIR /project
 
 COPY . /project
-RUN git clone 1 https://github.com/subugoe/solr-importer && \
+RUN git clone https://github.com/subugoe/solr-importer && \
     gradle --gradle-user-home /project/.gradle-user-home
 
 FROM java:8
