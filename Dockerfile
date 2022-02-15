@@ -4,7 +4,7 @@ ARG GIT_URL
 WORKDIR /project
 
 COPY . /project
-RUN git clone --depth 1 https://github.com/subugoe/solr-importer && \
+RUN git clone 1 https://github.com/subugoe/solr-importer && \
     gradle --gradle-user-home /project/.gradle-user-home
 
 FROM java:8
@@ -12,7 +12,7 @@ ARG GIT_URL
 
 RUN mkdir /git && \
     cd /git && \
-    git clone --depth 1 $GIT_URL
+    git clone $GIT_URL
 
 COPY --from=build /project/solr-importer/web/build/libs/web-0.0.1-SNAPSHOT.jar /tmp/web-importer.jar
 
