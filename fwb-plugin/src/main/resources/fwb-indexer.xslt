@@ -1291,7 +1291,7 @@
     <div class="cited-range">
       <xsl:choose>
         <xsl:when test="@target">
-          <a class="citation-page-link" rel="noopener" href="{@target}">
+          <a class="citation-page-link {@rend}" rel="noopener" href="{@target}">
             <xsl:value-of select="." />
           </a>
         </xsl:when>
