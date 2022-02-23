@@ -1290,8 +1290,8 @@
   <xsl:template match="citedRange[.//text()]" mode="html_for_whole_article">
     <div class="cited-range">
       <xsl:choose>
-        <xsl:when test="@target">
-          <a class="citation-page-link {@rend}" rel="noopener" href="{@target}">
+        <xsl:when test="@target and @rend='export'">
+          <a class="citation-page-link rend-{@rend}" rel="noopener" href="{@target}">
             <xsl:value-of select="." />
           </a>
         </xsl:when>
