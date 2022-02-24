@@ -11,19 +11,19 @@ import java.io.InputStreamReader;
  */
 public class WordTypesGenerator {
 
-	/**
-	 * Sequentializes a text file into one line and adds special markings.
-	 * This way, the data is easier to process in the XSLT script.
-	 */
-	public String prepareForXslt(InputStream wordTypes) throws IOException {
-		BufferedReader lineReader = new BufferedReader(new InputStreamReader(wordTypes));
-		String wordTypeLine = "";
-		StringBuilder result = new StringBuilder();
-		while ((wordTypeLine = lineReader.readLine()) != null) {
-			result.append(wordTypeLine);
-			result.append("###");
-		}
-		lineReader.close();
-		return result.toString();
-	}
+    /**
+     * Sequentializes a text file into one line and adds special markings.
+     * This way, the data is easier to process in the XSLT script.
+     */
+    public String prepareForXslt(InputStream wordTypes) throws IOException {
+        BufferedReader lineReader = new BufferedReader(new InputStreamReader(wordTypes));
+        String wordTypeLine = "";
+        StringBuilder result = new StringBuilder();
+        while ((wordTypeLine = lineReader.readLine()) != null) {
+            result.append(wordTypeLine);
+            result.append("###");
+        }
+        lineReader.close();
+        return result.toString();
+    }
 }

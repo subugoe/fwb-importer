@@ -1,127 +1,126 @@
 package sub.fwb;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import sub.ent.backend.Environment;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
 public class SufoTest {
-	private static final SolrAccessForTesting solr = new SolrAccessForTesting();
-	private static final Environment env = new Environment();
+    private static final SolrAccessForTesting solr = new SolrAccessForTesting();
+    private static final Environment env = new Environment();
 
-	@BeforeClass
-	public static void beforeAllTests() throws Exception {
-		String solrUrl = System.getProperty("SOLR_URL_FOR_TESTS", "http://localhost:8983/solr");
-		String core = System.getProperty("SOLR_CORE_FOR_TESTS", "fwb");
-		solr.initialize(solrUrl, core);
-		solr.setCredentials(env.solrUser(), env.solrPassword());
-	}
+    @BeforeClass
+    public static void beforeAllTests() throws Exception {
+        String solrUrl = System.getProperty("SOLR_URL_FOR_TESTS", "http://localhost:8983/solr");
+        String core = System.getProperty("SOLR_CORE_FOR_TESTS", "fwb");
+        solr.initialize(solrUrl, core);
+        solr.setCredentials(env.solrUser(), env.solrPassword());
+    }
 
-	@After
-	public void afterEach() throws Exception {
-		if (System.getProperty("SOLR_URL_FOR_TESTS") != null) {
-			solr.printQueryString();
-		} else {
-			solr.printResults();
-		}
-	}
+    @After
+    public void afterEach() throws Exception {
+        if (System.getProperty("SOLR_URL_FOR_TESTS") != null) {
+            solr.printQueryString();
+        } else {
+            solr.printResults();
+        }
+    }
 
-	private String lemma(int resultNumber) {
-		return solr.lemma(resultNumber);
-	}
+    private String lemma(int resultNumber) {
+        return solr.lemma(resultNumber);
+    }
 
-	private int results() {
-		return (int) solr.results();
-	}
+    private int results() {
+        return (int) solr.results();
+    }
 
-	private void mustBeFirstLemma(String result) {
-		assertThat(results(), greaterThan(0));
-		assertEquals(result, lemma(1));
-	}
+    private void mustBeFirstLemma(String result) {
+        assertThat(results(), greaterThan(0));
+        assertEquals(result, lemma(1));
+    }
 
-	@Test
-	public void amad() throws Exception {
+    @Test
+    public void amad() throws Exception {
 
-		solr.list("amahd");
+        solr.list("amahd");
 
-		mustBeFirstLemma("amad");
-	}
+        mustBeFirstLemma("amad");
+    }
 
-	@Test
-	public void kaiser() throws Exception {
+    @Test
+    public void kaiser() throws Exception {
 
-		solr.list("kaiser");
+        solr.list("kaiser");
 
-		mustBeFirstLemma("keiser");
-	}
+        mustBeFirstLemma("keiser");
+    }
 
-	@Test
-	public void gott() throws Exception {
+    @Test
+    public void gott() throws Exception {
 
-		solr.list("gott");
+        solr.list("gott");
 
-		mustBeFirstLemma("gott");
-	}
+        mustBeFirstLemma("gott");
+    }
 
-	@Test
-	public void amt() throws Exception {
+    @Test
+    public void amt() throws Exception {
 
-		solr.list("amt");
+        solr.list("amt");
 
-		mustBeFirstLemma("amt");
-	}
+        mustBeFirstLemma("amt");
+    }
 
-	@Test
-	public void anfangen() throws Exception {
+    @Test
+    public void anfangen() throws Exception {
 
-		solr.list("anfangen");
+        solr.list("anfangen");
 
-		mustBeFirstLemma("anfängen");
-	}
+        mustBeFirstLemma("anfängen");
+    }
 
-	@Test
-	public void arzt() throws Exception {
+    @Test
+    public void arzt() throws Exception {
 
-		solr.list("arzt");
+        solr.list("arzt");
 
-		mustBeFirstLemma("arzt");
-	}
+        mustBeFirstLemma("arzt");
+    }
 
-	@Test
-	public void papst() throws Exception {
+    @Test
+    public void papst() throws Exception {
 
-		solr.list("papst");
+        solr.list("papst");
 
-		mustBeFirstLemma("papst");
-	}
+        mustBeFirstLemma("papst");
+    }
 
-	@Test
-	public void backenzahn() throws Exception {
+    @Test
+    public void backenzahn() throws Exception {
 
-		solr.list("backenzahn");
+        solr.list("backenzahn");
 
-		mustBeFirstLemma("backenzan");
-	}
+        mustBeFirstLemma("backenzan");
+    }
 
-	@Test
-	public void panier() throws Exception {
+    @Test
+    public void panier() throws Exception {
 
-		solr.list("bannerherr");
+        solr.list("bannerherr");
 
-		mustBeFirstLemma("bannerherre");
-	}
+        mustBeFirstLemma("bannerherre");
+    }
 
-	@Test
-	public void jammer() throws Exception {
+    @Test
+    public void jammer() throws Exception {
 
-		solr.list("jammervoll");
+        solr.list("jammervoll");
 
-		mustBeFirstLemma("jamerfol");
-	}
+        mustBeFirstLemma("jamerfol");
+    }
 
 }
