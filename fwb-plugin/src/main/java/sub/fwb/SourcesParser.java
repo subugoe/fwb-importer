@@ -28,7 +28,7 @@ public class SourcesParser {
             "Y 24 kommunikationsintention"};
 
     private final int SIGLE = 1;
-    private final int KRAFTLISTE = 25;
+    private final int KRAFTLISTE = 26;
     private final int DIGITALISAT_ONLINE = 14;
     private final int PERMALINK = 16;
     private final int BIBLIO = 17;
