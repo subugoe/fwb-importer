@@ -48,7 +48,7 @@
     </analyzer>
   </fieldType>
 
-  <fieldType name="text_de_exakt" class="solr.TextField" positionIncrementGap="100" 
+  <fieldType name="text_de_exakt" class="solr.TextField" positionIncrementGap="100"
       indexed="true"
       stored="true"
       required="false"
@@ -214,6 +214,7 @@
   <field name="source_html" type="text_de" multiValued="false" />
   <field name="source_sort" type="string" />
   <field name="source_header" type="string" />
+  <field name="source_subheader" type="string" />
   <field name="source_permalink" type="string" multiValued="true" />
   <field name="source_digilink" type="string" multiValued="true" />
   <field name="source_biblio" type="string" />
