@@ -108,7 +108,6 @@ public class SourcesParser {
             }
             buffer.append("<field name=\"source_biblio\"><![CDATA[").append(asString(row.getCell(BIBLIO))).append("]]></field>\n");
             buffer.append("<field name=\"source_header\"><![CDATA[").append(extract(strongList)).append("]]></field>\n");
-            buffer.append("<field name=\"source_subheader\"><![CDATA[").append(extractSubHeader(strongList)).append("]]></field>\n");
             buffer.append("<field name=\"source_sort\"><![CDATA[").append(getSortEntry(strongList)).append("]]></field>\n");
 
             buffer.append("</doc>\n");
@@ -207,14 +206,6 @@ public class SourcesParser {
         }
 
         return extractUsingRegex("\\$c(.*?)#", strongList).get(0);
-    }
-
-    private String extractSubHeader(String header) {
-        if (header == null) {
-            return "";
-        }
-
-        return extractUsingRegex("\\.*#(.*)", header).get(0);
     }
 
     private List<String> extractUsingRegex(String regex, String s) {
