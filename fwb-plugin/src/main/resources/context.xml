@@ -11,6 +11,7 @@
   <bean id="upload" class="sub.ent.api.ImporterStepUpload" />
   <bean id="runTests" class="sub.fwb.api.ImporterStepRunTests" />
   <bean id="coreSwap" class="sub.ent.api.ImporterStepCoreSwap" />
+  <bean id="clearCache" class="sub.fwb.api.ImporterStepClearCache" />
 
   <bean id="importer" class="sub.ent.backend.Importer">
     <property name="steps">
@@ -21,6 +22,7 @@
         <ref bean="upload" />
         <ref bean="runTests" />
         <ref bean="coreSwap" />
+        <ref bean="clearCache" />
       </list>
     </property>
   </bean>

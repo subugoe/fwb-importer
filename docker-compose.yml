@@ -3,7 +3,6 @@ version: '3.8'
 services:
   solr:
     image: docker.gitlab.gwdg.de/subugoe/adw/fwb-solr:main
-
   importer:
     build:
       context: .
