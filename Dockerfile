@@ -7,10 +7,11 @@ COPY . /project
 RUN git clone https://github.com/subugoe/solr-importer && \
     gradle --gradle-user-home /project/.gradle-user-home
 
-FROM java:8
+FROM eclipse-temurin:8
 ARG GIT_URL
 
-RUN mkdir /git && \
+RUN apt-get -yqq update && apt-get install -y git && \
+    mkdir /git && \
     cd /git && \
     git clone $GIT_URL
 
