@@ -630,7 +630,7 @@
 
   <xsl:template match="*" mode="html_for_whole_article">
     <xsl:if test=".//text()">
-      <xsl:if test="local-name() != 'add' and local-name() != 'oVar'">
+      <xsl:if test="local-name() != 'add' and (local-name() != 'oRef' or local-name() != 'oVar')">
         <xsl:message>
           <xsl:text>Unknown element &lt;</xsl:text>
           <xsl:value-of select="local-name()" />
@@ -987,9 +987,44 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="oRef" mode="html_for_whole_article">
+  <!-- <xsl:template match="oRef" mode="html_for_whole_article">
     <xsl:text>-</xsl:text>
+  </xsl:template> -->
+
+    <xsl:template match="oRef" mode="html_for_whole_article">
+    <xsl:choose>
+      <!-- Check if <oRef> is used as an element -->
+      <xsl:when test="name(..) = 'gram'">
+        <xsl:text>-</xsl:text>
+        <xsl:value-of select="."/>
+      </xsl:when>
+
+      <!-- Default behavior for other cases -->
+      <xsl:otherwise>
+        <!-- Default behavior, you can modify this as needed -->
+        <xsl:value-of select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
+
+    <xsl:template match="oVar" mode="html_for_whole_article">
+    <xsl:choose>
+      <!-- Check if <oRef> is used as an element -->
+      <xsl:when test="name(..) = 'gram'">
+        <xsl:text>-</xsl:text>
+        <xsl:value-of select="."/>
+      </xsl:when>
+
+      <!-- Default behavior for other cases -->
+      <xsl:otherwise>
+        <!-- Default behavior, you can modify this as needed -->
+        <!-- <xsl:text>-</xsl:text> -->
+        <xsl:value-of select="."/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
 
   <xsl:template match="ref" mode="html_for_whole_article">
     <xsl:choose>
